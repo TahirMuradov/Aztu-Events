@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="TemplateMo">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://www.aztu.edu.az/web_admin/upload/files/aztu.edu.az/sitesettings/5-2022/favicon4.png" rel="shortcut icon" type="image/x-icon" />
+    <title>AzTU-Elektron Konfrans İdarəetmə Sistemi</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="~/Assets/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="~/Assets/assets/css/templatemo-edu-meeting.css">
+    <link rel="stylesheet" href="~/Assets/assets/css/owl.css">
+    <link rel="stylesheet" href="~/Assets/assets/css/lightbox.css">
+    <!--
+
+    TemplateMo 569 Edu Meeting
+
+    https://templatemo.com/tm-569-edu-meeting
+
+    -->
+</head>
+
+<body>
+
+
+
+    <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-11">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a asp-controller="home" asp-action="index" class="logo">
+                            <img witdh="120px" height="60px" src="https://www.aztu.edu.az/web_admin/upload/files/aztu.edu.az/sitesettings/5-2022/logo.png" alt="" />
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li class="scroll-to-section"><a asp-controller="home" asp-action="index" class=""> Home </a></li>
+                            <li><a asp-controller="conferences" asp-action="index"> Konferanslar </a></li>
+                            <li class="scroll-to-section"><a href="#apply"> Login</a></li>
+                            <li class="has-sub">
+                                <a href="javascript:void(0)"><i class="fa-solid fa-globe"></i></a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a asp-controller="Home"
+                                           asp-action="ChangeLanguage"
+                                           asp-route-culture="en-Us"
+                                           class="dropdown-item">
+                                            <i class="flag-icon flag-icon-gb"></i> English
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Home"
+                                           asp-action="ChangeLanguage"
+                                           asp-route-culture="ru-Ru"
+                                           class="dropdown-item">
+                                            <i class="flag-icon flag-icon-gb"></i> Rus
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Home"
+                                           asp-action="ChangeLanguage"
+                                           asp-route-culture="az"
+                                           class="dropdown-item">
+                                            <i class="flag-icon flag-icon-gb"></i> AZ
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+
+                        </ul>
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->
+    @RenderBody()
+
+
+
+    <section class="contact-us" id="contact">
+
+        <footer class="footer">
+            <p>
+                Copyright © 2024 Azərbaycan Texniki Üniversiteti  Elektron Konfrans İdarəetmə Sistemi.
+                <br>Bütün Hüqüqlar <a href="https://www.aztu.edu.az/az" target="_parent" title="free css templates">Azərbaycan Texniki Üniversiteti</a> Tərəfindən Qorunur
+            </p>
+        </footer>
+    </section>
+
+    <!-- Scripts -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/Assets/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/Assets/assets/js/isotope.min.js"></script>
+    <script src="~/Assets/assets/js/owl-carousel.js"></script>
+    <script src="~/Assets/assets/js/lightbox.js"></script>
+    <script src="~/Assets/assets/js/tabs.js"></script>
+    <script src="~/Assets/assets/js/video.js"></script>
+    <script src="~/Assets/assets/js/slick-slider.js"></script>
+    <script src="~/Assets/assets/js/custom.js"></script>
+    <script>
+        //according to loftblog tut
+        $('.nav li:first').addClass('active');
+
+        var showSection = function showSection(section, isAnimate) {
+            var
+                direction = section.replace(/#/, ''),
+                reqSection = $('.section').filter('[data-section="' + direction + '"]'),
+                reqSectionPos = reqSection.offset().top - 0;
+
+            if (isAnimate) {
+                $('body, html').animate({
+                    scrollTop: reqSectionPos
+                },
+                    800);
+            } else {
+                $('body, html').scrollTop(reqSectionPos);
+            }
+
+        };
+
+        var checkSection = function checkSection() {
+            $('.section').each(function () {
+                var
+                    $this = $(this),
+                    topEdge = $this.offset().top - 80,
+                    bottomEdge = topEdge + $this.height(),
+                    wScroll = $(window).scrollTop();
+                if (topEdge < wScroll && bottomEdge > wScroll) {
+                    var
+                        currentId = $this.data('section'),
+                        reqLink = $('a').filter('[href*=\\#' + currentId + ']');
+                    reqLink.closest('li').addClass('active').
+                        siblings().removeClass('active');
+                }
+            });
+        };
+
+        $('.main-menu, .responsive-menu, .scroll-to-section').on('click', 'a', function (e) {
+            e.preventDefault();
+            showSection($(this).attr('href'), true);
+        });
+
+        $(window).scroll(function () {
+            checkSection();
+        });
+    </script>
+</body>
+
+
+</html>
