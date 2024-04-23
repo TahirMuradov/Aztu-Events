@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = "_AuthLayout";
+}
+
+<div class="card-body p-0">
+    <!-- Nested Row within Card Body -->
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5">
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Qeyydiyat!</h1>
+                </div>
+                <form class="user" method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input for=Firstname type="text" class="form-control form-control-user" id="exampleFirstName"
+                                   placeholder="Ad">
+                            <span class="text-danger" for="Firstname"></span>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <input for=Lastname type="text" class="form-control form-control-user" id="exampleLastName"
+                                   placeholder="Soyad">
+                            <span class="text-danger" for="Lastname"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input for="Email" type="email" class="form-control form-control-user" id="exampleInputEmail"
+                               placeholder="Elektron Poçt">
+                        <span class="text-danger" for="Email"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <input for=PhoneNumber type="text" class="form-control form-control-user" id="exampleInputPhoneNumber"
+                               placeholder="Əlaqə Nömrəsi">
+                        <span class="text-danger"for="PhoneNumber"></span>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input for=Password type="password" class="form-control form-control-user"
+                                   id="exampleInputPassword" placeholder="Parol">
+                            <span class="text-danger" for="Password"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <input for=ConfirmPassword type="password" class="form-control form-control-user"
+                                   id="exampleRepeatPassword" placeholder="Təkrar Parol">
+                            <span class="text-danger" for="ConfirmPassword"></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                        Qeydiyyatdan Keç
+                    </button>
+
+                </form>
+                <hr>
+                <div class="text-center">
+                    <a class="small" asp-controller="auth" asp-action="ForgotPassword">Parolu Unutmusunuz?</a>
+                </div>
+                <div class="text-center">
+                    <a class="small" asp-controller="auth" asp-action="Login">Profiliniz var? Ozaman daxil ol!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

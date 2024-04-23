@@ -46,9 +46,9 @@
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a asp-controller="home" asp-action="index" class=""> @_localization.GetKey("NavbarHome")</a></li>
+                            <li ><a asp-controller="home" asp-action="index" class=""> @_localization.GetKey("NavbarHome")</a></li>
                             <li><a asp-controller="conferences" asp-action="index"> @_localization.GetKey("NavbarConferances") </a></li>
-                            <li class="scroll-to-section"><a href="#apply"> @_localization.GetKey("NavbarLogin")</a></li>
+                            <li ><a  asp-controller="auth" asp-action="login"> @_localization.GetKey("NavbarLogin")</a></li>
                             <li class="has-sub">
                                 <a href="javascript:void(0)"><i class="fa-solid fa-globe"></i></a>
                                 <ul class="sub-menu">
