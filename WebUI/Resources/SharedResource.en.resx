@@ -117,7 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Footer" xml:space="preserve">
+    <value>&lt;p&gt;
+     Copyright © 2024 Azerbaijan Technical University Electronic Conference Management System.
+     &lt;br&gt;All Rights Reserved by &lt;a href="https://www.aztu.edu.az/en" target="_parent" title="free css templates"&gt;Azerbaijan Technical University&lt;/a&gt;
+&lt;/p&gt;</value>
+  </data>
+  <data name="HomeMain1" xml:space="preserve">
+    <value>AZERBAIJAN TECHNICAL UNIVERSITY ELECTRONIC CONFERENCE MANAGEMENT SYSTEM</value>
+  </data>
+  <data name="HomeMain2" xml:space="preserve">
+    <value>Register and fill out the inquiries to hold a conference at Azerbaijan Technical University</value>
+  </data>
+  <data name="NavbarConferances" xml:space="preserve">
+    <value>Conferances</value>
+  </data>
   <data name="NavbarHome" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="NavbarLogin" xml:space="preserve">
+    <value>Login</value>
   </data>
 </root>

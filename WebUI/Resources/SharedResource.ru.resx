@@ -117,7 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Footer" xml:space="preserve">
+    <value>&lt;p&gt;
+     Авторские права © 2024 Электронная Система Управления Конференциями в Азербайджанском Техническом Университете.
+     &lt;br&gt;Все Права Защищены &lt;a href="https://www.aztu.edu.az/ru" target="_parent" title="free css templates"&gt;Азербайджанским Техническим Университетом&lt;/a&gt;
+&lt;/p&gt;</value>
+  </data>
+  <data name="HomeMain1" xml:space="preserve">
+    <value>ЭЛЕКТРОННАЯ СИСТЕМА УПРАВЛЕНИЯ КОНФЕРЕНЦИЯМИ В АЗЕРБАЙДЖАНСКОМ ТЕХНИЧЕСКОМ УНИВЕРСИТЕТЕ</value>
+  </data>
+  <data name="HomeMain2" xml:space="preserve">
+    <value>Зарегистрируйтесь и заполните запросы, чтобы провести конференцию в Азербайджанском Техническом Университете</value>
+  </data>
+  <data name="NavbarConferances" xml:space="preserve">
+    <value>Конференции</value>
+  </data>
   <data name="NavbarHome" xml:space="preserve">
     <value>Главная</value>
+  </data>
+  <data name="NavbarLogin" xml:space="preserve">
+    <value>Войти</value>
   </data>
 </root>

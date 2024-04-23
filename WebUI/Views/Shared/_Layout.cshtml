@@ -47,8 +47,8 @@
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
                             <li class="scroll-to-section"><a asp-controller="home" asp-action="index" class=""> @_localization.GetKey("NavbarHome")</a></li>
-                            <li><a asp-controller="conferences" asp-action="index"> Konferanslar </a></li>
-                            <li class="scroll-to-section"><a href="#apply"> Login</a></li>
+                            <li><a asp-controller="conferences" asp-action="index"> @_localization.GetKey("NavbarConferances") </a></li>
+                            <li class="scroll-to-section"><a href="#apply"> @_localization.GetKey("NavbarLogin")</a></li>
                             <li class="has-sub">
                                 <a href="javascript:void(0)"><i class="fa-solid fa-globe"></i></a>
                                 <ul class="sub-menu">
@@ -57,7 +57,7 @@
                                            asp-action="ChangeLanguage"
                                            asp-route-culture="en-Us"
                                            class="dropdown-item">
-                                            <i class="flag-icon flag-icon-gb"></i> English
+                                            <i class="flag-icon flag-icon-gb"></i> En
                                         </a>
                                     </li>
                                     <li>
@@ -65,7 +65,7 @@
                                            asp-action="ChangeLanguage"
                                            asp-route-culture="ru-Ru"
                                            class="dropdown-item">
-                                            <i class="flag-icon flag-icon-gb"></i> Rus
+                                            <i class="flag-icon flag-icon-gb"></i> Ru
                                         </a>
                                     </li>
                                     <li>
@@ -98,10 +98,7 @@
     <section class="contact-us" id="contact">
 
         <footer class="footer">
-            <p>
-                Copyright © 2024 Azərbaycan Texniki Üniversiteti  Elektron Konfrans İdarəetmə Sistemi.
-                <br>Bütün Hüqüqlar <a href="https://www.aztu.edu.az/az" target="_parent" title="free css templates">Azərbaycan Texniki Üniversiteti</a> Tərəfindən Qorunur
-            </p>
+          @Html.Raw(_localization.GetKey("Footer"))
         </footer>
     </section>
 

@@ -117,7 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Footer" xml:space="preserve">
+    <value>&lt;p&gt;
+     Copyright © 2024 Azərbaycan Texniki Üniversiteti  Elektron Konfrans İdarəetmə Sistemi.
+     &lt;br&gt;Bütün Hüqüqlar &lt;a href="https://www.aztu.edu.az/az" target="_parent" title="free css templates"&gt;Azərbaycan Texniki Üniversiteti&lt;/a&gt; Tərəfindən Qorunur
+ &lt;/p&gt;</value>
+  </data>
+  <data name="HomeMain1" xml:space="preserve">
+    <value>AZƏRBAYCAN TEXNIKI ÜNIVERSITETI ELEKTRON KONFRANS İDARƏETMƏ SISTEMI</value>
+  </data>
+  <data name="HomeMain2" xml:space="preserve">
+    <value>Azərbaycan Texniki Üniversiteti-də konfrans keçirtmək üçün qeyydiyatdan keçib sorğuları doldurun</value>
+  </data>
+  <data name="NavbarConferances" xml:space="preserve">
+    <value>Konferanslar</value>
+  </data>
   <data name="NavbarHome" xml:space="preserve">
     <value>Ana Səhifə</value>
+  </data>
+  <data name="NavbarLogin" xml:space="preserve">
+    <value>Daxil Ol</value>
   </data>
 </root>
