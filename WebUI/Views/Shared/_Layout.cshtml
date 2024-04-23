@@ -46,7 +46,7 @@
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a asp-controller="home" asp-action="index" class=""> Home </a></li>
+                            <li class="scroll-to-section"><a asp-controller="home" asp-action="index" class=""> @_localization.GetKey("NavbarHome")</a></li>
                             <li><a asp-controller="conferences" asp-action="index"> Konferanslar </a></li>
                             <li class="scroll-to-section"><a href="#apply"> Login</a></li>
                             <li class="has-sub">
@@ -71,7 +71,7 @@
                                     <li>
                                         <a asp-controller="Home"
                                            asp-action="ChangeLanguage"
-                                           asp-route-culture="az"
+                                           asp-route-culture="az-AZ"
                                            class="dropdown-item">
                                             <i class="flag-icon flag-icon-gb"></i> AZ
                                         </a>
