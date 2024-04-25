@@ -32,11 +32,7 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
             base.OnModelCreating(builder);
             builder.Entity<User>().ToTable("Users");
             builder.Entity<IdentityRole>().ToTable("Roles");
-            builder.Entity<Confrans>()
-                 .HasOne(x=>x.Audutorium)
-                 .WithMany(x=>x.Confrances)
-                 .HasForeignKey(x=>x.AuditoriumId)
-                 .OnDelete(DeleteBehavior.Restrict);
+    
         }
     }
 }

@@ -67,7 +67,7 @@ namespace Aztu_Events.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AuditoriumId")
+                    b.Property<Guid>("AudutoriumId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConfransContent")
@@ -103,7 +103,7 @@ namespace Aztu_Events.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuditoriumId");
+                    b.HasIndex("AudutoriumId");
 
                     b.HasIndex("UserId");
 
@@ -353,8 +353,8 @@ namespace Aztu_Events.DataAccess.Migrations
                 {
                     b.HasOne("Aztu_Events.Entities.Concrete.Audutorium", "Audutorium")
                         .WithMany("Confrances")
-                        .HasForeignKey("AuditoriumId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("AudutoriumId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Aztu_Events.Entities.Concrete.User", "User")

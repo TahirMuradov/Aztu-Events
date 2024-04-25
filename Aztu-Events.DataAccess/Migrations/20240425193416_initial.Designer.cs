@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aztu_Events.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240425190542_UserAddedConfrans")]
-    partial class UserAddedConfrans
+    [Migration("20240425193416_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,7 +70,7 @@ namespace Aztu_Events.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AuditoriumId")
+                    b.Property<Guid>("AudutoriumId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConfransContent")
@@ -106,7 +106,7 @@ namespace Aztu_Events.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuditoriumId");
+                    b.HasIndex("AudutoriumId");
 
                     b.HasIndex("UserId");
 
@@ -356,8 +356,8 @@ namespace Aztu_Events.DataAccess.Migrations
                 {
                     b.HasOne("Aztu_Events.Entities.Concrete.Audutorium", "Audutorium")
                         .WithMany("Confrances")
-                        .HasForeignKey("AuditoriumId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("AudutoriumId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Aztu_Events.Entities.Concrete.User", "User")

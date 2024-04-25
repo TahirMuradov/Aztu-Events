@@ -39,6 +39,18 @@ namespace Aztu_Events.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Times",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Times", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -82,6 +94,31 @@ namespace Aztu_Events.DataAccess.Migrations
                         name: "FK_AspNetRoleClaims_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AudutorimTimes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TimeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AudutoriumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AudutorimTimes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AudutorimTimes_Audutoria_AudutoriumId",
+                        column: x => x.AudutoriumId,
+                        principalTable: "Audutoria",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AudutorimTimes_Times_TimeId",
+                        column: x => x.TimeId,
+                        principalTable: "Times",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -182,9 +219,8 @@ namespace Aztu_Events.DataAccess.Migrations
                     specialGuestsEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     specialGuestsName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StartedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DurationofContinuation = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    AuditoriumId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AudutoriumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -224,6 +260,16 @@ namespace Aztu_Events.DataAccess.Migrations
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AudutorimTimes_AudutoriumId",
+                table: "AudutorimTimes",
+                column: "AudutoriumId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AudutorimTimes_TimeId",
+                table: "AudutorimTimes",
+                column: "TimeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Confrans_AudutoriumId",
@@ -274,10 +320,16 @@ namespace Aztu_Events.DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "AudutorimTimes");
+
+            migrationBuilder.DropTable(
                 name: "Confrans");
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Times");
 
             migrationBuilder.DropTable(
                 name: "Audutoria");
