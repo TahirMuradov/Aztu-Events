@@ -16,6 +16,17 @@ namespace WebUI.Controllers
 
         public IActionResult Index()
         {
+            if (Request.Cookies[CookieRequestCultureProvider.DefaultCookieName] == null)
+            {
+                Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture("az")),
+                              new CookieOptions
+                              {
+                                  Expires = DateTimeOffset.UtcNow.AddYears(1)
+                              }
+                              );
+                return RedirectToAction("Index");
+            }
+
 
             return View();
         }

@@ -3,7 +3,7 @@
     Layout = "_AuthLayout";
 
 }
-
+@model LoginDTO
 <div asp-validation-summary="All" class="text-danger"></div>
 <div class="card-body p-0">
     <!-- Nested Row within Card Body -->
@@ -15,20 +15,20 @@
                 </div>
                 <form class="user" method="post">
                     <div class="form-group">
-                        <input for=Email type="email" class="form-control form-control-user"
+                        <input asp-for=Email type="email" class="form-control form-control-user"
                                id="exampleInputEmail" aria-describedby="emailHelp"
                                placeholder="Elektron Poct Daxil Edin">
-                        <span class="text-danger"for="Email"></span>
+                        <span class="text-danger" asp-validation-for="Email"></span>
                     </div>
                     <div class="form-group">
-                        <input  type="password" class="form-control form-control-user"
+                        <input  type="password" asp-for="Password" class="form-control form-control-user"
                                id="exampleInputPassword" placeholder="Parol Daxil Edin">
-                        <span class="text-danger" for="Password"></span>
+                        <span class="text-danger" asp-validation-for="Password"></span>
 
                     </div>
                     <div class="form-group">
                         <div class="custom-control custom-checkbox small">
-                            <input for=RememberMe type="checkbox" class="custom-control-input" id="customCheck">
+                            <input asp-for=RememberMe type="checkbox" class="custom-control-input" id="customCheck">
                             <label class="custom-control-label" for="customCheck">
                                 Xatirla Məni
                             </label>

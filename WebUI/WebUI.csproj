@@ -8,7 +8,19 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aztu-Events.Business\Aztu-Events.Business.csproj" />
+    <ProjectReference Include="..\Aztu-Events.Core\Aztu-Events.Core.csproj" />
+    <ProjectReference Include="..\Aztu-Events.DataAccess\Aztu-Events.DataAccess.csproj" />
+    <ProjectReference Include="..\Aztu-Events.Entities\Aztu-Events.Entities.csproj" />
   </ItemGroup>
 
   <ItemGroup>

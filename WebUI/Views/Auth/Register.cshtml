@@ -2,7 +2,7 @@
 @{
     Layout = "_AuthLayout";
 }
-
+@model RegisterDTO
 <div class="card-body p-0">
     <!-- Nested Row within Card Body -->
     <div class="row">
@@ -15,38 +15,38 @@
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input for=Firstname type="text" class="form-control form-control-user" id="exampleFirstName"
+                            <input asp-for=Firstname type="text" class="form-control form-control-user" id="exampleFirstName"
                                    placeholder="Ad">
-                            <span class="text-danger" for="Firstname"></span>
+                            <span class="text-danger" asp-validation-for="Firstname"></span>
 
                         </div>
                         <div class="col-sm-6">
-                            <input for=Lastname type="text" class="form-control form-control-user" id="exampleLastName"
+                            <input asp-for=Lastname type="text" class="form-control form-control-user" id="exampleLastName"
                                    placeholder="Soyad">
-                            <span class="text-danger" for="Lastname"></span>
+                            <span class="text-danger" asp-validation-for="Lastname"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input for="Email" type="email" class="form-control form-control-user" id="exampleInputEmail"
+                        <input asp-for="Email" type="email" class="form-control form-control-user" id="exampleInputEmail"
                                placeholder="Elektron Poçt">
-                        <span class="text-danger" for="Email"></span>
+                        <span class="text-danger" asp-validation-for="Email"></span>
 
                     </div>
                     <div class="form-group">
-                        <input for=PhoneNumber type="text" class="form-control form-control-user" id="exampleInputPhoneNumber"
+                        <input asp-for=PhoneNumber type="text" class="form-control form-control-user" id="exampleInputPhoneNumber"
                                placeholder="Əlaqə Nömrəsi">
-                        <span class="text-danger"for="PhoneNumber"></span>
+                        <span class="text-danger"asp-validation-for="PhoneNumber"></span>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            <input for=Password type="password" class="form-control form-control-user"
+                            <input asp-for=Password type="password" class="form-control form-control-user"
                                    id="exampleInputPassword" placeholder="Parol">
-                            <span class="text-danger" for="Password"></span>
+                            <span class="text-danger"asp-validation-for="Password"></span>
                         </div>
                         <div class="col-sm-6">
-                            <input for=ConfirmPassword type="password" class="form-control form-control-user"
+                            <input asp-for=ConfirmPassword type="password" class="form-control form-control-user"
                                    id="exampleRepeatPassword" placeholder="Təkrar Parol">
-                            <span class="text-danger" for="ConfirmPassword"></span>
+                            <span class="text-danger"asp-validation-for="ConfirmPassword"></span>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">

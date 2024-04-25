@@ -21,6 +21,8 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
 
         public DbSet<Confrans> Confrans { get; set; }
         public DbSet<Audutorium> Audutoria { get; set; }
+        public DbSet<Time> Times { get; set; }
+        public DbSet<AudutorimTime> AudutorimTimes { get; set; }
 
 
 
@@ -29,6 +31,11 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
             base.OnModelCreating(builder);
             builder.Entity<User>().ToTable("Users");
             builder.Entity<IdentityRole>().ToTable("Roles");
+            builder.Entity<Confrans>()
+                 .HasOne(x=>x.Audutorium)
+                 .WithMany(x=>x.Confrances)
+                 .HasForeignKey(x=>x.AuditoriumId)
+                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

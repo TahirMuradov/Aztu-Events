@@ -11,5 +11,8 @@ namespace Aztu_Events.Entities.Concrete
         public Guid Id { get; set; }
         public string AudutoriyaNumber { get; set; }
         public int MaxPersonal { get; set; }
+        public List<Confrans> Confrances { get; set; }
+
+        public List<AudutorimTime> AudutorimTimes { get; set; }
     }
 }

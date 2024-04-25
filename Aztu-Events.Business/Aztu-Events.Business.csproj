@@ -7,4 +7,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.4" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aztu-Events.Core\Aztu-Events.Core.csproj" />
+    <ProjectReference Include="..\Aztu-Events.DataAccess\Aztu-Events.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

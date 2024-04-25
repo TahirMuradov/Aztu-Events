@@ -1,9 +1,13 @@
+using Aztu_Events.DataAccess.Concrete.SQLServer;
+using Aztu_Events.Entities.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Reflection;
 using WebUI.Services;
+using Aztu_Events.Business.DependencyResolver;
 
 var builder = WebApplication.CreateBuilder(args);
 #region Localizer
@@ -31,7 +35,10 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 #endregion
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddIdentity<User, IdentityRole>()
+             .AddEntityFrameworkStores<AppDbContext>()
+             .AddDefaultTokenProviders();
+builder.Services.Run();
 var app = builder.Build();
 app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 // Configure the HTTP request pipeline.
