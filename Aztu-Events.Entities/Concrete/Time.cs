@@ -10,6 +10,6 @@ namespace Aztu_Events.Entities.Concrete
     {
         public Guid Id { get; set; }
         public DateTime DateTime { get; set; }
-     public List< AudutorimTime> AudutorimTimes { get; set;}
+     public List<AudutorimTime> AudutorimTimes { get; set;}
     }
 }

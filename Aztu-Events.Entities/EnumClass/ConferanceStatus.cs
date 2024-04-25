@@ -8,6 +8,9 @@ namespace Aztu_Events.Entities.EnumClass
 {
     public enum ConferanceStatus
     {
+        Gözlənilir,
+        Təsdiq,
+        İmtina
 
 
     }

@@ -13,10 +13,10 @@ namespace Aztu_Events.Entities.Concrete
         public string ConfransName { get; set; }
         public string ConfransContent { get; set; }
         public string ImgUrl { get; set; }
-        public List< string>? specialGuestsEmail { get; set; }
-        public List< string>? specialGuestsName { get; set; }
+        public List<string>? specialGuestsEmail { get; set; }
+        public List<string>? specialGuestsName { get; set; }
         public DateTime StartedDate { get; set; }
-        public DateTime DurationofContinuation { get; set; }
+        public DateTime EndDate { get; set; }
         public ConferanceStatus Status { get; set; }
         public Guid AuditoriumId { get; set; }
         public Audutorium Audutorium { get; set; }

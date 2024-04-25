@@ -13,6 +13,7 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
 {
     public class AppDbContext: IdentityDbContext<User>
     {
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server = localhost; Database = Aztu_EventsDb; Trusted_Connection = True; MultipleActiveResultSets = True; TrustServerCertificate = True;");
@@ -35,7 +36,7 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
                  .HasOne(x=>x.Audutorium)
                  .WithMany(x=>x.Confrances)
                  .HasForeignKey(x=>x.AuditoriumId)
-                 .OnDelete(DeleteBehavior.Cascade);
+                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
