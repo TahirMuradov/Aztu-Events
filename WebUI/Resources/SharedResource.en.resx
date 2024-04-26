@@ -117,17 +117,68 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuthConfirmEmail1" xml:space="preserve">
+    <value>Your email has been confirmed!</value>
+  </data>
+  <data name="AuthConfirmEmail2" xml:space="preserve">
+    <value>Log In!</value>
+  </data>
   <data name="Footer" xml:space="preserve">
     <value>&lt;p&gt;
      Copyright © 2024 Azerbaijan Technical University Electronic Conference Management System.
      &lt;br&gt;All Rights Reserved by &lt;a href="https://www.aztu.edu.az/en" target="_parent" title="free css templates"&gt;Azerbaijan Technical University&lt;/a&gt;
 &lt;/p&gt;</value>
   </data>
+  <data name="ForgotPassword1" xml:space="preserve">
+    <value>Enter your email. We will send you a confirmation link.</value>
+  </data>
+  <data name="ForgotPassword2" xml:space="preserve">
+    <value>Enter your email!...</value>
+  </data>
+  <data name="ForgotPassword3" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="ForgotPassword4" xml:space="preserve">
+    <value>Create New Profile!</value>
+  </data>
+  <data name="ForgotPassword5" xml:space="preserve">
+    <value>Already have a profile? Then log in!</value>
+  </data>
+  <data name="ForgotPassword6" xml:space="preserve">
+    <value>Forgot Password?</value>
+  </data>
+  <data name="ForgotPasswordConfirm1" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="ForgotPasswordConfirm2" xml:space="preserve">
+    <value>Enter New Password</value>
+  </data>
+  <data name="ForgotPasswordConfirm3" xml:space="preserve">
+    <value>Re-enter New Password</value>
+  </data>
+  <data name="ForgotPasswordConfirm4" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
   <data name="HomeMain1" xml:space="preserve">
     <value>AZERBAIJAN TECHNICAL UNIVERSITY ELECTRONIC CONFERENCE MANAGEMENT SYSTEM</value>
   </data>
   <data name="HomeMain2" xml:space="preserve">
     <value>Register and fill out the inquiries to hold a conference at Azerbaijan Technical University</value>
+  </data>
+  <data name="Login1" xml:space="preserve">
+    <value>Welcome!</value>
+  </data>
+  <data name="Login2" xml:space="preserve">
+    <value>Enter your email</value>
+  </data>
+  <data name="Login3" xml:space="preserve">
+    <value>Enter your password</value>
+  </data>
+  <data name="Login4" xml:space="preserve">
+    <value>Remember Me</value>
+  </data>
+  <data name="Login5" xml:space="preserve">
+    <value>Log In</value>
   </data>
   <data name="NavbarConferances" xml:space="preserve">
     <value>Conferances</value>
@@ -137,5 +188,29 @@
   </data>
   <data name="NavbarLogin" xml:space="preserve">
     <value>Login</value>
+  </data>
+  <data name="Register1" xml:space="preserve">
+    <value>Register!</value>
+  </data>
+  <data name="Register2" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="Register3" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Register4" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Register5" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="Register6" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Register7" xml:space="preserve">
+    <value>Repeat Password</value>
+  </data>
+  <data name="Register8" xml:space="preserve">
+    <value>Register</value>
   </data>
 </root>

@@ -117,17 +117,68 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuthConfirmEmail1" xml:space="preserve">
+    <value>Ваш электронный адрес подтвержден!</value>
+  </data>
+  <data name="AuthConfirmEmail2" xml:space="preserve">
+    <value>Войти!</value>
+  </data>
   <data name="Footer" xml:space="preserve">
     <value>&lt;p&gt;
      Авторские права © 2024 Электронная Система Управления Конференциями в Азербайджанском Техническом Университете.
      &lt;br&gt;Все Права Защищены &lt;a href="https://www.aztu.edu.az/ru" target="_parent" title="free css templates"&gt;Азербайджанским Техническим Университетом&lt;/a&gt;
 &lt;/p&gt;</value>
   </data>
+  <data name="ForgotPassword1" xml:space="preserve">
+    <value>Введите свой адрес электронной почты. Мы отправим вам ссылку для подтверждения.</value>
+  </data>
+  <data name="ForgotPassword2" xml:space="preserve">
+    <value>Введите свой адрес электронной почты!...</value>
+  </data>
+  <data name="ForgotPassword3" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="ForgotPassword4" xml:space="preserve">
+    <value>Создать новый профиль!</value>
+  </data>
+  <data name="ForgotPassword5" xml:space="preserve">
+    <value>У вас уже есть профиль? Тогда войдите!</value>
+  </data>
+  <data name="ForgotPassword6" xml:space="preserve">
+    <value>Вы забыли пароль?</value>
+  </data>
+  <data name="ForgotPasswordConfirm1" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
+  <data name="ForgotPasswordConfirm2" xml:space="preserve">
+    <value>Введите новый пароль</value>
+  </data>
+  <data name="ForgotPasswordConfirm3" xml:space="preserve">
+    <value>Повторно введите новый пароль</value>
+  </data>
+  <data name="ForgotPasswordConfirm4" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
   <data name="HomeMain1" xml:space="preserve">
     <value>ЭЛЕКТРОННАЯ СИСТЕМА УПРАВЛЕНИЯ КОНФЕРЕНЦИЯМИ В АЗЕРБАЙДЖАНСКОМ ТЕХНИЧЕСКОМ УНИВЕРСИТЕТЕ</value>
   </data>
   <data name="HomeMain2" xml:space="preserve">
     <value>Зарегистрируйтесь и заполните запросы, чтобы провести конференцию в Азербайджанском Техническом Университете</value>
+  </data>
+  <data name="Login1" xml:space="preserve">
+    <value>Добро пожаловать!</value>
+  </data>
+  <data name="Login2" xml:space="preserve">
+    <value>Введите свой адрес электронной почты</value>
+  </data>
+  <data name="Login3" xml:space="preserve">
+    <value>Введите пароль</value>
+  </data>
+  <data name="Login4" xml:space="preserve">
+    <value>Запомнить меня</value>
+  </data>
+  <data name="Login5" xml:space="preserve">
+    <value>Войти</value>
   </data>
   <data name="NavbarConferances" xml:space="preserve">
     <value>Конференции</value>
@@ -137,5 +188,29 @@
   </data>
   <data name="NavbarLogin" xml:space="preserve">
     <value>Войти</value>
+  </data>
+  <data name="Register1" xml:space="preserve">
+    <value>Регистрация!</value>
+  </data>
+  <data name="Register2" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Register3" xml:space="preserve">
+    <value>Фамилия</value>
+  </data>
+  <data name="Register4" xml:space="preserve">
+    <value>Адрес электронной почты</value>
+  </data>
+  <data name="Register5" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
+  <data name="Register6" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Register7" xml:space="preserve">
+    <value>Повторите пароль</value>
+  </data>
+  <data name="Register8" xml:space="preserve">
+    <value>Зарегистрироваться</value>
   </data>
 </root>

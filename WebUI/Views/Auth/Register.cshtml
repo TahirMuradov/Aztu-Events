@@ -9,57 +9,57 @@
         <div class="col-12">
             <div class="p-5">
                 <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Qeyydiyat!</h1>
+                    <h1 class="h4 text-gray-900 mb-4">@_localization.GetKey("Register1")</h1>
                 </div>
                 <form class="user" method="post">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <input asp-for=Firstname type="text" class="form-control form-control-user" id="exampleFirstName"
-                                   placeholder="Ad">
+                                   placeholder="@_localization.GetKey("Register2")">
                             <span class="text-danger" asp-validation-for="Firstname"></span>
 
                         </div>
                         <div class="col-sm-6">
                             <input asp-for=Lastname type="text" class="form-control form-control-user" id="exampleLastName"
-                                   placeholder="Soyad">
+                                   placeholder="@_localization.GetKey("Register3")">
                             <span class="text-danger" asp-validation-for="Lastname"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <input asp-for="Email" type="email" class="form-control form-control-user" id="exampleInputEmail"
-                               placeholder="Elektron Poçt">
+                               placeholder="@_localization.GetKey("Register4")">
                         <span class="text-danger" asp-validation-for="Email"></span>
 
                     </div>
                     <div class="form-group">
                         <input asp-for=PhoneNumber type="text" class="form-control form-control-user" id="exampleInputPhoneNumber"
-                               placeholder="Əlaqə Nömrəsi">
+                               placeholder="@_localization.GetKey("Register5")">
                         <span class="text-danger"asp-validation-for="PhoneNumber"></span>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <input asp-for=Password type="password" class="form-control form-control-user"
-                                   id="exampleInputPassword" placeholder="Parol">
+                                   id="exampleInputPassword" placeholder="@_localization.GetKey("Register6")">
                             <span class="text-danger"asp-validation-for="Password"></span>
                         </div>
                         <div class="col-sm-6">
                             <input asp-for=ConfirmPassword type="password" class="form-control form-control-user"
-                                   id="exampleRepeatPassword" placeholder="Təkrar Parol">
+                                   id="exampleRepeatPassword" placeholder="@_localization.GetKey("Register7")">
                             <span class="text-danger"asp-validation-for="ConfirmPassword"></span>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
-                        Qeydiyyatdan Keç
+                        @_localization.GetKey("Register8")
                     </button>
 
                 </form>
                 <hr>
                 <div class="text-center">
-                    <a class="small" asp-controller="auth" asp-action="ForgotPassword">Parolu Unutmusunuz?</a>
+                    <a class="small" asp-controller="auth" asp-action="ForgotPassword">@_localization.GetKey("ForgotPassword6")</a>
                 </div>
                 <div class="text-center">
-                    <a class="small" asp-controller="auth" asp-action="Login">Profiliniz var? Ozaman daxil ol!</a>
+                    <a class="small" asp-controller="auth" asp-action="Login">@_localization.GetKey("ForgotPassword5")</a>
                 </div>
             </div>
         </div>

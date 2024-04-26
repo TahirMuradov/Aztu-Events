@@ -11,18 +11,18 @@
         <div class="col-12">
             <div class="p-5">
                 <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Xoş Gəldiniz!</h1>
+                    <h1 class="h4 text-gray-900 mb-4">@_localization.GetKey("Login1")</h1>
                 </div>
                 <form class="user" method="post">
                     <div class="form-group">
                         <input asp-for=Email type="email" class="form-control form-control-user"
                                id="exampleInputEmail" aria-describedby="emailHelp"
-                               placeholder="Elektron Poct Daxil Edin">
+                               placeholder="@_localization.GetKey("Login2")">
                         <span class="text-danger" asp-validation-for="Email"></span>
                     </div>
                     <div class="form-group">
                         <input  type="password" asp-for="Password" class="form-control form-control-user"
-                               id="exampleInputPassword" placeholder="Parol Daxil Edin">
+                               id="exampleInputPassword" placeholder="@_localization.GetKey("Login3")">
                         <span class="text-danger" asp-validation-for="Password"></span>
 
                     </div>
@@ -30,22 +30,22 @@
                         <div class="custom-control custom-checkbox small">
                             <input asp-for=RememberMe type="checkbox" class="custom-control-input" id="customCheck">
                             <label class="custom-control-label" for="customCheck">
-                                Xatirla Məni
+                               @_localization.GetKey("Login4")
                             </label>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-user btn-block">
-                        Daxil ol
+                 @_localization.GetKey("Login5")
                     </button>
 
 
                 </form>
                 <hr>
                 <div class="text-center">
-                    <a class="small" asp-controller="auth" asp-action="ForgotPassword">Parolu Unutmusunuz?</a>
+                    <a class="small" asp-controller="auth" asp-action="ForgotPassword">@_localization.GetKey("ForgotPassword6")</a>
                 </div>
                 <div class="text-center">
-                    <a class="small" asp-controller="auth" asp-action="Register">Yeni Profil Yarat!</a>
+                    <a class="small" asp-controller="auth" asp-action="Register">@_localization.GetKey("ForgotPassword4")</a>
                 </div>
             </div>
         </div>

@@ -117,17 +117,68 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuthConfirmEmail1" xml:space="preserve">
+    <value>Sizin Emailiniz Tesdiqlendi!</value>
+  </data>
+  <data name="AuthConfirmEmail2" xml:space="preserve">
+    <value>Daxil Olun!</value>
+  </data>
   <data name="Footer" xml:space="preserve">
     <value>&lt;p&gt;
      Copyright © 2024 Azərbaycan Texniki Üniversiteti  Elektron Konfrans İdarəetmə Sistemi.
      &lt;br&gt;Bütün Hüqüqlar &lt;a href="https://www.aztu.edu.az/az" target="_parent" title="free css templates"&gt;Azərbaycan Texniki Üniversiteti&lt;/a&gt; Tərəfindən Qorunur
  &lt;/p&gt;</value>
   </data>
+  <data name="ForgotPassword1" xml:space="preserve">
+    <value>Elektron Poçtunuzu daxil edin.Sizə Təsdiqləmə linki göndərək.</value>
+  </data>
+  <data name="ForgotPassword2" xml:space="preserve">
+    <value>Elektron Poçtunuzu daxil edin!...</value>
+  </data>
+  <data name="ForgotPassword3" xml:space="preserve">
+    <value>Göndər</value>
+  </data>
+  <data name="ForgotPassword4" xml:space="preserve">
+    <value>Yeni Profil Yarat!</value>
+  </data>
+  <data name="ForgotPassword5" xml:space="preserve">
+    <value>Profiliniz var?O zaman daxil ol!</value>
+  </data>
+  <data name="ForgotPassword6" xml:space="preserve">
+    <value>Şifrəni unutmusunuz ?</value>
+  </data>
+  <data name="ForgotPasswordConfirm1" xml:space="preserve">
+    <value>Yeni Parol</value>
+  </data>
+  <data name="ForgotPasswordConfirm2" xml:space="preserve">
+    <value>Yeni Parolu Daxil Edin</value>
+  </data>
+  <data name="ForgotPasswordConfirm3" xml:space="preserve">
+    <value>Yeni Parolu Yeniden Daxil Edin</value>
+  </data>
+  <data name="ForgotPasswordConfirm4" xml:space="preserve">
+    <value>Təsdiqlə</value>
+  </data>
   <data name="HomeMain1" xml:space="preserve">
     <value>AZƏRBAYCAN TEXNIKI ÜNIVERSITETI ELEKTRON KONFRANS İDARƏETMƏ SISTEMI</value>
   </data>
   <data name="HomeMain2" xml:space="preserve">
     <value>Azərbaycan Texniki Üniversiteti-də konfrans keçirtmək üçün qeyydiyatdan keçib sorğuları doldurun</value>
+  </data>
+  <data name="Login1" xml:space="preserve">
+    <value>Xoş Gəldiniz!</value>
+  </data>
+  <data name="Login2" xml:space="preserve">
+    <value>Elektron Poçtunuzu Daxil Edin</value>
+  </data>
+  <data name="Login3" xml:space="preserve">
+    <value>Şifrənizi Daxil Edin</value>
+  </data>
+  <data name="Login4" xml:space="preserve">
+    <value>Xatirla Məni</value>
+  </data>
+  <data name="Login5" xml:space="preserve">
+    <value>Daxil ol</value>
   </data>
   <data name="NavbarConferances" xml:space="preserve">
     <value>Konferanslar</value>
@@ -137,5 +188,29 @@
   </data>
   <data name="NavbarLogin" xml:space="preserve">
     <value>Daxil Ol</value>
+  </data>
+  <data name="Register1" xml:space="preserve">
+    <value>Qeyydiyat!</value>
+  </data>
+  <data name="Register2" xml:space="preserve">
+    <value>Ad</value>
+  </data>
+  <data name="Register3" xml:space="preserve">
+    <value>Soyad</value>
+  </data>
+  <data name="Register4" xml:space="preserve">
+    <value>Elektron Poçt</value>
+  </data>
+  <data name="Register5" xml:space="preserve">
+    <value>Əlaqə Nömrəsi</value>
+  </data>
+  <data name="Register6" xml:space="preserve">
+    <value>Şifrə</value>
+  </data>
+  <data name="Register7" xml:space="preserve">
+    <value>Təkrar Şifrə</value>
+  </data>
+  <data name="Register8" xml:space="preserve">
+    <value>Qeydiyyatdan Keç</value>
   </data>
 </root>
