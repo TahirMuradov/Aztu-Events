@@ -5,6 +5,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Aztu_Events.Entities.Concrete;
+using Aztu_Events.DataAccess.Abstarct;
+using Aztu_Events.DataAccess.Concrete;
+using Aztu_Events.Business.Abstarct;
+using Aztu_Events.Business.Concrete;
 namespace Aztu_Events.Business.DependencyResolver
 {
     public static class ServiceRegistration
@@ -13,6 +17,10 @@ namespace Aztu_Events.Business.DependencyResolver
         {
             services.AddScoped<AppDbContext>();
             services.AddScoped<IEmailHelper, EmailHelper>();
+            services.AddScoped<ITimeDAL, EFTimeDAL>();
+            services.AddScoped<ITimeService, TimeManager>();
+            services.AddScoped<IAudutoriumDAL, EFAuditoriumDAL>();
+            services.AddScoped<IAuditoriumService, AuditoriumManager>();
     
             services.Configure<IdentityOptions>(options =>
             {

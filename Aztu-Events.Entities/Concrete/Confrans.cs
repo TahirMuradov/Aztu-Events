@@ -18,7 +18,7 @@ namespace Aztu_Events.Entities.Concrete
         public DateTime EndDate { get; set; }
         public ConferanceStatus Status { get; set; }
         public Guid AudutoriumId { get; set; }
-        public Audutorium Audutorium { get; set; }
+        public Auditorium Audutorium { get; set; }
         public string UserId { get; set; }
 
         public User User { get; set; }
