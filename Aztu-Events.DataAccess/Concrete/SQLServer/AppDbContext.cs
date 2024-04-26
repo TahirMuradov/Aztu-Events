@@ -23,6 +23,7 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
         public DbSet<Confrans> Confrans { get; set; }
         public DbSet<Audutorium> Audutoria { get; set; }
         public DbSet<Time> Times { get; set; }
+        public DbSet<ConfranceLaunguage>ConfranceLaunguages { get; set; }
         public DbSet<AudutorimTime> AudutorimTimes { get; set; }
 
 

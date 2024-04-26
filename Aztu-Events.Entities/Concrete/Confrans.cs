@@ -10,8 +10,7 @@ namespace Aztu_Events.Entities.Concrete
     public class Confrans
     {
         public Guid Id { get; set; }
-        public string ConfransName { get; set; }
-        public string ConfransContent { get; set; }
+    
         public string ImgUrl { get; set; }
         public List<string>? specialGuestsEmail { get; set; }
         public List<string>? specialGuestsName { get; set; }
