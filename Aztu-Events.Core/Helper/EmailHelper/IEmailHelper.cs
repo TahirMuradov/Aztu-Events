@@ -11,5 +11,6 @@ namespace Aztu_Events.Core.Helper.EmailHelper
     public interface IEmailHelper
     {
         Task<IResult> SendEmailAsync(string userEmail, string confirmationLink, string UserName);
+        Task<IResult> ApproveConfransSendEmail(string email,string name);
     }
 }

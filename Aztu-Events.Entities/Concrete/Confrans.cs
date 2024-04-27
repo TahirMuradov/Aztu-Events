@@ -10,7 +10,7 @@ namespace Aztu_Events.Entities.Concrete
     public class Confrans
     {
         public Guid Id { get; set; }
-    
+
         public string ImgUrl { get; set; }
         public List<string>? specialGuestsEmail { get; set; }
         public List<string>? specialGuestsName { get; set; }
@@ -20,7 +20,7 @@ namespace Aztu_Events.Entities.Concrete
         public Guid AudutoriumId { get; set; }
         public Auditorium Audutorium { get; set; }
         public string UserId { get; set; }
-
         public User User { get; set; }
+        public List<ConfranceLaunguage> ConfranceLaunguages { get; set; }
     }
 }

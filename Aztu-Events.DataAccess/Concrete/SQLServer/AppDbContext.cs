@@ -16,7 +16,7 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server = localhost; Database = Aztu_EventsDb; Trusted_Connection = True; MultipleActiveResultSets = True; TrustServerCertificate = True;");
+            optionsBuilder.UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=Aztu_EventsDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
         }
 
 

@@ -21,7 +21,9 @@ namespace Aztu_Events.Business.DependencyResolver
             services.AddScoped<ITimeService, TimeManager>();
             services.AddScoped<IAudutoriumDAL, EFAuditoriumDAL>();
             services.AddScoped<IAuditoriumService, AuditoriumManager>();
-    
+            services.AddScoped<IConfrenceDal, EFConferenceDAL>();
+            services.AddScoped<IConfransService, ConfransManager>();
+
             services.Configure<IdentityOptions>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = true;
