@@ -1,0 +1,123 @@
+﻿@model List<GetAuditoriumDTO>
+
+
+
+<a class="btn btn-outline-success" href="/dashboard/auditorium/create">Yarat</a>
+
+<table id="example" class="display table table-striped" style="width:100%">
+    <thead>
+        <tr>
+
+            <th>№</th>
+            <th>Auditoriya Nömrəsi</th>
+            <th>Auditoriya Tutumu</th>
+            <th>Auditoriya Vaxtları</th>
+            <th>Dıgər</th>
+
+
+
+
+        </tr>
+
+    </thead>
+    <tbody id="parent">
+        @{
+            int counter = 0;
+        }
+        @foreach (var auditorium in Model)
+        {
+          
+            counter++;
+            <tr>
+
+                <td>@counter</td>
+                <td>@auditorium.AudutoriyaNumber</td>
+                <td>@auditorium.AuditoriumCapacity</td>
+                   <td>
+                    @{
+                        int a = 0;
+                    }
+                    @foreach (var auditor in auditorium.Date)
+                    {
+
+
+
+
+
+                        @Html.Raw(DateTime.Parse(auditor + auditorium.StartedTime[a].ToString())+"-" + DateTime.Parse(auditor + auditorium.EndTime[a].ToString()))
+
+                       
+
+                        if (0 < auditorium.Date.Count - a)
+                        {
+                            @Html.Raw(",")
+                        }
+                        a++;
+                    }
+                </td>
+               
+                <td>
+
+                    <button class="btn btn-outline-danger" onclick="AuditoriumDelet('@auditorium.AuditoriumId')"><i class="fa-solid fa-trash"></i></button>
+                    <a class="btn btn-outline-warning" href="/dashboard/auditorium/edit/@auditorium.AuditoriumId"><i class="fa-solid fa-pen-to-square"></i></a>
+                    
+                    
+
+                </td>
+            </tr>
+
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+
+            <th>№</th>
+            <th>Auditoriya Nömrəsi</th>
+            <th>Auditoriya Tutumu</th>
+            <th>Auditoriya Vaxtları</th>
+            <th>Dıgər</th>
+
+
+        </tr>
+
+    </tfoot>
+</table>
+
+<script>
+    let table = new DataTable('#example', {
+        responsive: true
+    });
+    function AuditoriumDelet(id) {
+        swal({
+            title: "Silmək İstədiynizə əminsiniz?",
+
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url:`/dashboard/auditorium/delete/${id}`,
+                        method:"Post",
+                        success: function (response) {
+                            swal("Silindi!", {
+                                icon: "success",
+                            }).then((e) => {
+
+                                if (e) {
+                                    window.location.reload();
+
+                                }
+                            })
+                        },
+                        error: function () {
+                            swal("Proses Düzgun getmedi", "error");
+                        }
+                    })
+
+                }
+            });
+    }
+</script>

@@ -42,9 +42,9 @@ namespace Aztu_Events.DataAccess.Concrete
             {
                 using (var context=new AppDbContext())
                 {
-                    var Auditorium = context.Audutoria.Include(x=>x.AudutorimTimes).FirstOrDefault(x => x.Id.ToString() == AuditoriumId);
+                    var Auditorium = context.Audutoria.Include(x=>x.Times).FirstOrDefault(x => x.Id.ToString() == AuditoriumId);
                     if (Auditorium is null) return new ErrorResult(message: "Data Is NotFound");
-                    context.AudutorimTimes.RemoveRange(Auditorium.AudutorimTimes);
+                    context.Times.RemoveRange(Auditorium.Times);
                     context.Audutoria.Remove(Auditorium);
                     context.SaveChanges();
                   
@@ -64,12 +64,14 @@ namespace Aztu_Events.DataAccess.Concrete
             try
             {
                 using var context=new AppDbContext();
-                return new SuccessDataResult<List<GetAuditoriumDTO>>(data:context.Audutoria.Include(x=>x.AudutorimTimes).Select(x=>new GetAuditoriumDTO
+                return new SuccessDataResult<List<GetAuditoriumDTO>>(data:context.Audutoria.Include(x=>x.Times).Select(x=>new GetAuditoriumDTO
                 {
                     AuditoriumCapacity=x.AuditoryCapacity,
-                    AuditoriumFreeTimes=x.AudutorimTimes.Select(y=>y.Time.DateTime).ToList(),
-                    AuditoriumId=x.Id,
-                    AudutoriumNumber=x.AudutoriyaNumber
+                    Date=x.Times.Where(y=>y.AuditoriumId==x.Id).Select(z=>z.Date).ToList(),
+                    StartedTime= x.Times.Where(y => y.AuditoriumId == x.Id).Select(z => z.StartedTime).ToList(),
+                    EndTime= x.Times.Where(y => y.AuditoriumId == x.Id).Select(z => z.EndTime).ToList(),
+                    AuditoriumId =x.Id,
+                    AudutoriyaNumber=x.AudutoriyaNumber
                 }).ToList());
 
             }
@@ -85,12 +87,14 @@ namespace Aztu_Events.DataAccess.Concrete
             try
             {
                 using var context = new AppDbContext();
-                var Auditorium = context.Audutoria.Include(x=>x.AudutorimTimes).Select(x=>new GetAuditoriumDTO
+                var Auditorium = context.Audutoria.Include(x=>x.Times).Select(x=>new GetAuditoriumDTO
                 {
                     AuditoriumCapacity = x.AuditoryCapacity,
-                    AuditoriumFreeTimes=x.AudutorimTimes.Select(y=>y.Time.DateTime).ToList(),
+                    Date=x.Times.Where(y => y.Date.ToString() == DateTime.Now.Date.ToString()).Select(y=>y.Date).ToList(),
+                    EndTime= x.Times.Where(y => y.Date.ToString() == DateTime.Now.Date.ToString()).Select(y => y.EndTime).ToList(),
+                    StartedTime= x.Times.Where(y => y.Date.ToString() == DateTime.Now.Date.ToString()).Select(y => y.StartedTime).ToList(),
                     AuditoriumId = x.Id,
-                    AudutoriumNumber=x.AudutoriyaNumber
+                    AudutoriyaNumber=x.AudutoriyaNumber
                 }).FirstOrDefault(x => x.AuditoriumId.ToString() == AuditoriumId);
                 if (Auditorium is null) return new ErrorDataResult<GetAuditoriumDTO>(message:"Data is NotFound");
 
@@ -101,6 +105,28 @@ namespace Aztu_Events.DataAccess.Concrete
             {
 
                 return new ErrorDataResult<GetAuditoriumDTO>(message: ex.Message);
+            }
+        }
+
+        public IResult UpdateAuditorium(UpdateAuditoriumDTO updateAuditoriumDTO)
+        {
+            try
+            {
+                using (var context = new AppDbContext()) 
+                {
+                    var data = context.Audutoria.FirstOrDefault(x => x.Id == updateAuditoriumDTO.AuditoriumId);
+                    if (data == null) return new ErrorResult(message: "Auditorium is NotFound");
+                    data.AudutoriyaNumber = updateAuditoriumDTO.AudutoriyaNumber;
+                    data.AuditoryCapacity = updateAuditoriumDTO.AuditoriumCapacity;
+                    context.Audutoria.Update(data);
+                    context.SaveChanges();
+
+                }
+                return new SuccessResult();
+            }
+            catch (Exception ex)
+            {
+return new ErrorResult(ex.Message);
             }
         }
     }

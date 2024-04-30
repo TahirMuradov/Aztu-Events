@@ -1,0 +1,21 @@
+﻿@model UpdateAuditoriumDTO
+
+
+<form method="post">
+    <input type="hidden" asp-for=AuditoriumId  />
+
+    <div class="form-group">
+        <label asp-for="AuditoriumCapacity">Auditoriya Tutumu</label>
+        <input class="form-control" type="number" min="0" asp-for="AuditoriumCapacity" />
+        <span asp-validation-for="AuditoriumCapacity"></span>
+    </div>
+    <div class="alert alert-warning">
+        <strong>Xəbərdarlıq!</strong> Auditoriya 1-ci korpus 512-ci otaqdadirsa Auditoriya nomresini 1-512 seklinde yazin!.
+    </div>
+    <div class="form-group">
+        <label asp-for="AudutoriyaNumber">Auditoriya Nomrəsi</label>
+        <input class="form-control" type="text" asp-for="AudutoriyaNumber" />
+        <span asp-validation-for="AudutoriyaNumber"></span>
+    </div>
+    <button class="btn btn-outline-success">Yadda Saxla</button>
+</form>

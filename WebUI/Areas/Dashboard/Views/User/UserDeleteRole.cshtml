@@ -1,0 +1,36 @@
+﻿@model UserDeleteRoleDTO
+<form id="myform" method="post">
+
+    <input type="hidden" value="@Model.UserId" asp-for="UserId" />
+
+        
+
+            <ul class="list-group">
+        @foreach (var role in Model.Roles)
+        {
+                <li id="@role" class="list-group-item d-flex justify-content-between align-items-center">
+                  Vəzifə: @role
+                <span class=""> <button onclick="DeleteRole('@role')" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button></span>
+            </li>  }
+               
+            </ul>
+
+        
+
+  
+    <button class="btn btn-outline-success" type="submit">Yadda Saxla</button>
+</form>
+<script>
+
+    function DeleteRole(roleName) {
+        var tag=document.getElementById(`${roleName}`)
+        tag.remove();
+        var form = document.getElementById("myform");
+        form.innerHTML+=`
+
+                <input type="hidden" value="${roleName}" name="Roles" />
+
+            `
+        
+    }
+</script>

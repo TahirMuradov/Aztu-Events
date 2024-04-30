@@ -10,5 +10,6 @@ namespace Aztu_Events.Entities.DTOs.RoleDTOs
     {
         public string id { get; set; }
         public string RoleName { get; set; }
+
     }
 }

@@ -1,0 +1,153 @@
+﻿@using System.Security.Claims
+@inject IHttpContextAccessor _contextAccessor;
+@model List<GetUsersDTO>
+<div asp-validation-summary="All" class="text text-danger"></div>
+
+
+
+
+<table id="example" class="display table table-striped" style="width:100%">
+    <thead>
+        <tr>
+
+            <th>№</th>
+            <th>Adı Soyadı</th>
+            <th>Elektron Poçtu</th>
+            <th>Əlaqə Nömrəsi</th>
+            <th>Vəzifəsi</th>
+            <th>Keçirtdiyi Konfranslar</th>
+            <th>Digər</th>
+
+
+
+
+        </tr>
+
+    </thead>
+    <tbody id="parent">
+        @{
+            int counter = 0;
+        }
+        @foreach (var user in Model)
+        {
+          
+            counter++;
+            <tr>
+
+                <td>@counter</td>
+                <td>@user.FirstName @user.LastName</td>
+                <td>@user.Email</td>
+                <td>@user.PhoneNumber</td>
+                <td>
+                    @{
+                        int a = 0;
+                    }
+                    @foreach (var role in user.Roles)
+                    {
+
+                       
+
+
+                      
+
+
+                            @role
+                      
+                        if (0 < user.Roles.Count - a)
+                        {
+                            @Html.Raw(",")
+                        }
+                        a++;
+                    }
+                </td>
+                <td>
+                    @{
+                        int b = 0;
+                    }
+                    @foreach (var confrance in user.Conferances)
+                    {
+
+
+
+
+
+
+
+                        @confrance
+
+                        if (0 < user.Conferances.Count - b)
+                        {
+                            @Html.Raw(",")
+                        }
+                        b++;
+                    }
+                </td>
+                <td>
+                    @if (_contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value!=user.Id)
+                    {
+                        <button class="btn btn-outline-danger" onclick="userDelet('@user.Id')"><i class="fa-solid fa-trash"></i></button>
+                        <a class="btn btn-outline-success" href="/dashboard/user/addRole/@user.Id">Vəzifə Ver</a>
+                        <a class="btn btn-outline-warning" href="/dashboard/user/UserDeleteRole/@user.Id">Vəzifə Sil</a>
+                    }
+
+                </td>
+            </tr>
+
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+
+            <th>№</th>
+            <th>Adı</th>
+            <th>Soyadı</th>
+            <th>Elektron Poçtu</th>
+            <th>Əlaqə Nömrəsi</th>
+            <th>Vəzifəsi</th>
+            <th>Digər</th>
+
+
+
+        </tr>
+
+    </tfoot>
+</table>
+
+<script>
+    let table = new DataTable('#example', {
+        responsive: true
+    });
+    function userDelet(id) {
+        swal({
+            title: "Silmək İstədiynizə əminsiniz?",
+
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url:`/dashboard/user/delete/${id}`,
+                        method:"Post",
+                        success: function (response) {
+                            swal("Silindi!", {
+                                icon: "success",
+                            }).then((e) => {
+
+                                if (e) {
+                                    window.location.reload();
+
+                                }
+                            })
+                        },
+                        error: function () {
+                            swal("Proses Düzgun getmedi", "error");
+                        }
+                    })
+
+                }
+            });
+    }
+</script>

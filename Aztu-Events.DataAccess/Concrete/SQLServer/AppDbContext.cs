@@ -16,7 +16,7 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=localhost\\SQLEXPRESS;Initial Catalog=Aztu_EventsDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+            optionsBuilder.UseSqlServer("Server = localhost; Database = Aztu_EventsDb; Trusted_Connection = True; MultipleActiveResultSets = True; TrustServerCertificate = True;");
         }
 
 
@@ -24,7 +24,8 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
         public DbSet<Auditorium> Audutoria { get; set; }
         public DbSet<Time> Times { get; set; }
         public DbSet<ConfranceLaunguage>ConfranceLaunguages { get; set; }
-        public DbSet<AuditorimTime> AudutorimTimes { get; set; }
+        public DbSet<SpecialGuest> SpecialGuests { get; set; }
+
 
 
 
@@ -33,6 +34,12 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
             base.OnModelCreating(builder);
             builder.Entity<User>().ToTable("Users");
             builder.Entity<IdentityRole>().ToTable("Roles");
+            builder.Entity<Confrans>()
+                .HasOne(x => x.Time)
+                .WithOne(x => x.Confrans)
+                .HasForeignKey<Confrans>(x => x.TimeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
     
         }
     }

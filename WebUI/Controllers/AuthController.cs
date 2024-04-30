@@ -1,4 +1,5 @@
-﻿using Aztu_Events.Core.Helper.EmailHelper;
+﻿using Aztu_Events.Business.FluentValidation.AuthDTOValidator;
+using Aztu_Events.Core.Helper.EmailHelper;
 using Aztu_Events.Entities.Concrete;
 using Aztu_Events.Entities.DTOs.AuthDTOs;
 using Aztu_Events.Entities.DTOs.UserDTOs;
@@ -14,11 +15,13 @@ namespace WebUI.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IEmailHelper _EmailHelper;
-        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, IEmailHelper emailHelper)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, IEmailHelper emailHelper, RoleManager<IdentityRole> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _EmailHelper = emailHelper;
+            _roleManager = roleManager;
         }
         public IActionResult Login()
         {
@@ -33,18 +36,43 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task< IActionResult> Login(LoginDTO loginDTO)
         {
-            if (!ModelState.IsValid)
+            var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
+            LoginDTOValidation validator = new LoginDTOValidation(currentCulture);
+            var result=validator.Validate(loginDTO);
+            if (!result.IsValid)
             {
+                for (int i=0;i<result.Errors.Count;i++)
+                {
+                    if (i%2!=0)
+                    {
+
+                    ModelState.AddModelError("Error", result.Errors[i].ErrorMessage);
+                    }
             
-                return View();
+
+                }
+                return View();    
             }
+
+
             var checkEmail = await _userManager.FindByEmailAsync(loginDTO.Email);
 
             if (checkEmail == null)
             {
 
+                if (currentCulture == "az")
+                {
+                    ModelState.AddModelError("Error", "Email və ya Parol Səhvdir!");
+                }
+                else if (currentCulture == "ru")
+                {
+                    ModelState.AddModelError("Error", "Неверный адрес электронной почты или пароль!");
+                }
+                else 
+                {
+                    ModelState.AddModelError("Error", "Incorrect email or password!");
+                }
 
-                ModelState.AddModelError("Error", "Email və ya Parol Səhvdir!");
                 return View();
             }
             //var CurrentUserRole = await _userManager.GetRolesAsync(checkEmail);
@@ -56,7 +84,19 @@ namespace WebUI.Controllers
             Microsoft.AspNetCore.Identity.SignInResult signInResult = await _signInManager.PasswordSignInAsync(checkEmail, loginDTO.Password, loginDTO.RememberMe, true);
             if (!signInResult.Succeeded)
             {
-                ModelState.AddModelError("Error", "Email və ya Parol Səhvdir!");
+
+                if (currentCulture == "az")
+                {
+                    ModelState.AddModelError("Error", "Email və ya Parol Səhvdir!");
+                }
+                else if (currentCulture == "ru")
+                {
+                    ModelState.AddModelError("Error", "Неверный адрес электронной почты или пароль!");
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", "Incorrect email or password!");
+                }
 
                 return View();
             }
@@ -87,16 +127,38 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDTO registerDTO)
         {
-            if (!ModelState.IsValid) return View();
-            if (!Regex.IsMatch(registerDTO.PhoneNumber, "^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$"))
+          var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
+           RegisterDTOValidator validator=new RegisterDTOValidator(currentCulture);
+            var ValidatorResult=validator.Validate(registerDTO);
+            if (!ValidatorResult.IsValid)
             {
-                ModelState.AddModelError("Error", "Əlaqə Nömrəsini düzgün qeyd edin!");
-                return View();
+                for (int i = 0; i < ValidatorResult.Errors.Count; i++)
+                {
+                  
+
+                        ModelState.AddModelError("Error", ValidatorResult.Errors[i].ErrorMessage);
+                    
+
+
+                }
+                return View(registerDTO);
             }
             var checekEmail = await _userManager.FindByEmailAsync(registerDTO.Email);
             if (checekEmail != null)
             {
-                ModelState.AddModelError("Error", "Bu Emailde Istifadeci var");
+                if (currentCulture == "az")
+                {
+                    ModelState.AddModelError("Error", "Bu Emailde Istifadeci var");
+                }
+                else if (currentCulture == "ru")
+                {
+                    ModelState.AddModelError("Error", "Пользователь с этим адресом электронной почты уже существует!");
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", "User with this email already exists!");
+                }
+               
                 return View();
             }
             registerDTO.UserName = registerDTO.Firstname + registerDTO.Lastname + Guid.NewGuid().ToString().Substring(0, 5);
@@ -110,11 +172,35 @@ namespace WebUI.Controllers
                 PhoneNumber = registerDTO.PhoneNumber
 
             }, registerDTO.Password);
+            var role = await _roleManager.FindByNameAsync("Admin");
+            if (role is null)
+            {
+                await _roleManager.CreateAsync(new IdentityRole
+                {
+                    Name = "Admin"
+                });
+            }
+            var role2 = await _roleManager.FindByNameAsync("User");
+            if (role2 is null)
+            {
+                await _roleManager.CreateAsync(new IdentityRole
+                {
+                    Name = "User"
+                });
+            }
+
             if (result.Succeeded)
             {
                 var user = await _userManager.FindByEmailAsync(registerDTO.Email);
-
-               string token= await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                if (_userManager.Users.Count() == 1)
+                {
+                  await  _userManager.AddToRoleAsync(user, "Admin");
+                }
+                else
+                {
+                    await _userManager.AddToRoleAsync(user, "User");
+                }
+                string token= await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var confirmLink = Url.ActionLink(controller: "Auth",
         action: "ConfirmEmail",
         host: Request.Host.Value,
@@ -122,14 +208,37 @@ namespace WebUI.Controllers
           var emailResult=    await  _EmailHelper.SendEmailAsync(userEmail: user.Email, confirmationLink: confirmLink, UserName: user.UserName);
                 if (emailResult.IsSuccess)
                 {
-
-                ModelState.AddModelError("Error", "Emailinize Tesdiqleme Linki Gonderirldi!");
+                    if (currentCulture == "az")
+                    {
+                        ModelState.AddModelError("Error", "Emailinize Tesdiqleme Linki Gonderirldi!");
+                    }
+                    else if (currentCulture == "ru")
+                    {
+                        ModelState.AddModelError("Error", "Ссылка для подтверждения отправлена на вашу электронную почту!");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Error", "Confirmation link has been sent to your email!");
+                    }
+                  
                 return View();
                 }
 
 
                await _userManager.DeleteAsync(user);
-                ModelState.AddModelError("Error", "Qeydiyyat Uğursuz oldu yenidən cəhd edin!");
+                if (currentCulture == "az")
+                {
+                    ModelState.AddModelError("Error", "Qeydiyyat Uğursuz oldu yenidən cəhd edin!");
+                }
+                else if (currentCulture == "ru")
+                {
+                    ModelState.AddModelError("Error", "Регистрация не удалась, пожалуйста, попробуйте еще раз!");
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", "Registration failed, please try again!");
+                }
+       
                 return View();
 
 
@@ -162,11 +271,40 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(string Email)
         {
+            var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
+            if (string.IsNullOrEmpty(Email))
+            {
 
+                if (currentCulture == "az")
+                {
+                    ModelState.AddModelError("Error", "Email Boş ola bilməz!");
+                }
+                else if (currentCulture == "ru")
+                {
+                    ModelState.AddModelError("Error", "Поле электронной почты не может быть пустым!");
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", "Email field cannot be empty!");
+                }
+                return View();
+            }
             var user = await _userManager.FindByEmailAsync(email: Email);
             if (user == null)
             {
-                ModelState.AddModelError("Error", "Bu Elektron Poctda Istifadeci tapilmadi!");
+                if (currentCulture == "az")
+                {
+                    ModelState.AddModelError("Error", "Bu Elektron Poctda Istifadeci tapilmadi!");
+                }
+                else if (currentCulture == "ru")
+                {
+                    ModelState.AddModelError("Error", "Пользователь с этим адресом электронной почты не найден!");
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", "No user found with this email!");
+                }
+            
                 return View();
             }
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -176,7 +314,21 @@ namespace WebUI.Controllers
                 values: new { token, email = user.Email });
             var result = await _EmailHelper.SendEmailAsync(user.Email, confirmLink, user.UserName);
             if (result.IsSuccess)
-                ModelState.AddModelError("Error", "Elektron Poctunuzu yoxlayin tesdiqleme linki gonderildi!");
+            {
+                if (currentCulture == "az")
+                {
+                    ModelState.AddModelError("Error", "Emailinize Tesdiqleme Linki Gonderirldi!");
+                }
+                else if (currentCulture == "ru")
+                {
+                    ModelState.AddModelError("Error", "Ссылка для подтверждения отправлена на вашу электронную почту!");
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", "Confirmation link has been sent to your email!");
+                }
+            }    
+               
             return View();
 
         }

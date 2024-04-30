@@ -1,0 +1,84 @@
+﻿@model List<GetALLConferenceUserDTO>
+
+
+<a class="btn btn-outline-success" href="/dashboard/ConferanceForUser/create">Confrans Yarat</a>
+
+<table id="example" class="display table table-striped" style="width:100%">
+    <thead>
+        <tr>
+
+            <th>№</th>
+            <th>Konfrans Adı</th>
+            <th>Konfransın Başlama-Bitmə Tarixi</th>
+            <th>Sifarişçi Email</th>
+            <th>Sifarişçi Adı Soyadı</th>
+            <th>Auditoriya</th>
+            <th>Şəkli</th>
+            <th>Statusu</th>
+            <th>Dıgər</th>
+
+
+
+
+        </tr>
+
+    </thead>
+    <tbody id="parent">
+        @{
+            int counter = 0;
+        }
+        @foreach (var confrance in Model)
+        {
+
+            counter++;
+            <tr>
+
+                <td>@counter</td>
+                <td>@confrance.ConferenceName</td>
+                <td>@Html.Raw(DateTime.Parse(confrance.Day.ToString() + confrance.StartedDate.ToString()) + "-" + DateTime.Parse(confrance.Day.ToString() + confrance.EndDate.ToString()))</td>
+                <td>@confrance.UserEmail</td>
+                <td>@confrance.UserFullname</td>
+                <td>@confrance.AudutoriumName</td>
+                <td> <img src="@confrance.ImgUrl" width="100px" height="100px" /> </td>
+                <td>@confrance.Status</td>
+                <td>
+
+                    <a class="btn btn-outline-danger" >Düzəliş Et</a>
+
+                    <a class="btn btn-outline-warning" href="/dashboard/ConferanceForUser/detail/@confrance.Id">Ətraflı Oxu</a>
+
+
+
+                </td>
+            </tr>
+
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+
+            <th>№</th>
+            <th>Konfrans Adı</th>
+            <th>Konfransın Başlama-Bitmə Tarixi</th>
+            <th>Sifarişçi Email</th>
+            <th>Sifarişçi Adı Soyadı</th>
+            <th>Auditoriya</th>
+            <th>Şəkli</th>
+            <th>Statusu</th>
+            <th>Dıgər</th>
+
+
+
+        </tr>
+
+    </tfoot>
+</table>
+
+<script>
+    let table = new DataTable('#example', {
+        responsive: true
+    });
+   
+  
+</script>

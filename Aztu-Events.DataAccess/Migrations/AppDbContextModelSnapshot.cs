@@ -22,27 +22,6 @@ namespace Aztu_Events.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Aztu_Events.Entities.Concrete.AuditorimTime", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AudutoriumId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TimeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AudutoriumId");
-
-                    b.HasIndex("TimeId");
-
-                    b.ToTable("AudutorimTimes");
-                });
-
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Auditorium", b =>
                 {
                     b.Property<Guid>("Id")
@@ -98,36 +77,57 @@ namespace Aztu_Events.DataAccess.Migrations
                     b.Property<Guid>("AudutoriumId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("ImgUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("StartedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("TimeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("specialGuestsEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("specialGuestsName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AudutoriumId");
 
+                    b.HasIndex("TimeId")
+                        .IsUnique();
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Confrans");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.SpecialGuest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ConfransId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SendEmail")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConfransId");
+
+                    b.ToTable("SpecialGuests");
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Time", b =>
@@ -136,10 +136,27 @@ namespace Aztu_Events.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("AuditoriumId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ConfransId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<TimeOnly>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<TimeOnly>("StartedTime")
+                        .HasColumnType("time");
+
+                    b.Property<bool>("UpdateTime")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuditoriumId");
 
                     b.ToTable("Times");
                 });
@@ -350,29 +367,10 @@ namespace Aztu_Events.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Aztu_Events.Entities.Concrete.AuditorimTime", b =>
-                {
-                    b.HasOne("Aztu_Events.Entities.Concrete.Auditorium", "Audutorium")
-                        .WithMany("AudutorimTimes")
-                        .HasForeignKey("AudutoriumId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Aztu_Events.Entities.Concrete.Time", "Time")
-                        .WithMany("AudutorimTimes")
-                        .HasForeignKey("TimeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Audutorium");
-
-                    b.Navigation("Time");
-                });
-
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.ConfranceLaunguage", b =>
                 {
                     b.HasOne("Aztu_Events.Entities.Concrete.Confrans", "Confrans")
-                        .WithMany()
+                        .WithMany("ConfranceLaunguages")
                         .HasForeignKey("ConfransId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -388,6 +386,12 @@ namespace Aztu_Events.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Aztu_Events.Entities.Concrete.Time", "Time")
+                        .WithOne("Confrans")
+                        .HasForeignKey("Aztu_Events.Entities.Concrete.Confrans", "TimeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Aztu_Events.Entities.Concrete.User", "User")
                         .WithMany("Confrans")
                         .HasForeignKey("UserId")
@@ -396,7 +400,31 @@ namespace Aztu_Events.DataAccess.Migrations
 
                     b.Navigation("Audutorium");
 
+                    b.Navigation("Time");
+
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.SpecialGuest", b =>
+                {
+                    b.HasOne("Aztu_Events.Entities.Concrete.Confrans", "Confrans")
+                        .WithMany("SpecialGuests")
+                        .HasForeignKey("ConfransId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Confrans");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Time", b =>
+                {
+                    b.HasOne("Aztu_Events.Entities.Concrete.Auditorium", "Auditorium")
+                        .WithMany("Times")
+                        .HasForeignKey("AuditoriumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Auditorium");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -452,14 +480,22 @@ namespace Aztu_Events.DataAccess.Migrations
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Auditorium", b =>
                 {
-                    b.Navigation("AudutorimTimes");
-
                     b.Navigation("Confrances");
+
+                    b.Navigation("Times");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Confrans", b =>
+                {
+                    b.Navigation("ConfranceLaunguages");
+
+                    b.Navigation("SpecialGuests");
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Time", b =>
                 {
-                    b.Navigation("AudutorimTimes");
+                    b.Navigation("Confrans")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.User", b =>

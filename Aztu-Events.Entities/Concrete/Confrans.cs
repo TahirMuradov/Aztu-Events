@@ -12,15 +12,16 @@ namespace Aztu_Events.Entities.Concrete
         public Guid Id { get; set; }
 
         public string ImgUrl { get; set; }
-        public List<string>? specialGuestsEmail { get; set; }
-        public List<string>? specialGuestsName { get; set; }
-        public DateTime StartedDate { get; set; }
-        public DateTime EndDate { get; set; }
+  
+       
+        public Guid TimeId { get; set; }
+        public Time Time { get; set; }
         public ConferanceStatus Status { get; set; }
         public Guid AudutoriumId { get; set; }
         public Auditorium Audutorium { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
         public List<ConfranceLaunguage> ConfranceLaunguages { get; set; }
+        public List<SpecialGuest> SpecialGuests { get; set; }
     }
 }

@@ -9,6 +9,10 @@ using Aztu_Events.DataAccess.Abstarct;
 using Aztu_Events.DataAccess.Concrete;
 using Aztu_Events.Business.Abstarct;
 using Aztu_Events.Business.Concrete;
+using FluentValidation;
+using System;
+using Aztu_Events.Entities.DTOs.AuthDTOs;
+using Aztu_Events.Business.FluentValidation.AuthDTOValidator;
 namespace Aztu_Events.Business.DependencyResolver
 {
     public static class ServiceRegistration
@@ -17,13 +21,16 @@ namespace Aztu_Events.Business.DependencyResolver
         {
             services.AddScoped<AppDbContext>();
             services.AddScoped<IEmailHelper, EmailHelper>();
-            services.AddScoped<ITimeDAL, EFTimeDAL>();
-            services.AddScoped<ITimeService, TimeManager>();
+            services.AddScoped<IUserService, UserManager>();
+            services.AddScoped<IRoleService, RoleManager>();
             services.AddScoped<IAudutoriumDAL, EFAuditoriumDAL>();
             services.AddScoped<IAuditoriumService, AuditoriumManager>();
             services.AddScoped<IConfrenceDal, EFConferenceDAL>();
             services.AddScoped<IConfransService, ConfransManager>();
-
+            #region ValidatorScoped
+            
+           
+            #endregion
             services.Configure<IdentityOptions>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = true;

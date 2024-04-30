@@ -14,8 +14,9 @@ namespace Aztu_Events.Entities.DTOs.Conferences
         public List<string> LangCode { get; set; }
         public List<string>? specialGuestsEmail { get; set; }
         public List<string>? specialGuestsName { get; set; }
-        public DateTime StartedDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateOnly Day { get; set; }
+        public TimeOnly StartedDate { get; set; }
+        public TimeOnly EndDate { get; set; }
         public string ImgUrl { get; set; }
         public Guid AudutoriumId { get; set; }
 

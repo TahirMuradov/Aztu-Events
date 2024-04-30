@@ -15,9 +15,12 @@ namespace Aztu_Events.DataAccess.Abstarct
     {
         Task<IResult> ConfrenceAddAsync(ConferenceCreateDto dto);
         Task<IResult> ConfrenceUpdateAsync(ConferenceUpdateDto dto);
-        Task<IDataResult<PaginatedList<ConferenceGetAdminListDTO>>> ConferenceGetAdminList(FilterConferenceDto filter, string lang);
-        Task<IDataResult<ConferenceGetAdminDTO>> ConferenceGetAdmin(Guid id, string lang);
-        Task<IResult> ApproveConfrans(Guid id, ConferanceStatus status);
+        Task<IDataResult<PaginatedList<ConferenceGetAdminListDTO>>> ConferenceGetListFilter(FilterConferenceDto filter, string lang);
+        Task<IDataResult<ConferenceGetAdminDTO>> ConferenceGetDetailForAdmin(Guid id, string lang);
+        Task<IResult> ApproveConfrans(Guid id, ConferanceStatus status,string ResponseMessage=null);
+       IDataResult<List<ConferenceGetAdminListDTO>> GetAllConferanceForAdmin(string LangCode);
+        IDataResult<List<GetALLConferenceUserDTO>> GetAllConferanceForUser(string UserId, string LangCode);
+        IDataResult<GetConferenceUserDTO> GetConferanceDetailForUser(string UserId,string ConfranceId, string LangCode);
 
     }
 }

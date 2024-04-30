@@ -38,5 +38,10 @@ namespace Aztu_Events.Business.Concrete
         {
             return _audutoriumDAL.GetAuditorium(AuditoriumId);
         }
+
+        public IResult UpdateAuditorium(UpdateAuditoriumDTO updateAuditoriumDTO)
+        {
+      return _audutoriumDAL.UpdateAuditorium(updateAuditoriumDTO);
+        }
     }
 }

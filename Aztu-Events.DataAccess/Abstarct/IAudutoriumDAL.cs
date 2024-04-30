@@ -14,5 +14,6 @@ namespace Aztu_Events.DataAccess.Abstarct
         IResult DeleteAuditorium(string AuditoriumId);
         IDataResult<List<GetAuditoriumDTO>> GetAllAuditorium();
         IDataResult<GetAuditoriumDTO> GetAuditorium(string AuditoriumId);
+        IResult UpdateAuditorium(UpdateAuditoriumDTO updateAuditoriumDTO);
     }
 }

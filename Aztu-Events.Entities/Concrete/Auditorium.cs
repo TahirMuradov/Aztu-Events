@@ -13,6 +13,6 @@ namespace Aztu_Events.Entities.Concrete
         public int AuditoryCapacity { get; set; }
         public List<Confrans>? Confrances { get; set; }
 
-        public List<AuditorimTime>? AudutorimTimes { get; set; }
+        public List<Time>? Times { get; set; }
     }
 }

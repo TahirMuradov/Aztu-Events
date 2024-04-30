@@ -8,8 +8,15 @@ using System.Globalization;
 using System.Reflection;
 using WebUI.Services;
 using Aztu_Events.Business.DependencyResolver;
+using Aztu_Events.Business.Filters;
+using FluentValidation.AspNetCore;
+using Aztu_Events.Business.FluentValidation.AuthDTOValidator;
+using FluentValidation;
+using Aztu_Events.Business.CustomLanguageManager;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
 #region Localizer
 builder.Services.AddSingleton<LanguageService>();
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -33,12 +40,27 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
 });
 #endregion
+
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options => options.ModelValidatorProviders.Clear());
+#region Fluent Validation Registration add services to the container.
+builder.Services/*.AddControllers(options => options.Filters.Add<ValidationFilters>())*/
+    .AddFluentValidation(configuration =>
+    {
+        //configuration.RegisterValidatorsFromAssemblyContaining<LoginDTOValidation>();
+        configuration.DisableDataAnnotationsValidation = true;
+        configuration.LocalizationEnabled = true;
+        configuration.DisableDataAnnotationsValidation = true;
+        configuration.ValidatorOptions.LanguageManager = new CustomLanguageManager();
+        configuration.ValidatorOptions.LanguageManager.Culture = new CultureInfo( Thread.CurrentThread.CurrentCulture.Name);
+    })
+ ;
+#endregion
 builder.Services.AddIdentity<User, IdentityRole>()
              .AddEntityFrameworkStores<AppDbContext>()
              .AddDefaultTokenProviders();
 builder.Services.Run();
+
 var app = builder.Build();
 app.UseRequestLocalization(app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
 // Configure the HTTP request pipeline.
