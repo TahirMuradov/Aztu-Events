@@ -41,7 +41,7 @@ namespace Aztu_Events.Business.Concrete
             return await _confrenceDal.ConferenceGetListFilter(filter, lang);
         }
 
-        public async Task<IResult> ConfrenceAddAsync(ConferenceCreateDto dto)
+        public async Task<IResult> ConfrenceAddAsync(ConferenceAddDTO dto)
         {
             return await _confrenceDal.ConfrenceAddAsync(dto);
         }

@@ -161,7 +161,7 @@ namespace Aztu_Events.DataAccess.Concrete
 
         }
 
-        public async Task<IResult> ConfrenceAddAsync(ConferenceCreateDto dto)
+        public async Task<IResult> ConfrenceAddAsync(ConferenceAddDTO dto)
         {
             try
             {

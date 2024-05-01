@@ -1,0 +1,200 @@
+﻿@model ConferenceAddDTO
+<form method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for="UserId"/>
+    <div class="form-group">
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item active" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="false">AZ</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">RU</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">US</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="form-group">
+                    <input type="text" class="form-control" asp-for="ConferenceName" name="ConferenceName" placeholder="Konferans Adini Daxil Edin Azərbaycan Dilində" />
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="form-group">
+                    <input type="text" class="form-control" asp-for="ConferenceName" name="ProductName" placeholder="Konferans Adı Daxil Edin Rus Dilində" />
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="form-group">
+                    <input type="text" class="form-control" asp-for="ConferenceName" name="ConferenceName" placeholder="Konferans Adı Daxil Edin İngilis dilində" />
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item active" role="presentation">
+                <button class="nav-link active" id="home_dec-tab" data-bs-toggle="tab" data-bs-target="#home_dec" type="button" role="tab" aria-controls="home_dec" aria-selected="false">AZ</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile_dec-tab" data-bs-toggle="tab" data-bs-target="#profile_dec" type="button" role="tab" aria-controls="profile_dec" aria-selected="false">RU</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact_dec-tab" data-bs-toggle="tab" data-bs-target="#contact_dec" type="button" role="tab" aria-controls="contact_dec" aria-selected="false">US</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home_dec" role="tabpanel" aria-labelledby="home_dec-tab">
+                <div class="form-group">
+                    <input type="text" class="form-control" asp-for="ConferenceContent" name="ConferenceContent" placeholder="Azərbaycan dilində Konferans məzmunu daxil edin" />
+                    <input type="hidden" asp-for="LangCode" value="az" name="LangCode" />
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile_dec" role="tabpanel" aria-labelledby="profile_dec-tab">
+                <div class="form-group">
+                    <input type="text" class="form-control" asp-for="ConferenceContent" name="ConferenceContent" placeholder="Rus dilində Konferans məzmunu daxil edin" />
+                    <input type="hidden" asp-for="LangCode" value="ru" name="LangCode" />
+                </div>
+            </div>
+            <div class="tab-pane fade" id="contact_dec" role="tabpanel" aria-labelledby="contact_dec-tab">
+                <div class="form-group">
+                    <input type="text" class="form-control" asp-for="ConferenceContent" name="ConferenceContent" placeholder="İngilis Dilində Konferans məzmunu daxil edin" />
+                    <input type="hidden" asp-for="LangCode" value="en" name="LangCode" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group specialGuest">
+        <div class="row">
+      
+        <div class="col-5">
+                <label asp-for="specialGuestsName">Xüsüsi qonaq Ad və Soyadı</label>
+                <input type="text" class="form-control" asp-for=specialGuestsName  name="specialGuestsName" placeholder="Xüsüsi qonaq Ad və Soyadı" value="" />
+        </div>
+            <div class="col-5">
+                <label for="specialGuestsEmail" asp-for="specialGuestsEmail">Xüsüsi qonaq E-Poçt ünvanı</label>
+                <input type="email" class="form-control" asp-for=specialGuestsEmail name="specialGuestsEmail" placeholder="Xüsüsi qonaq E-Poçt ünvanı" value="" />
+
+            </div>
+            <div class="col-2">
+                <button onclick="addSpecialGuest()" class="btn btn-outline-success mx-auto" type="button">Xüsusi Qonaq Əlavə Et</button>
+
+                <button onclick="removeSpecialGuest()" class="btn btn-outline-danger mx-auto" type="button">Xüsusi Qonaq Sil</button>
+            </div>
+        </div>
+     
+    </div>
+
+    <div class="form-group">
+        <label for="Day">Gün:</label>
+        <input type="date" id="Day" name="Day" asp-for="Day" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="" />
+    </div>
+    <div class="form-group">
+        <label for="StartTime">Başlama Saatı:</label>
+        <input type="time" id="StartTime" name="StartTime" asp-for="StartedDate" class="form-control" min="12:00" max="23:59" value="" />
+    </div>
+    <div class="form-group">
+        <label for="EndTime">Bitmə Saatı:</label>
+        <input type="time" id="EndTime" name="EndTime" asp-for="EndDate" class="form-control" min="12:00" max="23:59" value="" />
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-outline-warning" >Seçdiyiniz Tarixə Uyğun Auditoriyaları gətir</button>
+
+    </div>
+    <div class="form-group" id="form-file">
+        <label for="Photo"></label>
+        <input type="file"  accept="image/*" value="" id="photo" name="Photo" class="form-control-file" />
+
+
+
+
+
+
+    </div>
+    
+</form>
+@section scripts{
+    <script>
+        function addSpecialGuest() {
+
+            var specialGuestsContainer = document.querySelector('.specialGuest');
+          
+            specialGuestsContainer.innerHTML+=`  <div class='row added'>
+
+          <div class='col-5'>
+                  <label for='specialGuestsName'>Xüsüsi qonaq Ad və Soyadı</label>
+                  <input type='text' class='form-control' id=specialGuestsName  name='specialGuestsName' placeholder='Xüsüsi qonaq Ad və Soyadı' value='' />
+          </div>
+              <div class='col-5'>
+                  <label  for='specialGuestsEmail'>Xüsüsi qonaq E-Poçt ünvanı</label>
+                  <input type='email' class='form-control' id=specialGuestsEmail name='specialGuestsEmail' placeholder='Xüsüsi qonaq E-Poçt ünvanı'  />
+
+              </div>
+              <div class='col-2'>
+
+            
+              </div>
+          </div>`;
+        }
+
+        function removeSpecialGuest() {
+            var rowToRemove = document.querySelectorAll(".added")
+
+            rowToRemove[rowToRemove.length-1].remove();
+        
+        }
+
+        function PhotoDelete(photoName) {
+            console.log(photoName)
+            let fileInput = document.getElementById("photo");
+            var updatedFiles = fileInput.files;
+
+            var newFileList = new DataTransfer();
+
+            for (var j = 0; j < updatedFiles.length; j++) {
+                if (updatedFiles[j].name !== photoName) {
+                    newFileList.items.add(updatedFiles[j]);
+                }
+            }
+
+            fileInput.files = newFileList.files;
+            var img_box = document.getElementById(photoName);
+            debugger;
+            img_box.remove();
+
+
+        }
+        $("#photo").change(function () {
+            $(`#form-file .d-flex`).remove();
+
+            $.each(this.files, function (index, file) {
+
+                $("#form-file").append(`
+
+
+
+                           <div class="d-flex flex-wrap text-center" id="${file.name}">
+
+
+                                     <img  src="${URL.createObjectURL(file)}" for="photo" id="photo" name="Photo" style="width: 200px;" alt="" />
+
+                            <button type="button" onclick="PhotoDelete('${file.name}')" class="btn btn-outline-danger "><i class="fas fa-trash"></i></button>
+
+
+
+                    </div>
+
+                     `);
+            });
+        });
+
+            
+            
+            </script>
+}

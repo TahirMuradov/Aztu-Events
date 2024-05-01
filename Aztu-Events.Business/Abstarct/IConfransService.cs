@@ -12,7 +12,7 @@ namespace Aztu_Events.Business.Abstarct
 {
     public interface IConfransService
     {
-        Task<IResult> ConfrenceAddAsync(ConferenceCreateDto dto);
+        Task<IResult> ConfrenceAddAsync(ConferenceAddDTO dto);
         Task<IResult> ConfrenceUpdateAsync(ConferenceUpdateDto dto);
         Task<IDataResult<PaginatedList<ConferenceGetAdminListDTO>>> ConferenceGetListFilter(FilterConferenceDto filter, string lang);
         Task<IDataResult<ConferenceGetAdminDTO>> ConferenceGetDetailForAdmin(Guid id, string lang);

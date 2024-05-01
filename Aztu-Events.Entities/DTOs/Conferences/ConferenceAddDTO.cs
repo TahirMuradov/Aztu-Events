@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aztu_Events.Entities.DTOs.Conferences
 {
-    public class ConferenceCreateDto
+    public class ConferenceAddDTO
     {
         public List<string> ConferenceName { get; set; }
         public List<string> ConferenceContent { get; set; }

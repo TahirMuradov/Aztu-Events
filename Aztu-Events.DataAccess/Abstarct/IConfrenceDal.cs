@@ -13,7 +13,7 @@ namespace Aztu_Events.DataAccess.Abstarct
 {
     public interface IConfrenceDal
     {
-        Task<IResult> ConfrenceAddAsync(ConferenceCreateDto dto);
+        Task<IResult> ConfrenceAddAsync(ConferenceAddDTO dto);
         Task<IResult> ConfrenceUpdateAsync(ConferenceUpdateDto dto);
         Task<IDataResult<PaginatedList<ConferenceGetAdminListDTO>>> ConferenceGetListFilter(FilterConferenceDto filter, string lang);
         Task<IDataResult<ConferenceGetAdminDTO>> ConferenceGetDetailForAdmin(Guid id, string lang);
