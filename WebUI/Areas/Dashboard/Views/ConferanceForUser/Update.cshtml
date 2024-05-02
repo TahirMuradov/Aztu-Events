@@ -1,7 +1,7 @@
-﻿@model ConferenceAddDTO
+﻿@model ConferenceUpdateDto
 <form method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
-    <input type="hidden" asp-for="UserId"/>
+   
     <div class="form-group">
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -18,19 +18,19 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="form-group">
-                    <input type="text" class="form-control" asp-for="ConferenceName" name="ConferenceName" placeholder="Konferans Adini Daxil Edin Azərbaycan Dilində" />
+                    <input type="text" class="form-control" asp-for="ConferenceName" value="@Model.ConferenceName[0]" name="ConferenceName" placeholder="Konferans Adini Daxil Edin Azərbaycan Dilində" />
 
                 </div>
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="form-group">
-                    <input type="text" class="form-control" asp-for="ConferenceName" name="ConferenceName" placeholder="Konferans Adı Daxil Edin Rus Dilində" />
+                    <input type="text" class="form-control" asp-for="ConferenceName" value="@Model.ConferenceName[1]" name="ConferenceName" placeholder="Konferans Adı Daxil Edin Rus Dilində" />
 
                 </div>
             </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                 <div class="form-group">
-                    <input type="text" class="form-control" asp-for="ConferenceName" name="ConferenceName" placeholder="Konferans Adı Daxil Edin İngilis dilində" />
+                    <input type="text" class="form-control" asp-for="ConferenceName" value="@Model.ConferenceName[2]" name="ConferenceName" placeholder="Konferans Adı Daxil Edin İngilis dilində" />
 
                 </div>
             </div>
@@ -52,58 +52,96 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home_dec" role="tabpanel" aria-labelledby="home_dec-tab">
                 <div class="form-group">
-                    <input type="text" class="form-control" asp-for="ConferenceContent" name="ConferenceContent" placeholder="Azərbaycan dilində Konferans məzmunu daxil edin" />
+                    <input type="text" class="form-control" asp-for="ConferenceContent" value="@Model.ConferenceContent[0]" name="ConferenceContent" placeholder="Azərbaycan dilində Konferans məzmunu daxil edin" />
                     <input type="hidden" asp-for="LangCode" value="az" name="LangCode" />
                 </div>
             </div>
             <div class="tab-pane fade" id="profile_dec" role="tabpanel" aria-labelledby="profile_dec-tab">
                 <div class="form-group">
-                    <input type="text" class="form-control" asp-for="ConferenceContent" name="ConferenceContent" placeholder="Rus dilində Konferans məzmunu daxil edin" />
+                    <input type="text" class="form-control" asp-for="ConferenceContent" value="@Model.ConferenceContent[1]" name="ConferenceContent" placeholder="Rus dilində Konferans məzmunu daxil edin" />
                     <input type="hidden" asp-for="LangCode" value="ru" name="LangCode" />
                 </div>
             </div>
             <div class="tab-pane fade" id="contact_dec" role="tabpanel" aria-labelledby="contact_dec-tab">
                 <div class="form-group">
-                    <input type="text" class="form-control" asp-for="ConferenceContent" name="ConferenceContent" placeholder="İngilis Dilində Konferans məzmunu daxil edin" />
+                    <input type="text" class="form-control" asp-for="ConferenceContent" value="@Model.ConferenceContent[2]" name="ConferenceContent" placeholder="İngilis Dilində Konferans məzmunu daxil edin" />
                     <input type="hidden" asp-for="LangCode" value="en" name="LangCode" />
                 </div>
             </div>
         </div>
     </div>
     <div class="form-group specialGuest">
+            <div class="alert alert-warning">
+                <strong>Qeyd!</strong> Əvvəlki Xüsusi Qonaqlari silmək olmur!
+            </div>
         <div class="row">
-      
-        <div class="col-5">
-                <label asp-for="specialGuestsName">Xüsüsi qonaq Ad və Soyadı</label>
-                <input type="text" class="form-control" asp-for=specialGuestsName  name="specialGuestsName" placeholder="Xüsüsi qonaq Ad və Soyadı" value="" />
-        </div>
+            @for (int i=0;i<Model.specialGuestsEmail.Count;i++)
+            {
+                
             <div class="col-5">
-                <label for="specialGuestsEmail" asp-for="specialGuestsEmail">Xüsüsi qonaq E-Poçt ünvanı</label>
-                <input type="email" class="form-control" asp-for=specialGuestsEmail name="specialGuestsEmail" placeholder="Xüsüsi qonaq E-Poçt ünvanı" value="" />
+                <label >Xüsüsi qonaq Ad və Soyadı</label>
+                <input disabled type="text" class="form-control" placeholder="Xüsüsi qonaq Ad və Soyadı" value="@Model.specialGuestsName[i]" />
+            </div>
+            <div class="col-5">
+                <label >Xüsüsi qonaq E-Poçt ünvanı</label>
+                    <input disabled type="email" class="form-control" placeholder="Xüsüsi qonaq E-Poçt ünvanı" value="@Model.specialGuestsEmail[i]" />
 
             </div>
+            }
             <div class="col-2">
                 <button onclick="addSpecialGuest()" class="btn btn-outline-success mx-auto" type="button">Xüsusi Qonaq Əlavə Et</button>
 
                 <button onclick="removeSpecialGuest()" class="btn btn-outline-danger mx-auto" type="button">Xüsusi Qonaq Sil</button>
             </div>
         </div>
-     
+
     </div>
     <div class="form-group">
         <label asp-for="AudutoriumId">Auditoriya</label>
-     
-        <select  class="form-control" asp-for=AudutoriumId name="AudutoriumId">
+
+        <select class="form-control" asp-for=AudutoriumId name="AudutoriumId">
             @if (ViewBag.Auditorium is List<GetAuditoriumDTO> auditorium && auditorium.Count > 0)
             {
 
                 @foreach (var item in ViewBag.Auditorium as List<GetAuditoriumDTO>)
                 {
-                    <option value="@item.AuditoriumId">Auditoriya Nömrəsi-@item.AudutoriyaNumber Tutumu-@item.AuditoriumCapacity</option>
+                    if (@item.AuditoriumId==Model.AudutoriumId)
+                    {
+                        
+                        <option selected value="@item.AuditoriumId">Auditoriya Nömrəsi-@item.AudutoriyaNumber Tutumu-@item.AuditoriumCapacity</option>
+                    }
+                    else
+                    {
+                        <option  value="@item.AuditoriumId">Auditoriya Nömrəsi-@item.AudutoriyaNumber Tutumu-@item.AuditoriumCapacity</option>
+
+                    }
                 }
 
             }
         </select>
+        <div class="alert alert-warning">
+            <strong>Xəbərdarlıq!</strong> Konfransda Dəyişiklik etsəniz avtomatik statusu dəyişəcək!
+        </div>
+        @if (Model.Status == Aztu_Events.Entities.EnumClass.ConferanceStatus.Gözlənilir)
+        {
+
+            <div class="alert alert-warning">
+                <strong>Status</strong> @Model.Status
+            </div>
+        }
+        else if (Model.Status == Aztu_Events.Entities.EnumClass.ConferanceStatus.Təsdiq)
+        {
+            <div class="alert alert-success">
+                <strong>Status</strong> @Model.Status
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <strong>Status</strong> @Model.Status
+            </div>
+
+        }
         @if (ViewBag.Auditorium is List<GetAuditoriumDTO> auditoriumTime && auditoriumTime.Count > 0)
         {
             @foreach (var a in auditoriumTime)
@@ -125,7 +163,7 @@
     </div>
     <div class="form-group">
         <label for="Day">Gün:</label>
-        <input type="date" id="Day" name="Day" asp-for="Day" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="" />
+        <input type="date" id="Day" name="Day" asp-for="Day" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="@Model.Day.ToString("yyyy-MM-dd")" />
     </div>
     <div class="form-group">
         <label for="StartTime">Başlama Saatı:</label>
@@ -135,49 +173,58 @@
         <label for="EndDate">Bitmə Saatı:</label>
         <input type="text" id="EndDate" name="EndDate" asp-for="EndDate" class="form-control" />
     </div>
-   
+
     <div class="form-group" id="form-file">
         <label for="Photo"></label>
-        <input type="file"  accept="image/*" value="" id="photo" name="Photo" class="form-control-file" />
+        <input type="file" accept="image/*" value="" id="photo" name="Photo" class="form-control-file" />
 
 
 
+        <div class="d-flex flex-wrap text-center" id="@Model.ImgUrl">
 
+            <input type="hidden" asp-for="ImgUrl" value="@Model.ImgUrl" />
+            <img src="@Model.ImgUrl" for="photo" id="photo" name="Photo" style="width: 200px;" alt="" />
+
+            <button type="button" onclick="PhotoDelete('@Model.ImgUrl')" class="btn btn-outline-danger "><i class="fas fa-trash"></i></button>
+
+
+
+        </div>
 
 
     </div>
-    
-    <button class="btn btn-outline-success" type="submit">Yarat</button>
+
+    <button class="btn btn-outline-success" type="submit">Yadda Saxla</button>
 </form>
-@section scripts{
+@section scripts {
     <script>
         function addSpecialGuest() {
 
             var specialGuestsContainer = document.querySelector('.specialGuest');
-          
-            specialGuestsContainer.innerHTML+=`  <div class='row added'>
 
-          <div class='col-5'>
-                  <label for='specialGuestsName'>Xüsüsi qonaq Ad və Soyadı</label>
-                  <input type='text' class='form-control' id=specialGuestsName  name='specialGuestsName' placeholder='Xüsüsi qonaq Ad və Soyadı' value='' />
-          </div>
-              <div class='col-5'>
-                  <label  for='specialGuestsEmail'>Xüsüsi qonaq E-Poçt ünvanı</label>
-                  <input type='email' class='form-control' id=specialGuestsEmail name='specialGuestsEmail' placeholder='Xüsüsi qonaq E-Poçt ünvanı'  />
+            specialGuestsContainer.innerHTML += `  <div class='row added'>
 
-              </div>
-              <div class='col-2'>
+                  <div class='col-5'>
+                          <label for='specialGuestsName'>Xüsüsi qonaq Ad və Soyadı</label>
+                          <input type='text' class='form-control' id=specialGuestsName  name='specialGuestsName' placeholder='Xüsüsi qonaq Ad və Soyadı' value='' />
+                  </div>
+                      <div class='col-5'>
+                          <label  for='specialGuestsEmail'>Xüsüsi qonaq E-Poçt ünvanı</label>
+                          <input type='email' class='form-control' id=specialGuestsEmail name='specialGuestsEmail' placeholder='Xüsüsi qonaq E-Poçt ünvanı'  />
 
-            
-              </div>
-          </div>`;
+                      </div>
+                      <div class='col-2'>
+
+
+                      </div>
+                  </div>`;
         }
 
         function removeSpecialGuest() {
             var rowToRemove = document.querySelectorAll(".added")
 
-            rowToRemove[rowToRemove.length-1].remove();
-        
+            rowToRemove[rowToRemove.length - 1].remove();
+
         }
 
         function PhotoDelete(photoName) {
@@ -209,24 +256,24 @@
 
 
 
-                           <div class="d-flex flex-wrap text-center" id="${file.name}">
+                                   <div class="d-flex flex-wrap text-center" id="${file.name}">
 
 
-                                     <img  src="${URL.createObjectURL(file)}" for="photo" id="photo" name="Photo" style="width: 200px;" alt="" />
+                                             <img  src="${URL.createObjectURL(file)}" for="photo" id="photo" name="Photo" style="width: 200px;" alt="" />
 
-                            <button type="button" onclick="PhotoDelete('${file.name}')" class="btn btn-outline-danger "><i class="fas fa-trash"></i></button>
+                                    <button type="button" onclick="PhotoDelete('${file.name}')" class="btn btn-outline-danger "><i class="fas fa-trash"></i></button>
 
 
 
-                    </div>
+                            </div>
 
-                     `);
+                             `);
             });
         });
 
-            
-            
-            </script>
+
+
+    </script>
     <script>
         document.getElementById("EndDate").addEventListener("change", function () {
             var input = this.value;

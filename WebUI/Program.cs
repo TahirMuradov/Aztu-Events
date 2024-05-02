@@ -52,7 +52,7 @@ builder.Services/*.AddControllers(options => options.Filters.Add<ValidationFilte
         configuration.LocalizationEnabled = true;
         configuration.DisableDataAnnotationsValidation = true;
         configuration.ValidatorOptions.LanguageManager = new CustomLanguageManager();
-        configuration.ValidatorOptions.LanguageManager.Culture = new CultureInfo( Thread.CurrentThread.CurrentCulture.Name);
+        configuration.ValidatorOptions.LanguageManager.Culture = new CultureInfo("az");
     })
  ;
 #endregion

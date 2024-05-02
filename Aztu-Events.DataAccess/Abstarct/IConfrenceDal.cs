@@ -21,6 +21,7 @@ namespace Aztu_Events.DataAccess.Abstarct
        IDataResult<List<ConferenceGetAdminListDTO>> GetAllConferanceForAdmin(string LangCode);
         IDataResult<List<GetALLConferenceUserDTO>> GetAllConferanceForUser(string UserId, string LangCode);
         IDataResult<GetConferenceUserDTO> GetConferanceDetailForUser(string UserId,string ConfranceId, string LangCode);
+        IDataResult<ConferenceUpdateDto> GetConferenceForUpdateUser(string UserId, string ConferenceId);
 
     }
 }

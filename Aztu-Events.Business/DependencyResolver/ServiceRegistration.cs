@@ -27,6 +27,8 @@ namespace Aztu_Events.Business.DependencyResolver
             services.AddScoped<IAuditoriumService, AuditoriumManager>();
             services.AddScoped<IConfrenceDal, EFConferenceDAL>();
             services.AddScoped<IConfransService, ConfransManager>();
+            services.AddScoped<ITimeDAL, EFTimeDAL>();
+            services.AddScoped<ITimeService, TimeManager>();
             #region ValidatorScoped
             
            

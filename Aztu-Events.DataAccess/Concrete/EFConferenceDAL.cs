@@ -177,23 +177,8 @@ namespace Aztu_Events.DataAccess.Concrete
                     UserId = dto.UserId,
                     Status = ConferanceStatus.Gözlənilir
                 };
+                _context.Confrans.Add(confrans);
 
-                List<ConfranceLaunguage> confransLanguages = new();
-
-                for (int i = 0; i < dto.LangCode.Count; i++)
-                {
-                    ConfranceLaunguage confransLanguage = new()
-                    {
-                        LangCode = dto.LangCode[i],
-                        ConfransContent = dto.ConferenceContent[i],
-                        ConfransName = dto.ConferenceName[i]
-                    };
-                    confransLanguages.Add(confransLanguage);
-                }
-
-                confrans.ConfranceLaunguages = confransLanguages;
-                await _context.Confrans.AddAsync(confrans);
-                await _context.SaveChangesAsync();
                 Time time = new Time()
                 {
                     AuditoriumId = dto.AudutoriumId,
@@ -203,6 +188,35 @@ namespace Aztu_Events.DataAccess.Concrete
                     EndTime = dto.EndDate,
                 };
                 await _context.Times.AddAsync(time);
+                confrans.TimeId = time.Id;
+
+
+                for (int i = 0; i < dto.LangCode.Count; i++)
+                {
+                    ConfranceLaunguage confransLanguage = new()
+                    {ConfransId=confrans.Id,
+                        LangCode = dto.LangCode[i],
+                        ConfransContent = dto.ConferenceContent[i],
+                        ConfransName = dto.ConferenceName[i]
+                    };
+                   _context.ConfranceLaunguages.Add(confransLanguage);
+                }
+
+                for (int i = 0; i < dto.specialGuestsEmail.Count; i++)
+                {
+                    SpecialGuest specialGuest = new SpecialGuest()
+                    {
+                        ConfransId = confrans.Id,
+                        Email = dto.specialGuestsEmail[i],
+                        Name = dto.specialGuestsName[i],
+                        SendEmail = false
+                    };
+                   await  _context.SpecialGuests.AddAsync(specialGuest);
+                }
+
+
+
+
                 await _context.SaveChangesAsync();
                 return new Result(true, "Confrans əlave olundu");
             }
@@ -311,6 +325,7 @@ namespace Aztu_Events.DataAccess.Concrete
             {
                 var data = _context.Confrans
                     .Include(x => x.User)
+                    .Include(x=>x.ConfranceLaunguages)
                     .Include(x => x.Audutorium)
                     .Include(x => x.Time)
                     .Include(x => x.SpecialGuests)
@@ -347,6 +362,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     .Include(x => x.User)
                     .Include(x => x.Audutorium)
                     .Include(x => x.Time)
+                    .Include(x=>x.ConfranceLaunguages)
                     .Include(x => x.SpecialGuests)                 
                     .FirstOrDefault(x => x.UserId == UserId &&x.Id.ToString()==ConfranceId);
                 if (data is null)
@@ -390,6 +406,42 @@ namespace Aztu_Events.DataAccess.Concrete
             {
 
                 return new ErrorDataResult<GetConferenceUserDTO>(message: ex.Message);
+            }
+        }
+
+        public IDataResult<ConferenceUpdateDto> GetConferenceForUpdateUser(string UserId, string ConferenceId)
+        {
+            try
+            {
+                var data = _context.Confrans
+                    .Include(x => x.User)
+                    .Include(x => x.Audutorium)
+                    .Include(x => x.Time)
+                    .Include(x => x.ConfranceLaunguages)
+                    .Include(x => x.SpecialGuests)
+                    .FirstOrDefault(x => x.UserId == UserId && x.Id.ToString() == ConferenceId);
+                if (data is null)
+                    return new ErrorDataResult<ConferenceUpdateDto>(message: "Data Is NotFound!");
+                return new SuccessDataResult<ConferenceUpdateDto>(data: new ConferenceUpdateDto
+                {
+                    AudutoriumId = data.AudutoriumId,
+                    ConferenceContent = data.ConfranceLaunguages.Select(x => x.ConfransContent).ToList(),
+                    ConferenceName = data.ConfranceLaunguages.Select(x => x.ConfransName).ToList(),
+                    Day = data.Time.Date,
+                    EndDate = data.Time.EndTime,
+                    ImgUrl = data.ImgUrl,
+                    LangCode = data.ConfranceLaunguages.Select(x => x.LangCode).ToList(),
+                    specialGuestsEmail = data.SpecialGuests.Select(x => x.Email).ToList(),
+                    specialGuestsName = data.SpecialGuests.Select(x => x.Name).ToList(),
+                    Id = data.Id,
+                    Status = data.Status,
+                    StartedDate = data.Time.StartedTime
+                });
+            }
+            catch (Exception ex)
+            {
+
+                return new ErrorDataResult<ConferenceUpdateDto>(message: ex.Message);
             }
         }
     }
