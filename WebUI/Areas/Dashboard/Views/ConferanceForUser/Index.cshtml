@@ -36,7 +36,7 @@
                 <td>@counter</td>
                 <td>@confrance.ConferenceName</td>
                 <td>
-                    @Html.Raw( new DateTime(confrance.Day, confrance.StartedDate)+"-"+ new DateTime(confrance.Day, confrance.EndDate))
+                    @Html.Raw(new DateTime(confrance.Day, confrance.StartedDate).ToString("yyyy-MM-dd HH:mm") + "-" + new DateTime(confrance.Day, confrance.EndDate).ToString("yyyy-MM-dd HH:mm"))
                 </td>
                 <td>@confrance.UserEmail</td>
                 <td>@confrance.UserFullname</td>

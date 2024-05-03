@@ -60,7 +60,7 @@
                         a++;
                     }
                 </td>
-                <td>
+                <td style="overflow-y:scroll;max-height:100px;">
                     @{
                         int b = 0;
                     }
@@ -74,11 +74,11 @@
 
 
                         @confrance
-
                         if (0 < user.Conferances.Count - b)
                         {
                             @Html.Raw(",")
                         }
+                        <br/>
                         b++;
                     }
                 </td>

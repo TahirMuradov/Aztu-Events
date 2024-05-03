@@ -11,7 +11,7 @@
             <th>№</th>
             <th>Auditoriya Nömrəsi</th>
             <th>Auditoriya Tutumu</th>
-            <th>Auditoriya Vaxtları</th>
+            <th>Auditoriya Dolu Vaxtları</th>
             <th>Dıgər</th>
 
 
@@ -33,10 +33,14 @@
                 <td>@counter</td>
                 <td>@auditorium.AudutoriyaNumber</td>
                 <td>@auditorium.AuditoriumCapacity</td>
-                   <td>
+                   <td style="overflow-y:scroll;max-height:100px;">
+
+
+                
                     @{
                         int a = 0;
                     }
+                   
                     @foreach (var auditor in auditorium.Date)
                     {
 
@@ -44,7 +48,8 @@
 
 
 
-                        @Html.Raw(DateTime.Parse(auditor + auditorium.StartedTime[a].ToString())+"-" + DateTime.Parse(auditor + auditorium.EndTime[a].ToString()))
+                        @Html.Raw(new DateTime(auditor, auditorium.StartedTime[a]).ToString("yyyy-MM-dd HH:mm") + "--" + new DateTime(auditor, auditorium.EndTime[a]).ToString("yyyy-MM-dd HH:mm"))
+                        
 
                        
 
@@ -52,6 +57,7 @@
                         {
                             @Html.Raw(",")
                         }
+                        <br />
                         a++;
                     }
                 </td>
@@ -75,7 +81,7 @@
             <th>№</th>
             <th>Auditoriya Nömrəsi</th>
             <th>Auditoriya Tutumu</th>
-            <th>Auditoriya Vaxtları</th>
+            <th>Auditoriya Dolu Vaxtları</th>
             <th>Dıgər</th>
 
 

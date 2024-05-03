@@ -241,6 +241,7 @@ namespace Aztu_Events.DataAccess.Concrete
                 {
                     for (int i = 0; i < dto.ConferenceName.Count; i++)
                     {
+                      
                         confrans.ConfranceLaunguages[i].ConfransContent = dto.ConferenceContent[i];
                         confrans.ConfranceLaunguages[i].ConfransName = dto.ConferenceName[i];
                     }
@@ -250,7 +251,10 @@ namespace Aztu_Events.DataAccess.Concrete
                 confrans.Time.StartedTime = dto.StartedDate == default ? confrans.Time.StartedTime : dto.StartedDate; 
                 confrans.Time.EndTime = dto.EndDate == default ? confrans.Time.EndTime : dto.EndDate;
             
-              for (int i = 0;i <= dto.specialGuestsEmail.Count; i++)
+                if (dto.specialGuestsEmail is not null)
+                {
+
+              for (int i = 0;i < dto.specialGuestsEmail.Count; i++)
                 {
                     SpecialGuest specialGuest = new SpecialGuest()
                     {
@@ -260,6 +264,7 @@ namespace Aztu_Events.DataAccess.Concrete
                         SendEmail=false
                     };
                  await   _context.SpecialGuests.AddAsync(specialGuest);
+                }
                 }
                     await _context.SaveChangesAsync();
                 confrans.AudutoriumId = dto.AudutoriumId;
