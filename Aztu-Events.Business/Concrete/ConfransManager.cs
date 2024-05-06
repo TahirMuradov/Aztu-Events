@@ -21,29 +21,34 @@ namespace Aztu_Events.Business.Concrete
             _confrenceDal = confrenceDal;
         }
 
-        public async Task<IResult> ApproveConfrans(Guid id, ConferanceStatus status)
+        public async Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status)
         {
-            return await _confrenceDal.ApproveConfrans(id, status);
+            return await _confrenceDal.ApproveConfransAsync(id, status);
         }
 
-        public Task<IResult> ApproveConfrans(Guid id, ConferanceStatus status, string ResponseMessage = null)
+        public async Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status, string ResponseMessage = null)
         {
-           return _confrenceDal.ApproveConfrans(id, status, ResponseMessage);
+           return await _confrenceDal.ApproveConfransAsync(id, status, ResponseMessage);
         }
 
-        public async Task<IDataResult<ConferenceGetAdminDTO>> ConferenceGetDetailForAdmin(Guid id, string lang)
+        public async Task<IDataResult<ConferenceGetAdminDTO>> ConferenceGetDetailForAdminAsync(Guid id, string lang)
         {
-            return await _confrenceDal.ConferenceGetDetailForAdmin(id, lang);
+            return await _confrenceDal.ConferenceGetDetailForAdminAsync(id, lang);
         }
 
-        public async Task<IDataResult<PaginatedList<ConferenceGetAdminListDTO>>> ConferenceGetListFilter(FilterConferenceDto filter, string lang)
+        public async Task<IDataResult<PaginatedList<ConferenceGetAdminListDTO>>> ConferenceGetListFilterAsync(FilterConferenceDto filter, string lang)
         {
-            return await _confrenceDal.ConferenceGetListFilter(filter, lang);
+            return await _confrenceDal.ConferenceGetListFilterAsync(filter, lang);
         }
 
         public async Task<IResult> ConfrenceAddAsync(ConferenceAddDTO dto)
         {
             return await _confrenceDal.ConfrenceAddAsync(dto);
+        }
+
+        public IResult ConfrenceRemove(string id)
+        {
+            return  _confrenceDal.ConfrenceRemove(id);
         }
 
         public async Task<IResult> ConfrenceUpdateAsync(ConferenceUpdateDto dto)

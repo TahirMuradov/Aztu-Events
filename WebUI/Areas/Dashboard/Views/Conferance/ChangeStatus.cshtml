@@ -1,0 +1,41 @@
+﻿
+@model ConferenceGetAdminDTO
+<form method="post">
+    <input type="hidden" asp-for=Id />
+    <div class="form-group">
+
+        <input class="form-control" disabled value="@Model.ConferenceName" />
+
+    </div>
+    <div class="alert alert-info">
+        <strong>Xəbərdarlıq!</strong>
+        Əgər Confransı təsdiq etsəniz sonra imtina etmək mümkün olmayacaq! 
+    </div>
+    <div class="form-group">
+
+        <label>Statuslar</label>
+        <select class="form-control" asp-for=Status name="Status">
+
+            @if (Model.Status != @ConferanceStatus.Təsdiq && !Model.specialGuests.Any(x=>x.SendEmail==true))
+            {
+                
+            <option value="@ConferanceStatus.İmtina">@ConferanceStatus.İmtina</option>
+            }
+            <option value="@ConferanceStatus.Təsdiq">@ConferanceStatus.Təsdiq</option>
+       
+        </select>
+    </div>
+    @if (Model.Status != @ConferanceStatus.Təsdiq && !Model.specialGuests.Any(x => x.SendEmail == true))
+    {
+    <div class="alert alert-info">
+        <strong>Xəbərdarlıq!</strong>
+        Əgər Confransı imtina etməmisinizsə bu xananı doldurmaya bilərsiniz!
+    </div>
+        
+    <div class="form-group">
+            <label class="form-label" for="responseMessage">İmtina Səbəbi</label>
+            <input class="form-control" type="text" name="responseMessage" id="responseMessage"/>
+    </div>
+    }
+    <button class="btn btn-outline-success">Təsdiq</button>
+</form>

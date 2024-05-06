@@ -35,7 +35,7 @@
 
                 <td>@counter</td>
                 <td>@confrance.ConferenceName</td>
-                <td>@Html.Raw(DateTime.Parse(confrance.Day.ToString() + confrance.StartedDate.ToString()) + "-" + DateTime.Parse(confrance.Day.ToString() + confrance.EndDate.ToString()))</td>
+                <td>   @Html.Raw(new DateTime(confrance.Day, confrance.StartedDate).ToString("yyyy-MM-dd HH:mm") + "-" + new DateTime(confrance.Day, confrance.EndDate).ToString("yyyy-MM-dd HH:mm"))</td>
                 <td>@confrance.UserEmail</td>
                 <td>@confrance.UserFullname</td>
                 <td>@confrance.AudutoriumName</td>
@@ -43,9 +43,9 @@
                 <td>@confrance.Status</td>
                 <td>
 
-                    <button class="btn btn-outline-danger" onclick="confranceDelet('@confrance.Id')">Statusunu Dəyiş</button>
+                    <a class="btn btn-outline-danger" href="/dashboard/Conferance/changestatus/@confrance.Id">Statusunu Dəyiş</a>
                     <button class="btn btn-outline-danger" onclick="confranceDelet('@confrance.Id')">Sil</button>
-                    <a class="btn btn-outline-warning" href="/dashboard/confrance/detail/@confrance.Id">Ətraflı Oxu</a>
+                    <a class="btn btn-outline-warning" href="/dashboard/Conferance/Detail/@confrance.Id">Ətraflı Oxu</a>
 
 
 
@@ -79,6 +79,7 @@
     let table = new DataTable('#example', {
         responsive: true
     });
+   
     function confranceDelet(id) {
         swal({
             title: "Silmək İstədiynizə əminsiniz?",
@@ -88,10 +89,11 @@
             dangerMode: true,
         })
             .then((willDelete) => {
+                debugger
                 if (willDelete) {
                     $.ajax({
-                        url: `/dashboard/confrance/delete/${id}`,
-                        method: "Post",
+                        url: `/Dashboard/Conferance/Delete/${id}`,
+                        method: "DELETE",
                         success: function (response) {
                             swal("Silindi!", {
                                 icon: "success",

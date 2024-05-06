@@ -25,7 +25,7 @@ namespace Aztu_Events.DataAccess.Concrete
             _emailHelper = emailHelper;
         }
 
-        public async Task<IResult> ApproveConfrans(Guid id, ConferanceStatus status, string ResponseMessage = null)
+        public async Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status, string ResponseMessage = null)
         {
             try
             {
@@ -68,11 +68,17 @@ namespace Aztu_Events.DataAccess.Concrete
 
         }
 
-        public async Task<IDataResult<ConferenceGetAdminDTO>> ConferenceGetDetailForAdmin(Guid id, string lang)
+        public async Task<IDataResult<ConferenceGetAdminDTO>> ConferenceGetDetailForAdminAsync(Guid id, string lang)
         {
             try
             {
-                var dto = await _context.Confrans.Include(x=>x.User).Include(x=>x.ConfranceLaunguages).Include(x => x.Time).Include(x=>x.SpecialGuests).FirstOrDefaultAsync(x => x.Id == id);
+                var dto = await _context.Confrans
+                    .Include(x=>x.User)
+                    .Include(x=>x.ConfranceLaunguages)
+                    .Include(x=>x.Audutorium)
+                    .Include(x => x.Time)
+                    .Include(x=>x.SpecialGuests)
+                    .FirstOrDefaultAsync(x => x.Id == id);
                 List<GETConfranceSpecialGuestDTO> gETConfranceSpecialGuestDTO = new List<GETConfranceSpecialGuestDTO>();
                 foreach (var guest in dto.SpecialGuests)
                 {
@@ -83,6 +89,7 @@ namespace Aztu_Events.DataAccess.Concrete
                             Id = guest.Id,
                             Name = guest.Name,
                             Email = guest.Email,
+                            SendEmail=guest.SendEmail
                         }
 
                         );
@@ -124,7 +131,7 @@ namespace Aztu_Events.DataAccess.Concrete
 
         }
 
-        public async Task<IDataResult<PaginatedList<ConferenceGetAdminListDTO>>> ConferenceGetListFilter(FilterConferenceDto filter, string lang)
+        public async Task<IDataResult<PaginatedList<ConferenceGetAdminListDTO>>> ConferenceGetListFilterAsync(FilterConferenceDto filter, string lang)
         {
             var conferenceQueries = _context.Confrans.AsNoTracking().AsSplitQuery().AsQueryable();
             if (filter.Status is not null)
@@ -223,6 +230,31 @@ namespace Aztu_Events.DataAccess.Concrete
             catch (Exception ex)
             {
                 return new Result(false, ex.Message);
+            }
+        }
+
+        public IResult ConfrenceRemove(string id)
+        {
+            try
+            {
+                var Conferance=_context.Confrans.FirstOrDefault(x=>x.Id.ToString()==id);
+                if (Conferance is  null) return new ErrorResult(message: "Data Is Not Found!");
+                var guest = _context.SpecialGuests.Where(x => x.ConfransId == Conferance.Id);
+                _context.SpecialGuests.RemoveRange(guest);
+                var launguage = _context.ConfranceLaunguages.Where(x => x.ConfransId == Conferance.Id);
+                _context.ConfranceLaunguages.RemoveRange(launguage);
+                FileHelper.RemoveFile(Conferance.ImgUrl);
+                _context.Confrans.Remove(Conferance);
+                var time = _context.Times.FirstOrDefault(x => x.ConfransId == Conferance.Id);
+                _context.Times.Remove(time);
+
+                _context.SaveChanges();
+                return new SuccessResult();
+            }
+            catch (Exception ex)
+            {
+
+                return new ErrorResult(message: ex.Message);
             }
         }
 
@@ -381,6 +413,7 @@ namespace Aztu_Events.DataAccess.Concrete
                         Email = guest.Email,
                         Name = guest.Name,
                         Id = guest.Id,
+                        SendEmail=guest.SendEmail
 
                     });
                 }
