@@ -49,6 +49,11 @@ namespace Aztu_Events.Business.DependencyResolver
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
 
             });
+          services.ConfigureApplicationCookie(option =>
+            {
+                
+                option.LoginPath = "/Auth/Login";
+            });
         }
     }
 }

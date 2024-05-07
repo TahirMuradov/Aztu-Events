@@ -1,10 +1,12 @@
 ﻿using Aztu_Events.Business.Abstarct;
 using Aztu_Events.Entities.DTOs.Conferences;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Areas.Dashboard.Controllers
 {
     [Area(nameof(Dashboard))]
+    [Authorize(Roles = "Admin")]
     public class ConferanceController : Controller
     {
         private readonly IConfransService _confransService;

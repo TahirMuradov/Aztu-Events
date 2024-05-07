@@ -4,6 +4,7 @@ using Aztu_Events.Core.Helper;
 using Aztu_Events.Core.Helper.FileHelper;
 using Aztu_Events.Entities.Concrete;
 using Aztu_Events.Entities.DTOs.Conferences;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Security.Claims;
@@ -11,6 +12,7 @@ using System.Security.Claims;
 namespace WebUI.Areas.Dashboard.Controllers
 {
     [Area(nameof(Dashboard))]
+    [Authorize(Roles = "Admin,User")]
     public class ConferanceForUserController : Controller
     {
         private readonly IConfransService _confransService;

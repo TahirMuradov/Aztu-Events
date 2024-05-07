@@ -1,10 +1,12 @@
 ﻿using Aztu_Events.Business.Abstarct;
 using Aztu_Events.Entities.DTOs.AudutoriumDTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Areas.Dashboard.Controllers
 {
     [Area(nameof(Dashboard))]
+    [Authorize(Roles = "Admin")]
     public class AuditoriumController : Controller
     {
         private readonly IAuditoriumService _auditoriumService;
