@@ -7,6 +7,7 @@ using Aztu_Events.Entities.DTOs.Conferences;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
 using System.Security.Claims;
 
 namespace WebUI.Areas.Dashboard.Controllers
@@ -200,6 +201,16 @@ namespace WebUI.Areas.Dashboard.Controllers
                 return View(result.Data);
             }
             return Redirect("/dashboard/ConferanceForUser/Index");
+        }
+
+        [HttpGet]
+    public IActionResult GetConfranceTime(string AuditoriumId)
+        {
+            if (string.IsNullOrEmpty(AuditoriumId)) return BadRequest();
+           
+            var auditorium = _auditoriumService.GetAuditorium(AuditoriumId);
+            var serialaizer=JsonConvert.SerializeObject(auditorium.Data);
+            return Json(serialaizer);
         }
     }
 }

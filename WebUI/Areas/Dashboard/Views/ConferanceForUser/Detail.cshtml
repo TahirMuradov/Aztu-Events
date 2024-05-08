@@ -118,7 +118,7 @@
                     <ul>
                         
                             <li>
-                                @DateTime.Parse(Model.Day.ToString() + " " + Model.StartedDate.ToString()) - @DateTime.Parse(Model.Day.ToString() + " " + Model.EndDate.ToString())
+                @Html.Raw(new DateTime(Model.Day, Model.StartedDate).ToString("yyyy-MM-dd HH:mm") + "-" + new DateTime(Model.Day, Model.EndDate).ToString("yyyy-MM-dd HH:mm"))
                             </li>
                         
                     </ul>

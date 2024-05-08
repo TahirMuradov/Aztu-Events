@@ -93,10 +93,11 @@
     <div class="form-group">
         <label asp-for="AudutoriumId">Auditoriya</label>
      
-        <select  class="form-control" asp-for=AudutoriumId name="AudutoriumId">
+        <select  onchange="GetAuditoriumTime()"  class="form-control mySelect" asp-for=AudutoriumId name="AudutoriumId">
             @if (ViewBag.Auditorium is List<GetAuditoriumDTO> auditorium && auditorium.Count > 0)
             {
-
+                <option selected>Auditoriya Sec</option>
+               
                 @foreach (var item in ViewBag.Auditorium as List<GetAuditoriumDTO>)
                 {
                     <option value="@item.AuditoriumId">Auditoriya Nömrəsi-@item.AudutoriyaNumber Tutumu-@item.AuditoriumCapacity</option>
@@ -104,6 +105,10 @@
 
             }
         </select>
+
+    </div>
+    <div class="form-group time_info">
+
         @if (ViewBag.Auditorium is List<GetAuditoriumDTO> auditoriumTime && auditoriumTime.Count > 0)
         {
             @foreach (var a in auditoriumTime)
@@ -114,14 +119,13 @@
                         @for (int i = 0; i < a.Date.Count && i < a.StartedTime.Count && i < a.EndTime.Count; i++)
                         {
                             <li>
-                                @DateTime.Parse(a.Date[i].ToString() + " " + a.StartedTime[i].ToString()) - @DateTime.Parse(a.Date[i].ToString() + " " + a.EndTime[i].ToString())
+                                @Html.Raw(new DateTime(a.Date[i], a.StartedTime[i]).ToString("yyyy-MM-dd HH:mm")+"-"+ new DateTime(a.Date[i], a.EndTime[i]).ToString("yyyy-MM-dd HH:mm"))
                             </li>
                         }
                     </ul>
                 </div>
             }
         }
-
     </div>
     <div class="form-group">
         <label for="Day">Gün:</label>
@@ -150,6 +154,61 @@
     <button class="btn btn-outline-success" type="submit">Yarat</button>
 </form>
 @section scripts{
+    <script>
+        function GetAuditoriumTime() {
+            var selectElement = document.querySelector(".mySelect");
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+            var x = selectedOption.value;
+
+            $.ajax({
+                url: `/dashboard/ConferanceForUser/GetConfranceTime?AuditoriumId=${x}`,
+                type: "Get",
+
+                success: function (e) {
+                    var jsonObj = JSON.parse(e);
+                    console.log(e);
+                    console.log(jsonObj);
+                    debugger
+                    var time_info_div = document.querySelector('.time_info');
+                    time_info_div.innerHTML = '';
+
+                    var timeList = "";
+
+                    if (jsonObj.Date && jsonObj.StartedTime && jsonObj.EndTime) {
+                        jsonObj.Date.forEach(function (date, index) {
+
+                            var startDate = new Date(date + 'T' + jsonObj.StartedTime[index]);
+                            var endDate = new Date(date + 'T' + jsonObj.EndTime[index]);
+
+                            var formattedStartDate = formatDateTime(startDate);
+                            var formattedEndDate = formatDateTime(endDate);
+
+                            var result = formattedStartDate + "-" + formattedEndDate;
+
+                            timeList += `<li>${result}</li>`;
+                        });
+                    }
+
+                    var TextContent = `
+                <div class="alert alert-info">
+                            <strong>Məlumat!</strong> ${jsonObj.AudutoriyaNumber} nömrəli auditoriya dolu vaxtları:
+                    <ul>${timeList}</ul>
+                </div>
+            `;
+
+                    time_info_div.innerHTML = TextContent;
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+     
+        }
+        function formatDateTime(dateTime) {
+            return dateTime.toLocaleString('az-AZ', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+        }
+    </script>
     <script>
         function addSpecialGuest() {
 

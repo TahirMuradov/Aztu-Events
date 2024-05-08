@@ -90,11 +90,11 @@ namespace Aztu_Events.DataAccess.Concrete
                 var Auditorium = context.Audutoria.Include(x=>x.Times).Select(x=>new GetAuditoriumDTO
                 {
                     AuditoriumCapacity = x.AuditoryCapacity,
-                    Date=x.Times.Where(y => y.Date.ToString() == DateTime.Now.Date.ToString()).Select(y=>y.Date).ToList(),
-                    EndTime= x.Times.Where(y => y.Date.ToString() == DateTime.Now.Date.ToString()).Select(y => y.EndTime).ToList(),
-                    StartedTime= x.Times.Where(y => y.Date.ToString() == DateTime.Now.Date.ToString()).Select(y => y.StartedTime).ToList(),
+                    Date = x.Times.Where(y => y.AuditoriumId == x.Id).Select(z => z.Date).ToList(),
+                    StartedTime = x.Times.Where(y => y.AuditoriumId == x.Id).Select(z => z.StartedTime).ToList(),
+                    EndTime = x.Times.Where(y => y.AuditoriumId == x.Id).Select(z => z.EndTime).ToList(),
                     AuditoriumId = x.Id,
-                    AudutoriyaNumber=x.AudutoriyaNumber
+                    AudutoriyaNumber = x.AudutoriyaNumber
                 }).FirstOrDefault(x => x.AuditoriumId.ToString() == AuditoriumId);
                 if (Auditorium is null) return new ErrorDataResult<GetAuditoriumDTO>(message:"Data is NotFound");
 
