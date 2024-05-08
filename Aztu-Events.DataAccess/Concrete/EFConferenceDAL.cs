@@ -29,7 +29,7 @@ namespace Aztu_Events.DataAccess.Concrete
         {
             try
             {
-                Confrans confrans = await _context.Confrans.Include(x=>x.Time).Include(x=>x.SpecialGuests).FirstOrDefaultAsync(x => x.Id == id);
+                Confrans confrans = await _context.Confrans.Include(x=>x.Audutorium).Include(x=>x.Time).Include(x=>x.SpecialGuests).FirstOrDefaultAsync(x => x.Id == id);
                 if (confrans == null) return new ErrorResult(message: "Data is NotFound");
                 confrans.Status = status;
                 _context.Confrans.Update(confrans);
@@ -37,7 +37,7 @@ namespace Aztu_Events.DataAccess.Concrete
                 {
                     await _emailHelper.DeclineConfransEmailAsync(userEmail: confrans.User.Email, name: confrans.User.FirstName + " " + confrans.User.LastName, responseMessage: ResponseMessage);
                 }
-                await _context.SaveChangesAsync();
+             
 
                 if (confrans.SpecialGuests != null && confrans.SpecialGuests.Count > 0 && confrans.Status == ConferanceStatus.Təsdiq)
                 {
@@ -46,19 +46,21 @@ namespace Aztu_Events.DataAccess.Concrete
                         if (confrans.Time.UpdateTime)
                         {
 
-                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: DateTime.Parse(confrans.Time.Date.ToString() + confrans.Time.StartedTime.ToString()), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7237/confranceDetail?id={confrans.Id}",UpdateDate:confrans.Time.UpdateTime,SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
+                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7237/confranceDetail?id={confrans.Id}",UpdateDate:confrans.Time.UpdateTime,SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
 
                             confrans.SpecialGuests[i].SendEmail = true;
                         }
                         else if (!confrans.SpecialGuests[i].SendEmail)
                         {
-                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: DateTime.Parse(confrans.Time.Date.ToString() + confrans.Time.StartedTime.ToString()), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7237/confranceDetail?id={confrans.Id}", UpdateDate:false, SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
+                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7237/confranceDetail?id={confrans.Id}", UpdateDate:false, SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
 
                             confrans.SpecialGuests[i].SendEmail = true;
                         }
                     }
+                    confrans.Time.UpdateTime = false;
                 }
-
+                _context.Confrans.Update(confrans);
+                await _context.SaveChangesAsync();
                 return new SuccessResult();
             }
             catch (Exception ex)
@@ -266,6 +268,8 @@ namespace Aztu_Events.DataAccess.Concrete
 
                 var confrans = await _context.Confrans
                     .Include(x => x.ConfranceLaunguages)
+                    .Include(x=>x.Audutorium)
+                    .Include(x=>x.SpecialGuests)
                     .Include(x=>x.Time)
                     .FirstOrDefaultAsync(x => x.Id == dto.Id);
 
@@ -278,10 +282,24 @@ namespace Aztu_Events.DataAccess.Concrete
                         confrans.ConfranceLaunguages[i].ConfransName = dto.ConferenceName[i];
                     }
                 }
+                if (confrans.Time.Date != dto.Day&& dto.Day != default)
+                {
+                    confrans.Time.Date = dto.Day;
+                    confrans.Time.UpdateTime = true;
 
-                confrans.Time.Date = dto.Day == default ? confrans.Time.Date:dto.Day;
-                confrans.Time.StartedTime = dto.StartedDate == default ? confrans.Time.StartedTime : dto.StartedDate; 
-                confrans.Time.EndTime = dto.EndDate == default ? confrans.Time.EndTime : dto.EndDate;
+                }
+                if (confrans.Time.StartedTime != dto.StartedDate&& dto.StartedDate != default)
+                {
+                    confrans.Time.StartedTime = dto.StartedDate;
+                    confrans.Time.UpdateTime = true;
+                }
+                if (confrans.Time.EndTime != dto.EndDate&& dto.EndDate != default)
+                {
+                    confrans.Time.EndTime = dto.EndDate;
+                    confrans.Time.UpdateTime = true;
+                }
+                _context.Times.Update(confrans.Time);
+               
             
                 if (dto.specialGuestsEmail is not null)
                 {
@@ -307,7 +325,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     confrans.ImgUrl = dto.ImgUrl;
                 }
                 confrans.Status = ConferanceStatus.Gözlənilir;
-
+               
                 _context.Confrans.Update(confrans);
                 await _context.SaveChangesAsync();
                 return new SuccessResult("Yenilendi");
