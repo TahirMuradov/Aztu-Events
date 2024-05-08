@@ -17,7 +17,7 @@ namespace Aztu_Events.Business.FluentValidation.ConferanceValidator
            .NotEmpty().WithMessage(ValidatorOptions.Global.LanguageManager.GetString("ConferenceNameIsRequird", new CultureInfo(culture)))
            .Must((dto, conferenceNames) => conferenceNames.Count == dto.LangCode.Count)
                .WithMessage(ValidatorOptions.Global.LanguageManager.GetString("ConferenceNameCount", new CultureInfo(culture)));
-
+            RuleFor(dto => dto.CategoryId).NotNull().NotEmpty().WithMessage(ValidatorOptions.Global.LanguageManager.GetString("CategoryIdIsRequird", new CultureInfo(culture)));
             RuleFor(dto => dto.ConferenceContent)
                 .NotEmpty().WithMessage(ValidatorOptions.Global.LanguageManager.GetString("ConferenceContentIsRequird", new CultureInfo(culture)))
                 .Must((dto, conferenceContents) => conferenceContents.Count == dto.LangCode.Count)

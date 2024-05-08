@@ -83,6 +83,8 @@ namespace Aztu_Events.Business.CustomLanguageManager
             #region ConfreanceValidationMessage
             #region ConferenceAddDTOVAlidationMessage
             AddTranslation("az", "ConferenceNameIsRequird", "Konfrans adı boş ola bilməz.");
+            AddTranslation("az", "CategoryIdIsRequird", "Kateqoriya boş ola bilməz!");
+
             AddTranslation("az", "ConferenceNameCount", "Konfrans adlarının sayı dil kodlarının sayı ilə eyni olmalıdır.");
             AddTranslation("az", "ConferenceContentIsRequird", "Konfrans məzmunu boş ola bilməz.");
             AddTranslation("az", "ConferenceContentCount", "Konfrans məzmunun sayı dil kodlarının sayı ilə eyni olmalıdır.");
@@ -99,6 +101,7 @@ namespace Aztu_Events.Business.CustomLanguageManager
             AddTranslation("az", "AuditoriumIdIsRequird", "Auditoriya İD-si müəyyənləşdirilməlidir.");
 
             AddTranslation("en", "ConferenceNameIsRequird", "Conference name cannot be empty.");
+            AddTranslation("en", "CategoryIdIsRequird", "Category cannot be empty!");
             AddTranslation("en", "ConferenceNameCount", "Number of conference names must match the number of language codes.");
             AddTranslation("en", "ConferenceContentIsRequird", "Conference content cannot be empty.");
             AddTranslation("en", "ConferenceContentCount", "Number of conference contents must match the number of language codes.");
@@ -115,6 +118,7 @@ namespace Aztu_Events.Business.CustomLanguageManager
             AddTranslation("en", "AuditoriumIdIsRequird", "Auditorium ID must be specified.");
 
             AddTranslation("ru", "ConferenceNameIsRequird", "Название конференции не может быть пустым.");
+            AddTranslation("ru", "CategoryIdIsRequird", "Категория не может быть пустой!");
             AddTranslation("ru", "ConferenceNameCount", "Количество названий конференций должно соответствовать количеству языковых кодов.");
             AddTranslation("ru", "ConferenceContentIsRequird", "Содержание конференции не может быть пустым.");
             AddTranslation("ru", "ConferenceContentCount", "Количество содержания конференции должно соответствовать количеству языковых кодов.");
@@ -133,6 +137,27 @@ namespace Aztu_Events.Business.CustomLanguageManager
 
             #endregion
             #endregion
+
+            #region CategoryValidatorErrorMessage
+            #region CategoryAddDtoErrorMessage
+            AddTranslation("az", "LangCodeIsRequired", "Dil Kodu boş olmamalidir!.");
+            AddTranslation("az", "ContentIsRequired", "Məzmun boş olmamalidir!.");
+            AddTranslation("az", "LangCodeCountTest", "Dil Kodu ilə Məzmun sayı eyni olmalıdır!.");
+            AddTranslation("ru", "LangCodeIsRequired", "Необходим код языка!");
+            AddTranslation("ru", "ContentIsRequired", "Содержание не должно быть пустым!");
+            AddTranslation("ru", "LangCodeCountTest", "Количество языкового кода должно быть таким же, как количество содержания!");
+            AddTranslation("en", "LangCodeIsRequired", "Language code is required!");
+            AddTranslation("en", "ContentIsRequired", "Content is required");
+            AddTranslation("en", "LangCodeCountTest", "Language code count must be equal to content count!");
+
+            #endregion
+            AddTranslation("az", "IdIsRequired", "Id boş olmamalidir!.");
+            AddTranslation("ru", "IdIsRequired", "Id должен быть заполнен!");
+            AddTranslation("en", "IdIsRequired", "Id is required!");
+
+
+            #endregion
+
         }
 
     }

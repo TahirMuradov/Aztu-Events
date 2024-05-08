@@ -13,6 +13,8 @@ namespace Aztu_Events.Entities.DTOs.Conferences
         public List<string> ConferenceName { get; set; }
         public List<string> ConferenceContent { get; set; }
         public List<string> LangCode { get; set; }
+        public string CategoryId { get; set; }
+      
         public List<string>? specialGuestsEmail { get; set; }
         public List<string>? specialGuestsName { get; set; }
         public ConferanceStatus Status { get; set; }

@@ -21,6 +21,10 @@ namespace Aztu_Events.Entities.Concrete
         public Auditorium Audutorium { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
+
+        public Guid CategoryId { get; set; }
+
+        public Category Category { get; set; }
         public List<ConfranceLaunguage> ConfranceLaunguages { get; set; }
         public List<SpecialGuest> SpecialGuests { get; set; }
     }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Aztu_Events.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class CategoryAdded : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,11 +17,22 @@ namespace Aztu_Events.DataAccess.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     AudutoriyaNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MaxPersonal = table.Column<int>(type: "int", nullable: false)
+                    AuditoryCapacity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Audutoria", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -36,18 +47,6 @@ namespace Aztu_Events.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Times",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Times", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,6 +77,49 @@ namespace Aztu_Events.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Times",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    StartedTime = table.Column<TimeOnly>(type: "time", nullable: false),
+                    EndTime = table.Column<TimeOnly>(type: "time", nullable: false),
+                    UpdateTime = table.Column<bool>(type: "bit", nullable: false),
+                    ConfransId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AuditoriumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Times", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Times_Audutoria_AuditoriumId",
+                        column: x => x.AuditoriumId,
+                        principalTable: "Audutoria",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CategoryLaunguages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LangCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoryLaunguages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CategoryLaunguages_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -94,31 +136,6 @@ namespace Aztu_Events.DataAccess.Migrations
                         name: "FK_AspNetRoleClaims_Roles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AudutorimTimes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TimeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AudutoriumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AudutorimTimes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AudutorimTimes_Audutoria_AudutoriumId",
-                        column: x => x.AudutoriumId,
-                        principalTable: "Audutoria",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AudutorimTimes_Times_TimeId",
-                        column: x => x.TimeId,
-                        principalTable: "Times",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -213,16 +230,12 @@ namespace Aztu_Events.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ConfransName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConfransContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImgUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    specialGuestsEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    specialGuestsName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StartedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TimeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
                     AudutoriumId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -234,9 +247,63 @@ namespace Aztu_Events.DataAccess.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Confrans_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Confrans_Times_TimeId",
+                        column: x => x.TimeId,
+                        principalTable: "Times",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Confrans_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ConfranceLaunguages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ConfransName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConfransContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LangCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ConfransId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConfranceLaunguages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ConfranceLaunguages_Confrans_ConfransId",
+                        column: x => x.ConfransId,
+                        principalTable: "Confrans",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpecialGuests",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SendEmail = table.Column<bool>(type: "bit", nullable: false),
+                    ConfransId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialGuests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SpecialGuests_Confrans_ConfransId",
+                        column: x => x.ConfransId,
+                        principalTable: "Confrans",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -262,19 +329,30 @@ namespace Aztu_Events.DataAccess.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AudutorimTimes_AudutoriumId",
-                table: "AudutorimTimes",
-                column: "AudutoriumId");
+                name: "IX_CategoryLaunguages_CategoryId",
+                table: "CategoryLaunguages",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AudutorimTimes_TimeId",
-                table: "AudutorimTimes",
-                column: "TimeId");
+                name: "IX_ConfranceLaunguages_ConfransId",
+                table: "ConfranceLaunguages",
+                column: "ConfransId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Confrans_AudutoriumId",
                 table: "Confrans",
                 column: "AudutoriumId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Confrans_CategoryId",
+                table: "Confrans",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Confrans_TimeId",
+                table: "Confrans",
+                column: "TimeId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Confrans_UserId",
@@ -287,6 +365,16 @@ namespace Aztu_Events.DataAccess.Migrations
                 column: "NormalizedName",
                 unique: true,
                 filter: "[NormalizedName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SpecialGuests_ConfransId",
+                table: "SpecialGuests",
+                column: "ConfransId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Times_AuditoriumId",
+                table: "Times",
+                column: "AuditoriumId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -320,22 +408,31 @@ namespace Aztu_Events.DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AudutorimTimes");
+                name: "CategoryLaunguages");
 
             migrationBuilder.DropTable(
-                name: "Confrans");
+                name: "ConfranceLaunguages");
+
+            migrationBuilder.DropTable(
+                name: "SpecialGuests");
 
             migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
+                name: "Confrans");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
                 name: "Times");
 
             migrationBuilder.DropTable(
-                name: "Audutoria");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Audutoria");
         }
     }
 }

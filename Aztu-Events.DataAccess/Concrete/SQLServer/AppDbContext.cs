@@ -25,6 +25,8 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
         public DbSet<Time> Times { get; set; }
         public DbSet<ConfranceLaunguage>ConfranceLaunguages { get; set; }
         public DbSet<SpecialGuest> SpecialGuests { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryLaunguage> CategoryLaunguages { get; set; }
 
 
 
@@ -38,6 +40,11 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
                 .HasOne(x => x.Time)
                 .WithOne(x => x.Confrans)
                 .HasForeignKey<Confrans>(x => x.TimeId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Confrans>()
+                .HasOne(x=>x.Category)
+                .WithMany(x => x.Confrans)
+                .HasForeignKey(x => x.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
     

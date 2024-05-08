@@ -10,10 +10,12 @@ namespace WebUI.Areas.Dashboard.Controllers
     public class ConferanceController : Controller
     {
         private readonly IConfransService _confransService;
+        private readonly ICategoryService _categoryService;
 
-        public ConferanceController(IConfransService confransService)
+        public ConferanceController(IConfransService confransService, ICategoryService categoryService)
         {
             _confransService = confransService;
+            _categoryService = categoryService;
         }
 
         public IActionResult Index()

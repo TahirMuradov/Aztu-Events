@@ -1,0 +1,102 @@
+﻿
+@model List<CategoryGetDTO>
+
+
+
+<a class="btn btn-outline-success" href="/dashboard/category/create">Kateqoriya Yarat</a>
+<table id="example" class="display table table-striped" style="width:100%">
+    <thead>
+        <tr>
+
+            <th>№</th>
+            <th>Kategoriya Adı</th>
+            
+            <th>Dıgər</th>
+
+
+
+
+        </tr>
+
+    </thead>
+    <tbody id="parent">
+        @{
+            int counter = 0;
+        }
+        @foreach (var category in Model)
+        {
+
+            counter++;
+            <tr>
+
+                <td>@counter</td>
+                <td>@category.Name</td>
+           
+                <td>
+
+                    <a class="btn btn-outline-warning" href="/dashboard/category/Edit/@category.Id">Edit</a>
+                    <button class="btn btn-outline-danger" onclick="CategoryDelet('@category.Id')">Sil</button>
+                    
+
+
+
+                </td>
+            </tr>
+
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+
+            <th>№</th>
+            <th>Kategoriya Adı</th>
+
+            <th>Dıgər</th>
+
+
+
+        </tr>
+
+    </tfoot>
+</table>
+
+<script>
+    let table = new DataTable('#example', {
+        responsive: true
+    });
+
+    function CategoryDelet(id) {
+        swal({
+            title: "Silmək İstədiynizə əminsiniz?",
+
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                debugger
+                if (willDelete) {
+                    $.ajax({
+                        url: `/Dashboard/category/Delete/${id}`,
+                        method: "DELETE",
+                        success: function (response) {
+                            swal("Silindi!", {
+                                icon: "success",
+                            }).then((e) => {
+
+                                if (e) {
+                                    window.location.reload();
+
+                                }
+                            })
+                        },
+                        error: function () {
+                            swal("Proses Düzgun getmedi", "error");
+                        }
+                    })
+
+                }
+            });
+    }
+</script>

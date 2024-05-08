@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aztu_Events.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240425193416_initial")]
-    partial class initial
+    [Migration("20240508141459_CategoryAdded")]
+    partial class CategoryAdded
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,43 +25,85 @@ namespace Aztu_Events.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Aztu_Events.Entities.Concrete.AudutorimTime", b =>
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Auditorium", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AudutoriumId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("TimeId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AudutoriumId");
-
-                    b.HasIndex("TimeId");
-
-                    b.ToTable("AudutorimTimes");
-                });
-
-            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Audutorium", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("AuditoryCapacity")
+                        .HasColumnType("int");
 
                     b.Property<string>("AudutoriyaNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MaxPersonal")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Audutoria");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.CategoryLaunguage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LangCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("CategoryLaunguages");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.ConfranceLaunguage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConfransContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ConfransId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConfransName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LangCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConfransId");
+
+                    b.ToTable("ConfranceLaunguages");
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Confrans", b =>
@@ -73,44 +115,62 @@ namespace Aztu_Events.DataAccess.Migrations
                     b.Property<Guid>("AudutoriumId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ConfransContent")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ConfransName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ImgUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("StartedDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("TimeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("specialGuestsEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("specialGuestsName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AudutoriumId");
 
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("TimeId")
+                        .IsUnique();
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Confrans");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.SpecialGuest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ConfransId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SendEmail")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConfransId");
+
+                    b.ToTable("SpecialGuests");
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Time", b =>
@@ -119,10 +179,27 @@ namespace Aztu_Events.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DateTime")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("AuditoriumId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ConfransId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
+                    b.Property<TimeOnly>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<TimeOnly>("StartedTime")
+                        .HasColumnType("time");
+
+                    b.Property<bool>("UpdateTime")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuditoriumId");
 
                     b.ToTable("Times");
                 });
@@ -333,31 +410,46 @@ namespace Aztu_Events.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Aztu_Events.Entities.Concrete.AudutorimTime", b =>
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.CategoryLaunguage", b =>
                 {
-                    b.HasOne("Aztu_Events.Entities.Concrete.Audutorium", "Audutorium")
-                        .WithMany("AudutorimTimes")
-                        .HasForeignKey("AudutoriumId")
+                    b.HasOne("Aztu_Events.Entities.Concrete.Category", "Category")
+                        .WithMany("CategoryLaunguages")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Aztu_Events.Entities.Concrete.Time", "Time")
-                        .WithMany("AudutorimTimes")
-                        .HasForeignKey("TimeId")
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.ConfranceLaunguage", b =>
+                {
+                    b.HasOne("Aztu_Events.Entities.Concrete.Confrans", "Confrans")
+                        .WithMany("ConfranceLaunguages")
+                        .HasForeignKey("ConfransId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Audutorium");
-
-                    b.Navigation("Time");
+                    b.Navigation("Confrans");
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Confrans", b =>
                 {
-                    b.HasOne("Aztu_Events.Entities.Concrete.Audutorium", "Audutorium")
+                    b.HasOne("Aztu_Events.Entities.Concrete.Auditorium", "Audutorium")
                         .WithMany("Confrances")
                         .HasForeignKey("AudutoriumId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aztu_Events.Entities.Concrete.Category", "Category")
+                        .WithMany("Confrans")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Aztu_Events.Entities.Concrete.Time", "Time")
+                        .WithOne("Confrans")
+                        .HasForeignKey("Aztu_Events.Entities.Concrete.Confrans", "TimeId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Aztu_Events.Entities.Concrete.User", "User")
@@ -368,7 +460,33 @@ namespace Aztu_Events.DataAccess.Migrations
 
                     b.Navigation("Audutorium");
 
+                    b.Navigation("Category");
+
+                    b.Navigation("Time");
+
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.SpecialGuest", b =>
+                {
+                    b.HasOne("Aztu_Events.Entities.Concrete.Confrans", "Confrans")
+                        .WithMany("SpecialGuests")
+                        .HasForeignKey("ConfransId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Confrans");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Time", b =>
+                {
+                    b.HasOne("Aztu_Events.Entities.Concrete.Auditorium", "Auditorium")
+                        .WithMany("Times")
+                        .HasForeignKey("AuditoriumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Auditorium");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -422,16 +540,31 @@ namespace Aztu_Events.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Audutorium", b =>
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Auditorium", b =>
                 {
-                    b.Navigation("AudutorimTimes");
-
                     b.Navigation("Confrances");
+
+                    b.Navigation("Times");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Category", b =>
+                {
+                    b.Navigation("CategoryLaunguages");
+
+                    b.Navigation("Confrans");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Confrans", b =>
+                {
+                    b.Navigation("ConfranceLaunguages");
+
+                    b.Navigation("SpecialGuests");
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Time", b =>
                 {
-                    b.Navigation("AudutorimTimes");
+                    b.Navigation("Confrans")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.User", b =>

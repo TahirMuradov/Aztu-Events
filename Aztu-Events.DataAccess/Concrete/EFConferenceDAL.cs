@@ -29,7 +29,7 @@ namespace Aztu_Events.DataAccess.Concrete
         {
             try
             {
-                Confrans confrans = await _context.Confrans.Include(x=>x.Audutorium).Include(x=>x.Time).Include(x=>x.SpecialGuests).FirstOrDefaultAsync(x => x.Id == id);
+                Confrans confrans = await _context.Confrans.Include(x => x.Audutorium).Include(x => x.Time).Include(x => x.SpecialGuests).FirstOrDefaultAsync(x => x.Id == id);
                 if (confrans == null) return new ErrorResult(message: "Data is NotFound");
                 confrans.Status = status;
                 _context.Confrans.Update(confrans);
@@ -37,7 +37,7 @@ namespace Aztu_Events.DataAccess.Concrete
                 {
                     await _emailHelper.DeclineConfransEmailAsync(userEmail: confrans.User.Email, name: confrans.User.FirstName + " " + confrans.User.LastName, responseMessage: ResponseMessage);
                 }
-             
+
 
                 if (confrans.SpecialGuests != null && confrans.SpecialGuests.Count > 0 && confrans.Status == ConferanceStatus.Təsdiq)
                 {
@@ -46,13 +46,13 @@ namespace Aztu_Events.DataAccess.Concrete
                         if (confrans.Time.UpdateTime)
                         {
 
-                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7237/confranceDetail?id={confrans.Id}",UpdateDate:confrans.Time.UpdateTime,SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
+                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7237/confranceDetail?id={confrans.Id}", UpdateDate: confrans.Time.UpdateTime, SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
 
                             confrans.SpecialGuests[i].SendEmail = true;
                         }
                         else if (!confrans.SpecialGuests[i].SendEmail)
                         {
-                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7237/confranceDetail?id={confrans.Id}", UpdateDate:false, SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
+                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7237/confranceDetail?id={confrans.Id}", UpdateDate: false, SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
 
                             confrans.SpecialGuests[i].SendEmail = true;
                         }
@@ -75,11 +75,13 @@ namespace Aztu_Events.DataAccess.Concrete
             try
             {
                 var dto = await _context.Confrans
-                    .Include(x=>x.User)
-                    .Include(x=>x.ConfranceLaunguages)
-                    .Include(x=>x.Audutorium)
+                    .Include(x => x.User)
+                    .Include(x => x.ConfranceLaunguages)
+                    .Include(x => x.Audutorium)
                     .Include(x => x.Time)
-                    .Include(x=>x.SpecialGuests)
+                    .Include(x => x.SpecialGuests)
+                    .Include(x => x.Category)
+                    .ThenInclude(x => x.CategoryLaunguages)
                     .FirstOrDefaultAsync(x => x.Id == id);
                 List<GETConfranceSpecialGuestDTO> gETConfranceSpecialGuestDTO = new List<GETConfranceSpecialGuestDTO>();
                 foreach (var guest in dto.SpecialGuests)
@@ -91,22 +93,22 @@ namespace Aztu_Events.DataAccess.Concrete
                             Id = guest.Id,
                             Name = guest.Name,
                             Email = guest.Email,
-                            SendEmail=guest.SendEmail
+                            SendEmail = guest.SendEmail
                         }
 
                         );
                 }
-            
+
 
 
                 if (dto == null) return new ErrorDataResult<ConferenceGetAdminDTO>(message: "Data is NotFound");
 
                 return new SuccessDataResult<ConferenceGetAdminDTO>(data:
-                    
+
                     new ConferenceGetAdminDTO
                     {
                         StartedDate = dto.Time.StartedTime,
-                        Status =dto.Status,
+                        Status = dto.Status,
                         EndDate = dto.Time.EndTime,
                         AudutoriumId = dto.AudutoriumId,
                         AudutoriumName = dto.Audutorium.AudutoriyaNumber,
@@ -116,8 +118,10 @@ namespace Aztu_Events.DataAccess.Concrete
                         ImgUrl = dto.ImgUrl,
                         UserEmail = dto.User.Email,
                         UserFullname = dto.User.FirstName + " " + dto.User.LastName,
-                        specialGuests= gETConfranceSpecialGuestDTO,
-                        Day=dto.Time.Date
+                        specialGuests = gETConfranceSpecialGuestDTO,
+                        Day = dto.Time.Date,
+                        CategoryId = dto.CategoryId.ToString(),
+                        CategoryName = dto.Category.CategoryLaunguages.FirstOrDefault(x => x.LangCode == lang).CategoryName
 
                     }
 
@@ -155,7 +159,9 @@ namespace Aztu_Events.DataAccess.Concrete
                 Day = x.Time.Date,
                 AudutoriumId = x.AudutoriumId,
                 AudutoriumName = x.Audutorium.AudutoriyaNumber,
-           
+                CategoryId = x.CategoryId.ToString(),
+                CategoryName = x.Category.CategoryLaunguages.FirstOrDefault(y => y.LangCode == lang).CategoryName,
+
                 ConferenceName = x.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == lang).ConfransName,
                 Id = x.Id,
                 ImgUrl = x.ImgUrl,
@@ -176,12 +182,12 @@ namespace Aztu_Events.DataAccess.Concrete
             {
                 var checekAuditorium = _context.Audutoria.Include(x => x.Times).FirstOrDefault(x => x.Id == dto.AudutoriumId);
                 if (checekAuditorium is null) return new ErrorResult(message: "Auditorium is NotFound!");
-                if (_context.Times.Any(x => (x.StartedTime >= dto.StartedDate || dto.EndDate <= x.EndTime) && dto.Day == x.Date && x.AuditoriumId==checekAuditorium.Id)) return new ErrorResult(message: "Time Is Not Empty!");
-
+                if (_context.Times.Any(x => (x.StartedTime >= dto.StartedDate || dto.EndDate <= x.EndTime) && dto.Day == x.Date && x.AuditoriumId == checekAuditorium.Id)) return new ErrorResult(message: "Time Is Not Empty!");
+                var checekedCategory = _context.Categories.FirstOrDefault(x => x.Id.ToString() == dto.CategoryId);
                 Confrans confrans = new()
                 {
                     AudutoriumId = dto.AudutoriumId,
-                  
+                    CategoryId = checekedCategory.Id,
                     ImgUrl = dto.ImgUrl,
                     UserId = dto.UserId,
                     Status = ConferanceStatus.Gözlənilir
@@ -203,12 +209,13 @@ namespace Aztu_Events.DataAccess.Concrete
                 for (int i = 0; i < dto.LangCode.Count; i++)
                 {
                     ConfranceLaunguage confransLanguage = new()
-                    {ConfransId=confrans.Id,
+                    {
+                        ConfransId = confrans.Id,
                         LangCode = dto.LangCode[i],
                         ConfransContent = dto.ConferenceContent[i],
                         ConfransName = dto.ConferenceName[i]
                     };
-                   _context.ConfranceLaunguages.Add(confransLanguage);
+                    _context.ConfranceLaunguages.Add(confransLanguage);
                 }
 
                 for (int i = 0; i < dto.specialGuestsEmail.Count; i++)
@@ -220,7 +227,7 @@ namespace Aztu_Events.DataAccess.Concrete
                         Name = dto.specialGuestsName[i],
                         SendEmail = false
                     };
-                   await  _context.SpecialGuests.AddAsync(specialGuest);
+                    await _context.SpecialGuests.AddAsync(specialGuest);
                 }
 
 
@@ -239,8 +246,8 @@ namespace Aztu_Events.DataAccess.Concrete
         {
             try
             {
-                var Conferance=_context.Confrans.FirstOrDefault(x=>x.Id.ToString()==id);
-                if (Conferance is  null) return new ErrorResult(message: "Data Is Not Found!");
+                var Conferance = _context.Confrans.FirstOrDefault(x => x.Id.ToString() == id);
+                if (Conferance is null) return new ErrorResult(message: "Data Is Not Found!");
                 var guest = _context.SpecialGuests.Where(x => x.ConfransId == Conferance.Id);
                 _context.SpecialGuests.RemoveRange(guest);
                 var launguage = _context.ConfranceLaunguages.Where(x => x.ConfransId == Conferance.Id);
@@ -264,59 +271,63 @@ namespace Aztu_Events.DataAccess.Concrete
         {
             try
             {
-
+                if (!_context.Categories.Any(x => x.Id.ToString() == dto.CategoryId))
+                {
+                    return new ErrorResult(message: "Category Is NotFound!");
+                }
 
                 var confrans = await _context.Confrans
                     .Include(x => x.ConfranceLaunguages)
-                    .Include(x=>x.Audutorium)
-                    .Include(x=>x.SpecialGuests)
-                    .Include(x=>x.Time)
+                    .Include(x => x.Audutorium)
+                    .Include(x => x.SpecialGuests)
+
+                    .Include(x => x.Time)
                     .FirstOrDefaultAsync(x => x.Id == dto.Id);
 
                 if (dto.ConferenceContent is not null)
                 {
                     for (int i = 0; i < dto.ConferenceName.Count; i++)
                     {
-                      
+
                         confrans.ConfranceLaunguages[i].ConfransContent = dto.ConferenceContent[i];
                         confrans.ConfranceLaunguages[i].ConfransName = dto.ConferenceName[i];
                     }
                 }
-                if (confrans.Time.Date != dto.Day&& dto.Day != default)
+                if (confrans.Time.Date != dto.Day && dto.Day != default)
                 {
                     confrans.Time.Date = dto.Day;
                     confrans.Time.UpdateTime = true;
 
                 }
-                if (confrans.Time.StartedTime != dto.StartedDate&& dto.StartedDate != default)
+                if (confrans.Time.StartedTime != dto.StartedDate && dto.StartedDate != default)
                 {
                     confrans.Time.StartedTime = dto.StartedDate;
                     confrans.Time.UpdateTime = true;
                 }
-                if (confrans.Time.EndTime != dto.EndDate&& dto.EndDate != default)
+                if (confrans.Time.EndTime != dto.EndDate && dto.EndDate != default)
                 {
                     confrans.Time.EndTime = dto.EndDate;
                     confrans.Time.UpdateTime = true;
                 }
                 _context.Times.Update(confrans.Time);
-               
-            
+
+
                 if (dto.specialGuestsEmail is not null)
                 {
 
-              for (int i = 0;i < dto.specialGuestsEmail.Count; i++)
-                {
-                    SpecialGuest specialGuest = new SpecialGuest()
+                    for (int i = 0; i < dto.specialGuestsEmail.Count; i++)
                     {
-                        ConfransId=confrans.Id,
-                        Email = dto.specialGuestsEmail[i],
-                        Name = dto.specialGuestsName[i],
-                        SendEmail=false
-                    };
-                 await   _context.SpecialGuests.AddAsync(specialGuest);
+                        SpecialGuest specialGuest = new SpecialGuest()
+                        {
+                            ConfransId = confrans.Id,
+                            Email = dto.specialGuestsEmail[i],
+                            Name = dto.specialGuestsName[i],
+                            SendEmail = false
+                        };
+                        await _context.SpecialGuests.AddAsync(specialGuest);
+                    }
                 }
-                }
-                    await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 confrans.AudutoriumId = dto.AudutoriumId;
 
                 if (confrans.ImgUrl != dto.ImgUrl)
@@ -325,7 +336,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     confrans.ImgUrl = dto.ImgUrl;
                 }
                 confrans.Status = ConferanceStatus.Gözlənilir;
-               
+                confrans.CategoryId = Guid.Parse(dto.CategoryId);
                 _context.Confrans.Update(confrans);
                 await _context.SaveChangesAsync();
                 return new SuccessResult("Yenilendi");
@@ -341,10 +352,12 @@ namespace Aztu_Events.DataAccess.Concrete
             try
             {
                 var data = _context.Confrans
-                    .Include(x=>x.User)
+                    .Include(x => x.User)
                     .Include(x => x.ConfranceLaunguages)
                     .Include(x => x.Audutorium)
                     .Include(x => x.SpecialGuests)
+                    .Include(x => x.Category)
+                    .ThenInclude(x => x.CategoryLaunguages)
                     .Include(y => y.Time);
                 return new SuccessDataResult<List<ConferenceGetAdminListDTO>>(data:
 
@@ -359,6 +372,8 @@ namespace Aztu_Events.DataAccess.Concrete
                         ImgUrl = x.ImgUrl,
                         StartedDate = x.Time.StartedTime,
                         Status = x.Status,
+                        CategoryId = x.CategoryId.ToString(),
+                        CategoryName = x.Category.CategoryLaunguages.FirstOrDefault(y => y.LangCode == LangCode).CategoryName,
                         UserEmail = x.User.Email,
                         UserFullname = x.User.FirstName + " " + x.User.LastName,
                         UserId = Guid.Parse(x.UserId)
@@ -380,10 +395,12 @@ namespace Aztu_Events.DataAccess.Concrete
             {
                 var data = _context.Confrans
                     .Include(x => x.User)
-                    .Include(x=>x.ConfranceLaunguages)
+                    .Include(x => x.ConfranceLaunguages)
                     .Include(x => x.Audutorium)
                     .Include(x => x.Time)
                     .Include(x => x.SpecialGuests)
+                      .Include(x => x.Category)
+                  .ThenInclude(x => x.CategoryLaunguages)
                     .Where(x => x.UserId == UserId);
                 return new SuccessDataResult<List<GetALLConferenceUserDTO>>(data: data.Select(x => new GetALLConferenceUserDTO
                 {
@@ -398,7 +415,9 @@ namespace Aztu_Events.DataAccess.Concrete
                     UserId = x.Id,
                     Day = x.Time.Date,
                     EndDate = x.Time.EndTime,
-                    StartedDate = x.Time.StartedTime
+                    StartedDate = x.Time.StartedTime,
+                    CategoryId = x.CategoryId.ToString(),
+                    CategoryName = x.Category.CategoryLaunguages.FirstOrDefault(y => y.LangCode == LangCode).CategoryName,
                 }).ToList());
 
             }
@@ -413,13 +432,15 @@ namespace Aztu_Events.DataAccess.Concrete
         {
             try
             {
-           var data = _context.Confrans
-                    .Include(x => x.User)
-                    .Include(x => x.Audutorium)
-                    .Include(x => x.Time)
-                    .Include(x=>x.ConfranceLaunguages)
-                    .Include(x => x.SpecialGuests)                 
-                    .FirstOrDefault(x => x.UserId == UserId &&x.Id.ToString()==ConfranceId);
+                var data = _context.Confrans
+                         .Include(x => x.User)
+                         .Include(x => x.Audutorium)
+                         .Include(x => x.Time)
+                         .Include(x => x.ConfranceLaunguages)
+                         .Include(x => x.SpecialGuests)
+                           .Include(x => x.Category)
+  .ThenInclude(x => x.CategoryLaunguages)
+                         .FirstOrDefault(x => x.UserId == UserId && x.Id.ToString() == ConfranceId);
                 if (data is null)
                     return new SuccessDataResult<GetConferenceUserDTO>(data: null);
 
@@ -431,28 +452,30 @@ namespace Aztu_Events.DataAccess.Concrete
                         Email = guest.Email,
                         Name = guest.Name,
                         Id = guest.Id,
-                        SendEmail=guest.SendEmail
+                        SendEmail = guest.SendEmail
 
                     });
                 }
 
 
 
-                GetConferenceUserDTO getConferenceUserDTO=new GetConferenceUserDTO()
+                GetConferenceUserDTO getConferenceUserDTO = new GetConferenceUserDTO()
                 {
-                    AudutoriumId=data.AudutoriumId,
-                    AudutoriumName=data.Audutorium.AudutoriyaNumber,
-                    ConferenceContent=data.ConfranceLaunguages.FirstOrDefault(x=>x.LangCode==LangCode).ConfransContent,
-                    ConferenceName=data.ConfranceLaunguages.FirstOrDefault(x=>x.LangCode==LangCode).ConfransName,
-                    Day=data.Time.Date,
-                    EndDate=data.Time.EndTime,
-                    StartedDate=data.Time.StartedTime,
-                    Id=data.Id,
-                    ImgUrl=data.ImgUrl,
-                    specialGuests= gETConfranceSpecialGuestDTOs,
-                    Status=data.Status,
-                    UserEmail=data.User.Email,
-                    UserFullname=data.User.FirstName+" "+data.User.LastName,
+                    AudutoriumId = data.AudutoriumId,
+                    AudutoriumName = data.Audutorium.AudutoriyaNumber,
+                    ConferenceContent = data.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == LangCode).ConfransContent,
+                    ConferenceName = data.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == LangCode).ConfransName,
+                    Day = data.Time.Date,
+                    EndDate = data.Time.EndTime,
+                    StartedDate = data.Time.StartedTime,
+                    Id = data.Id,
+                    ImgUrl = data.ImgUrl,
+                    specialGuests = gETConfranceSpecialGuestDTOs,
+                    Status = data.Status,
+                    UserEmail = data.User.Email,
+                    UserFullname = data.User.FirstName + " " + data.User.LastName,
+                    CategoryId = data.CategoryId.ToString(),
+                    CategoryName = data.Category.CategoryLaunguages.FirstOrDefault(y => y.LangCode == LangCode).CategoryName,
 
 
                 };
@@ -475,6 +498,8 @@ namespace Aztu_Events.DataAccess.Concrete
                     .Include(x => x.Time)
                     .Include(x => x.ConfranceLaunguages)
                     .Include(x => x.SpecialGuests)
+                      .Include(x => x.Category)
+
                     .FirstOrDefault(x => x.UserId == UserId && x.Id.ToString() == ConferenceId);
                 if (data is null)
                     return new ErrorDataResult<ConferenceUpdateDto>(message: "Data Is NotFound!");
@@ -491,7 +516,9 @@ namespace Aztu_Events.DataAccess.Concrete
                     specialGuestsName = data.SpecialGuests.Select(x => x.Name).ToList(),
                     Id = data.Id,
                     Status = data.Status,
-                    StartedDate = data.Time.StartedTime
+                    StartedDate = data.Time.StartedTime,
+                    CategoryId = data.CategoryId.ToString(),
+                  
                 });
             }
             catch (Exception ex)

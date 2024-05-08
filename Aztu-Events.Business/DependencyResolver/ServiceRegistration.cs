@@ -29,6 +29,8 @@ namespace Aztu_Events.Business.DependencyResolver
             services.AddScoped<IConfransService, ConfransManager>();
             services.AddScoped<ITimeDAL, EFTimeDAL>();
             services.AddScoped<ITimeService, TimeManager>();
+            services.AddScoped<ICategoryDAL, EFCategoryDAL>();
+            services.AddScoped<ICategoryService, CategoryManager>();
             #region ValidatorScoped
             
            

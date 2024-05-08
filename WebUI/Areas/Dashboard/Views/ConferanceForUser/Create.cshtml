@@ -107,6 +107,21 @@
         </select>
 
     </div>
+    <div class="form-group">
+        <label >Kateqoriya</label>
+        <select class="form-control" asp-for="CategoryId">
+
+            @if (ViewBag.Category is not null)
+            {
+
+                foreach (var category in ViewBag.Category as List<CategoryGetDTO>)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            }
+
+        </select>
+    </div>
     <div class="form-group time_info">
 
         @if (ViewBag.Auditorium is List<GetAuditoriumDTO> auditoriumTime && auditoriumTime.Count > 0)

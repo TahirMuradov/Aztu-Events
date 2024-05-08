@@ -20,13 +20,15 @@ namespace WebUI.Areas.Dashboard.Controllers
         private readonly IAuditoriumService _auditoriumService;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly ITimeService _timeService;
+        private readonly ICategoryService _categoryService;
 
-        public ConferanceForUserController(IConfransService confransService, IHttpContextAccessor contextAccessor, IAuditoriumService auditoriumService, ITimeService timeService)
+        public ConferanceForUserController(IConfransService confransService, IHttpContextAccessor contextAccessor, IAuditoriumService auditoriumService, ITimeService timeService, ICategoryService categoryService)
         {
             _confransService = confransService;
             _contextAccessor = contextAccessor;
             _auditoriumService = auditoriumService;
             _timeService = timeService;
+            _categoryService = categoryService;
         }
 
         public IActionResult Index()
@@ -39,9 +41,12 @@ namespace WebUI.Areas.Dashboard.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
             var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var auditorium=_auditoriumService.GetAllAuditorium();
             ViewBag.Auditorium= auditorium.Data;
+            var category = _categoryService.GetAllCategory(currentCulture);
+            ViewBag.Category=category.Data;
             return View( new ConferenceAddDTO
             {
                UserId = CurrentUserId,
@@ -65,6 +70,8 @@ namespace WebUI.Areas.Dashboard.Controllers
                 }
                 var auditorium = _auditoriumService.GetAllAuditorium();
                 ViewBag.Auditorium = auditorium.Data;
+                var category = _categoryService.GetAllCategory(currentCulture);
+                ViewBag.Category = category.Data;
                 var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 conferenceCreateDto.UserId = CurrentUserId;
                 return View(conferenceCreateDto);
@@ -87,6 +94,8 @@ namespace WebUI.Areas.Dashboard.Controllers
                 }
                 var auditorium = _auditoriumService.GetAllAuditorium();
                 ViewBag.Auditorium = auditorium.Data;
+                var category = _categoryService.GetAllCategory(currentCulture);
+                ViewBag.Category = category.Data;
                 var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 conferenceCreateDto.UserId = CurrentUserId;
                 return View(conferenceCreateDto);
@@ -107,6 +116,8 @@ namespace WebUI.Areas.Dashboard.Controllers
                 }
                 var auditorium = _auditoriumService.GetAllAuditorium();
                 ViewBag.Auditorium = auditorium.Data;
+                var category = _categoryService.GetAllCategory(currentCulture);
+                ViewBag.Category = category.Data;
                 var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 conferenceCreateDto.UserId = CurrentUserId;
                 return View(conferenceCreateDto);
@@ -162,6 +173,9 @@ namespace WebUI.Areas.Dashboard.Controllers
             if (!result.IsSuccess) return Redirect("/dashboard/ConferanceForUser/Index");
             var auditorium = _auditoriumService.GetAllAuditorium();
             ViewBag.Auditorium = auditorium.Data;
+            var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
+            var category = _categoryService.GetAllCategory(currentCulture);
+            ViewBag.Category = category.Data;
             return View(result.Data);
         }
         [HttpPost]
@@ -180,6 +194,8 @@ namespace WebUI.Areas.Dashboard.Controllers
                 }
                 var auditorium = _auditoriumService.GetAllAuditorium();
                 ViewBag.Auditorium = auditorium.Data;
+                var category = _categoryService.GetAllCategory(currentCulture);
+                ViewBag.Category = category.Data;
                 for (int i = 0; i < ValidatorResult.Errors.Count; i++)
                 {
                     ModelState.AddModelError("Error",  ValidatorResult.Errors[i].ErrorMessage);
@@ -198,6 +214,8 @@ namespace WebUI.Areas.Dashboard.Controllers
                 }
                 var auditorium = _auditoriumService.GetAllAuditorium();
                 ViewBag.Auditorium = auditorium.Data;
+                var category = _categoryService.GetAllCategory(currentCulture);
+                ViewBag.Category = category.Data;
                 return View(result.Data);
             }
             return Redirect("/dashboard/ConferanceForUser/Index");

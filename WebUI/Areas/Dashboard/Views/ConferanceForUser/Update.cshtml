@@ -173,7 +173,30 @@
         <label for="EndDate">Bitmə Saatı:</label>
         <input type="text" id="EndDate" name="EndDate" asp-for="EndDate" class="form-control" />
     </div>
+    <div class="form-group">
+        <label>Kateqoriya</label>
+        <select class="form-control" asp-for="CategoryId">
 
+            @if (ViewBag.Category is not null)
+            {
+
+                foreach (var category in ViewBag.Category as List<CategoryGetDTO>)
+                {
+                    if (Model.CategoryId==category.Id)
+                    {
+                        
+                        <option selected value="@category.Id">@category.Name</option>
+                    }
+                    else
+                    {
+                        <option  value="@category.Id">@category.Name</option>
+
+                    }
+                }
+            }
+
+        </select>
+    </div>
     <div class="form-group" id="form-file">
         <label for="Photo"></label>
         <input type="file" accept="image/*" value="" id="photo" name="Photo" class="form-control-file" />
