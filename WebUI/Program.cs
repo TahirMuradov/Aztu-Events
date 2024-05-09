@@ -1,5 +1,8 @@
+using Aztu_Events.Business.CustomLanguageManager;
+using Aztu_Events.Business.DependencyResolver;
 using Aztu_Events.DataAccess.Concrete.SQLServer;
 using Aztu_Events.Entities.Concrete;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -7,12 +10,6 @@ using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Reflection;
 using WebUI.Services;
-using Aztu_Events.Business.DependencyResolver;
-using Aztu_Events.Business.Filters;
-using FluentValidation.AspNetCore;
-using Aztu_Events.Business.FluentValidation.AuthDTOValidator;
-using FluentValidation;
-using Aztu_Events.Business.CustomLanguageManager;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,11 +47,13 @@ builder.Services/*.AddControllers(options => options.Filters.Add<ValidationFilte
         //configuration.RegisterValidatorsFromAssemblyContaining<LoginDTOValidation>();
         configuration.DisableDataAnnotationsValidation = true;
         configuration.LocalizationEnabled = true;
+        configuration.AutomaticValidationEnabled = false;
         configuration.DisableDataAnnotationsValidation = true;
         configuration.ValidatorOptions.LanguageManager = new CustomLanguageManager();
         configuration.ValidatorOptions.LanguageManager.Culture = new CultureInfo("az");
     })
  ;
+
 #endregion
 builder.Services.AddIdentity<User, IdentityRole>()
              .AddEntityFrameworkStores<AppDbContext>()

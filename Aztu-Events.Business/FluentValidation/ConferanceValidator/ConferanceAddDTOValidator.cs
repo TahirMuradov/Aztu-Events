@@ -14,12 +14,13 @@ namespace Aztu_Events.Business.FluentValidation.ConferanceValidator
         public ConferanceAddDTOValidator(string culture)
         {
             RuleFor(dto => dto.ConferenceName)
+                .NotNull()
            .NotEmpty().WithMessage(ValidatorOptions.Global.LanguageManager.GetString("ConferenceNameIsRequird", new CultureInfo(culture)))
            .Must((dto, conferenceNames) => conferenceNames.Count == dto.LangCode.Count)
                .WithMessage(ValidatorOptions.Global.LanguageManager.GetString("ConferenceNameCount", new CultureInfo(culture)));
             RuleFor(dto => dto.CategoryId).NotNull().NotEmpty().WithMessage(ValidatorOptions.Global.LanguageManager.GetString("CategoryIdIsRequird", new CultureInfo(culture)));
             RuleFor(dto => dto.ConferenceContent)
-                .NotEmpty().WithMessage(ValidatorOptions.Global.LanguageManager.GetString("ConferenceContentIsRequird", new CultureInfo(culture)))
+                .NotEmpty().NotNull().WithMessage(ValidatorOptions.Global.LanguageManager.GetString("ConferenceContentIsRequird", new CultureInfo(culture)))
                 .Must((dto, conferenceContents) => conferenceContents.Count == dto.LangCode.Count)
                     .WithMessage(ValidatorOptions.Global.LanguageManager.GetString("ConferenceContentCount", new CultureInfo(culture)));
 
@@ -39,7 +40,7 @@ namespace Aztu_Events.Business.FluentValidation.ConferanceValidator
 
             RuleFor(dto => dto.StartedDate)
                  .Must(startTime => startTime != default).WithMessage(ValidatorOptions.Global.LanguageManager.GetString("ConferenceStartedDateIsDefault", new CultureInfo(ValidatorOptions.Global.LanguageManager.GetString("ConferenceDayIsrequird", new CultureInfo(culture)))))
-                .NotEmpty().WithMessage(ValidatorOptions.Global.LanguageManager.GetString("ConferenceStartedDateIsrequird", new CultureInfo(culture)));
+                .NotEmpty().WithMessage(ValidatorOptions.Global.LanguageManager.GetString("ConferenceStartedDateIsrequird", new CultureInfo(culture))).NotNull().WithMessage(ValidatorOptions.Global.LanguageManager.GetString("ConferenceStartedDateIsrequird", new CultureInfo(culture)));
 
             RuleFor(dto => dto.EndDate)
                 .Must(endTime => endTime != default).WithMessage(ValidatorOptions.Global.LanguageManager.GetString("ConferenceEndDateIsDefault",new CultureInfo(culture)))

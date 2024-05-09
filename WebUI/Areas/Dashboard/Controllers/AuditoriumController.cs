@@ -1,5 +1,7 @@
 ﻿using Aztu_Events.Business.Abstarct;
+using Aztu_Events.Business.FluentValidation.AuditoriumValidator;
 using Aztu_Events.Entities.DTOs.AudutoriumDTOs;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,9 +30,16 @@ public AuditoriumController(IAuditoriumService auditoriumService)
         [HttpPost]
         public IActionResult Create(AddAuditoriumDTO addAuditoriumDTO)
         {
-            if (!ModelState.IsValid)
+            var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
+            AddAuditoriumDTOValidator validations = new AddAuditoriumDTOValidator(currentCulture);
+            var ValidationResult = validations.Validate(addAuditoriumDTO);
+            if (!ValidationResult.IsValid)
             {
-                return View();
+                foreach (var error in ValidationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return View(addAuditoriumDTO);
             }
             var result = _auditoriumService.AddAuditorium(addAuditoriumDTO);
 
