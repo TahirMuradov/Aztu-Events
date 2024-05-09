@@ -3,20 +3,20 @@
 
 
 
-<table id="example" class="display table table-striped" style="width:100%">
+<table id="example" class="display table table-striped table-responsive-md" style="width:100%">
     <thead>
         <tr>
 
             <th>№</th>
-            <th>Konfrans Adı</th>
-            <th>Konfransın Başlama-Bitmə Tarixi</th>
-            <th>Sifarişçi Email</th>
-            <th>Sifarişçi Adı Soyadı</th>
-            <th>Auditoriya</th>
-            <th>Kateqoriya Adı</th>
-            <th>Şəkli</th>
-            <th>Statusu</th>
-            <th>Dıgər</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail0")</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail10")</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail11")</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail12")</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail13")</th>
+            <th>@_localization.GetKey("DashboardCategoryIndex0")</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail14")</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail5")</th>
+            <th>@_localization.GetKey("DashboardAuditoriumIndex1")</th>
 
 
 
@@ -45,9 +45,9 @@
                 <td>@confrance.Status</td>
                 <td>
 
-                    <a class="btn btn-outline-danger" href="/dashboard/Conferance/changestatus/@confrance.Id">Statusunu Dəyiş</a>
-                    <button class="btn btn-outline-danger" onclick="confranceDelet('@confrance.Id')">Sil</button>
-                    <a class="btn btn-outline-warning" href="/dashboard/Conferance/Detail/@confrance.Id">Ətraflı Oxu</a>
+                    <a class="btn btn-outline-danger" href="/dashboard/Conferance/changestatus/@confrance.Id">@_localization.GetKey("DashboardConfranceDetail15")</a>
+                    <button class="btn btn-outline-danger" onclick="confranceDelet('@confrance.Id')"><i class="fa-solid fa-trash"></i></button>
+                    <a class="btn btn-outline-warning" href="/dashboard/Conferance/Detail/@confrance.Id">@_localization.GetKey("DashboardConfranceDetail16")</a>
 
 
 
@@ -61,15 +61,15 @@
         <tr>
 
             <th>№</th>
-            <th>Konfrans Adı</th>
-            <th>Konfransın Başlama-Bitmə Tarixi</th>
-            <th>Sifarişçi Email</th>
-            <th>Sifarişçi Adı Soyadı</th>
-            <th>Auditoriya</th>
-            <th>Kateqoriya Adı</th>
-            <th>Şəkli</th>
-            <th>Statusu</th>
-            <th>Dıgər</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail0")</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail10")</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail11")</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail12")</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail13")</th>
+            <th>@_localization.GetKey("DashboardCategoryIndex0")</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail14")</th>
+            <th>@_localization.GetKey("DashboardConfranceDetail5")</th>
+            <th>@_localization.GetKey("DashboardAuditoriumIndex1")</th>
 
 
 

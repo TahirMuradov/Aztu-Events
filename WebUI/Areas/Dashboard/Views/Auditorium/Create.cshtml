@@ -4,19 +4,19 @@
 <form method="post">  
     <div class="text-danger" asp-validation-summary="All"></div>
 <div class="form-group">
-    <label asp-for="AuditoryCapacity">Auditoriya Tutumu</label>
+        <label asp-for="AuditoryCapacity">@_localization.GetKey("DashboardAuditoriumCreate0")</label>
     <input class="form-control" type="number" min="0" asp-for="AuditoryCapacity" />
        
   
 </div>
     <div class="alert alert-warning">
-        <strong>Xəbərdarlıq!</strong> Auditoriya 1-ci korpus 512-ci otaqdadirsa Auditoriya nomresini 1-512 seklinde yazin!.
+        <strong>@_localization.GetKey("DashboardAuditoriumCreate1")</strong> @_localization.GetKey("DashboardAuditoriumCreate2")
     </div>
 <div class="form-group">
-    <label asp-for="AudutoriyaNumber">Auditoriya Nomrəsi</label>
+        <label asp-for="AudutoriyaNumber">@_localization.GetKey("DashboardAuditoriumCreate3")</label>
         <input class="form-control" type="text" asp-for="AudutoriyaNumber" />
      
 
     </div>
-    <button class="btn btn-outline-success">Yarat</button>
+    <button class="btn btn-outline-success">@_localization.GetKey("DashboardAuditoriumCreate4")</button>
 </form>

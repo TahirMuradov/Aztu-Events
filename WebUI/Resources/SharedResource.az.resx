@@ -123,6 +123,195 @@
   <data name="AuthConfirmEmail2" xml:space="preserve">
     <value>Daxil Olun!</value>
   </data>
+  <data name="DashboardAlert0" xml:space="preserve">
+    <value>Bildirişlər</value>
+  </data>
+  <data name="DashboardAlert1" xml:space="preserve">
+    <value>Adlı konferans</value>
+  </data>
+  <data name="DashboardAlert2" xml:space="preserve">
+    <value>tərəfindən</value>
+  </data>
+  <data name="DashboardAlert3" xml:space="preserve">
+    <value>auditoriyasinda keçirtmək istəyir.Ətraflı kilikləyin.</value>
+  </data>
+  <data name="DashboardAlert4" xml:space="preserve">
+    <value>Adlı konferansınızın statusu dəyidirildi.</value>
+  </data>
+  <data name="DashboardAuditoriumCreate0" xml:space="preserve">
+    <value>Auditoriya Tutumu</value>
+  </data>
+  <data name="DashboardAuditoriumCreate1" xml:space="preserve">
+    <value>Xəbərdarlıq!</value>
+  </data>
+  <data name="DashboardAuditoriumCreate2" xml:space="preserve">
+    <value>Auditoriya 1-ci korpus 512-ci otaqdadirsa Auditoriya nomresini 1-512 seklinde yazin!.</value>
+  </data>
+  <data name="DashboardAuditoriumCreate3" xml:space="preserve">
+    <value>Auditoriya Nomrəsi</value>
+  </data>
+  <data name="DashboardAuditoriumCreate4" xml:space="preserve">
+    <value>Yarat</value>
+  </data>
+  <data name="DashboardAuditoriumEdit0" xml:space="preserve">
+    <value>Yadda Saxla</value>
+  </data>
+  <data name="DashboardAuditoriumIndex0" xml:space="preserve">
+    <value>Auditoriya Dolu Vaxtları</value>
+  </data>
+  <data name="DashboardAuditoriumIndex1" xml:space="preserve">
+    <value>Digər</value>
+  </data>
+  <data name="DashboardCategoryCreate0" xml:space="preserve">
+    <value>Azərbaycan Dilində Kateqoriya Adı Daxil Edin!</value>
+  </data>
+  <data name="DashboardCategoryCreate1" xml:space="preserve">
+    <value>Rus Dilində Kateqoriya Adı Daxil Edin!</value>
+  </data>
+  <data name="DashboardCategoryCreate2" xml:space="preserve">
+    <value>İngilis dilində Kateqoriya Adı Daxil Edin!</value>
+  </data>
+  <data name="DashboardCategoryIndex0" xml:space="preserve">
+    <value>Kateqoriya Adı</value>
+  </data>
+  <data name="DashboardCategoryIndex1" xml:space="preserve">
+    <value>Kateqoriya Yarat</value>
+  </data>
+  <data name="DashboardConfranceChangeStatus0" xml:space="preserve">
+    <value>Əgər Confransı təsdiq etsəniz sonra imtina etmək mümkün olmayacaq!</value>
+  </data>
+  <data name="DashboardConfranceChangeStatus1" xml:space="preserve">
+    <value>Statuslar</value>
+  </data>
+  <data name="DashboardConfranceChangeStatus2" xml:space="preserve">
+    <value>Təsdiq</value>
+  </data>
+  <data name="DashboardConfranceChangeStatus3" xml:space="preserve">
+    <value>İmtina</value>
+  </data>
+  <data name="DashboardConfranceChangeStatus4" xml:space="preserve">
+    <value>Əgər Confransı imtina etməmisinizsə bu xananı doldurmaya bilərsiniz!</value>
+  </data>
+  <data name="DashboardConfranceChangeStatus5" xml:space="preserve">
+    <value>İmtina Səbəbi</value>
+  </data>
+  <data name="DashboardConfranceDetail0" xml:space="preserve">
+    <value>Konfrans Adı</value>
+  </data>
+  <data name="DashboardConfranceDetail1" xml:space="preserve">
+    <value>Konfrans Məzmunu</value>
+  </data>
+  <data name="DashboardConfranceDetail10" xml:space="preserve">
+    <value>Konfransın Başlama-Bitmə Tarixi</value>
+  </data>
+  <data name="DashboardConfranceDetail11" xml:space="preserve">
+    <value>Sifarişçi Email</value>
+  </data>
+  <data name="DashboardConfranceDetail12" xml:space="preserve">
+    <value>Sifarişçi Adı Soyadı</value>
+  </data>
+  <data name="DashboardConfranceDetail13" xml:space="preserve">
+    <value>Auditoriya</value>
+  </data>
+  <data name="DashboardConfranceDetail14" xml:space="preserve">
+    <value>Şəkli</value>
+  </data>
+  <data name="DashboardConfranceDetail15" xml:space="preserve">
+    <value>Statusunu Dəyiş</value>
+  </data>
+  <data name="DashboardConfranceDetail16" xml:space="preserve">
+    <value>Ətraflı Oxu</value>
+  </data>
+  <data name="DashboardConfranceDetail2" xml:space="preserve">
+    <value>Kateqoriyası</value>
+  </data>
+  <data name="DashboardConfranceDetail3" xml:space="preserve">
+    <value>Xüsüsi qonaq Ad və Soyadı</value>
+  </data>
+  <data name="DashboardConfranceDetail4" xml:space="preserve">
+    <value>Xüsüsi qonaq E-Poçt ünvanı</value>
+  </data>
+  <data name="DashboardConfranceDetail5" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="DashboardConfranceDetail6" xml:space="preserve">
+    <value>Gözlənilir</value>
+  </data>
+  <data name="DashboardConfranceDetail7" xml:space="preserve">
+    <value>Məlumat!</value>
+  </data>
+  <data name="DashboardConfranceDetail8" xml:space="preserve">
+    <value>Təsdiq olunandan Sonra</value>
+  </data>
+  <data name="DashboardConfranceDetail9" xml:space="preserve">
+    <value>nömrəli auditoriya-da bu tarix aralığı keçiriləcək:</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate0" xml:space="preserve">
+    <value>Azərbaycan Dilində Konferans Adini Daxil Edin!</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate1" xml:space="preserve">
+    <value>Rus Dilində Konferans Adı Daxil Edin!</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate10" xml:space="preserve">
+    <value>nömrəli auditoriya dolu vaxtları:</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate11" xml:space="preserve">
+    <value>Gün</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate12" xml:space="preserve">
+    <value>Başlama Saatı</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate13" xml:space="preserve">
+    <value>Bitmə Saatı</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate14" xml:space="preserve">
+    <value>Şəkil</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate15" xml:space="preserve">
+    <value>Düzgün Formatda yazin Saatı (nümünə: 13:30)</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate2" xml:space="preserve">
+    <value>İngilis dilində Konferans Adı Daxil Edin!</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate3" xml:space="preserve">
+    <value>Azərbaycan dilində Konferans məzmunu daxil edin</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate4" xml:space="preserve">
+    <value>Rus dilində Konferans məzmunu daxil edin</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate5" xml:space="preserve">
+    <value>İngilis Dilində Konferans məzmunu daxil edin</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate6" xml:space="preserve">
+    <value>Xüsusi Qonaq Əlavə Et</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate7" xml:space="preserve">
+    <value>Xüsusi Qonaq Sil</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate8" xml:space="preserve">
+    <value>Auditoriya Sec</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate9" xml:space="preserve">
+    <value>Kateqoriya</value>
+  </data>
+  <data name="DashboardConfranceForUserUpdate0" xml:space="preserve">
+    <value>Əvvəlki Xüsusi Qonaqlari silmək olmur!</value>
+  </data>
+  <data name="DashboardConfranceForUserUpdate1" xml:space="preserve">
+    <value>Konfransda Dəyişiklik etsəniz avtomatik statusu dəyişəcək!</value>
+  </data>
+  <data name="DashboardHome0" xml:space="preserve">
+    <value>Aztu Elektron Konfrans İdarəetmə sistemi.Xoş Gəldiniz</value>
+  </data>
+  <data name="DashboardRole0" xml:space="preserve">
+    <value>Rol Adı</value>
+  </data>
+  <data name="DashboardUserInfo0" xml:space="preserve">
+    <value>Düzəliş Et</value>
+  </data>
+  <data name="DashboardUserInfo1" xml:space="preserve">
+    <value>Çıxış</value>
+  </data>
   <data name="Footer" xml:space="preserve">
     <value>&lt;p&gt;
      Copyright © 2024 Azərbaycan Texniki Üniversiteti  Elektron Konfrans İdarəetmə Sistemi.

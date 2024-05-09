@@ -1,4 +1,5 @@
 ﻿using Aztu_Events.Business.Abstarct;
+using Aztu_Events.Entities.DTOs.Conferences;
 using Aztu_Events.Entities.EnumClass;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -24,7 +25,18 @@ namespace WebUI.Areas.Dashboard.ViewComponents
             var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             var currentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var user=await _userService.GetUserAsync(LangCode:currentCulture,UserId:currentUserId);
-            var conferance = _confransService.GetAllConferanceForUser(UserId: currentUserId, LangCode: currentCulture).Data.Where(x => x.Status != ConferanceStatus.Gözlənilir).ToList();
+            List<GetALLConferenceUserDTO> conferance = null;
+
+            if (User.IsInRole("Admin"))
+            {
+                conferance = _confransService.GetAllConferanceForUser(UserId: currentUserId, LangCode: currentCulture).Data.Where(x => x.Status == ConferanceStatus.Gözlənilir).ToList();
+
+            }
+            else
+            {
+
+            conferance = _confransService.GetAllConferanceForUser(UserId: currentUserId, LangCode: currentCulture).Data.Where(x => x.Status != ConferanceStatus.Gözlənilir).ToList();
+            }
            
            
             return View("NavAlerts",conferance);

@@ -17,25 +17,25 @@
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="form-group">
-                <input type="text" class="form-control" asp-for="Content" name="Content" placeholder="Kateqoriya Adini Daxil Edin Azərbaycan Dilində" />
+                    <input type="text" class="form-control" asp-for="Content" name="Content" placeholder="@_localization.GetKey("DashboardCategoryCreate0")" />
                 <input type="hidden" asp-for="LangCode" value="az" name="LangCode" />
             </div>
         </div>
         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
             <div class="form-group">
-                <input type="text" class="form-control" asp-for="Content" name="Content" placeholder="Kateqoriya Adı Daxil Edin Rus Dilində" />
+                    <input type="text" class="form-control" asp-for="Content" name="Content" placeholder="@_localization.GetKey("DashboardCategoryCreate1")" />
                 <input type="hidden" asp-for="LangCode" value="ru" name="LangCode" />
 
             </div>
         </div>
         <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
             <div class="form-group">
-                <input type="text" class="form-control" asp-for="Content" name="Content" placeholder="Kateqoriya Adı Daxil Edin İngilis dilində" />
+                    <input type="text" class="form-control" asp-for="Content" name="Content" placeholder="@_localization.GetKey("DashboardCategoryCreate2")" />
                 <input type="hidden" asp-for="LangCode" value="en" name="LangCode" />
 
             </div>
         </div>
     </div>
 </div>
-    <button type="submit" class="btn btn-outline-success">Yadda Saxla</button>
+    <button type="submit" class="btn btn-outline-success">@_localization.GetKey("DashboardAuditoriumEdit0")</button>
 </form>

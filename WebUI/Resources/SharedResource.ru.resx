@@ -123,6 +123,195 @@
   <data name="AuthConfirmEmail2" xml:space="preserve">
     <value>Войти!</value>
   </data>
+  <data name="DashboardAlert0" xml:space="preserve">
+    <value>Уведомления</value>
+  </data>
+  <data name="DashboardAlert1" xml:space="preserve">
+    <value>Предупреждение о конференции</value>
+  </data>
+  <data name="DashboardAlert2" xml:space="preserve">
+    <value>хочет провести</value>
+  </data>
+  <data name="DashboardAlert3" xml:space="preserve">
+    <value>в аудитории. Нажмите для подробностей.</value>
+  </data>
+  <data name="DashboardAlert4" xml:space="preserve">
+    <value>Статус вашей конференции изменен.</value>
+  </data>
+  <data name="DashboardAuditoriumCreate0" xml:space="preserve">
+    <value>Аудитория Расклад</value>
+  </data>
+  <data name="DashboardAuditoriumCreate1" xml:space="preserve">
+    <value>Предупреждение!</value>
+  </data>
+  <data name="DashboardAuditoriumCreate2" xml:space="preserve">
+    <value>Если аудитория находится в 1-ом корпусе, а номер комнаты 512, укажите номер аудитории как 1-512!</value>
+  </data>
+  <data name="DashboardAuditoriumCreate3" xml:space="preserve">
+    <value>Номер Аудитории</value>
+  </data>
+  <data name="DashboardAuditoriumCreate4" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="DashboardAuditoriumEdit0" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="DashboardAuditoriumIndex0" xml:space="preserve">
+    <value>Занятость аудиторий</value>
+  </data>
+  <data name="DashboardAuditoriumIndex1" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="DashboardCategoryCreate0" xml:space="preserve">
+    <value>Введите название категории на Aзербайджанском языке!</value>
+  </data>
+  <data name="DashboardCategoryCreate1" xml:space="preserve">
+    <value>Введите название категории на Pусском языке!</value>
+  </data>
+  <data name="DashboardCategoryCreate2" xml:space="preserve">
+    <value>Введите название категории на Aнглийском языке!</value>
+  </data>
+  <data name="DashboardCategoryIndex0" xml:space="preserve">
+    <value>Название Категории</value>
+  </data>
+  <data name="DashboardCategoryIndex1" xml:space="preserve">
+    <value>Создать Категорию</value>
+  </data>
+  <data name="DashboardConfranceChangeStatus0" xml:space="preserve">
+    <value>Если вы подтвердите конференцию, отменить ее позже будет невозможно!</value>
+  </data>
+  <data name="DashboardConfranceChangeStatus1" xml:space="preserve">
+    <value>Статусы</value>
+  </data>
+  <data name="DashboardConfranceChangeStatus2" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
+  <data name="DashboardConfranceChangeStatus3" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="DashboardConfranceChangeStatus4" xml:space="preserve">
+    <value>Если вы не отменили конференцию, вы можете заполнить это поле!</value>
+  </data>
+  <data name="DashboardConfranceChangeStatus5" xml:space="preserve">
+    <value>Причина отмены</value>
+  </data>
+  <data name="DashboardConfranceDetail0" xml:space="preserve">
+    <value>Название конференции</value>
+  </data>
+  <data name="DashboardConfranceDetail1" xml:space="preserve">
+    <value>Содержание конференции</value>
+  </data>
+  <data name="DashboardConfranceDetail10" xml:space="preserve">
+    <value>Дата начала и окончания конференции</value>
+  </data>
+  <data name="DashboardConfranceDetail11" xml:space="preserve">
+    <value>Электронная почта заказчика</value>
+  </data>
+  <data name="DashboardConfranceDetail12" xml:space="preserve">
+    <value>Имя и фамилия заказчика</value>
+  </data>
+  <data name="DashboardConfranceDetail13" xml:space="preserve">
+    <value>Аудитория</value>
+  </data>
+  <data name="DashboardConfranceDetail14" xml:space="preserve">
+    <value>Изображение</value>
+  </data>
+  <data name="DashboardConfranceDetail15" xml:space="preserve">
+    <value>Изменить статус</value>
+  </data>
+  <data name="DashboardConfranceDetail16" xml:space="preserve">
+    <value>Подробнее</value>
+  </data>
+  <data name="DashboardConfranceDetail2" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="DashboardConfranceDetail3" xml:space="preserve">
+    <value>Имя и фамилия специального гостя</value>
+  </data>
+  <data name="DashboardConfranceDetail4" xml:space="preserve">
+    <value>Электронная почта специального гостя</value>
+  </data>
+  <data name="DashboardConfranceDetail5" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="DashboardConfranceDetail6" xml:space="preserve">
+    <value>Ожидается</value>
+  </data>
+  <data name="DashboardConfranceDetail7" xml:space="preserve">
+    <value>Информация</value>
+  </data>
+  <data name="DashboardConfranceDetail8" xml:space="preserve">
+    <value>После подтверждения</value>
+  </data>
+  <data name="DashboardConfranceDetail9" xml:space="preserve">
+    <value>В аудитории с номером этот промежуток дат будет проведен:</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate0" xml:space="preserve">
+    <value>Введите название конференции на азербайджанском языке!</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate1" xml:space="preserve">
+    <value>Введите название конференции на русском языке!</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate10" xml:space="preserve">
+    <value>занятые времена аудитории</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate11" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate12" xml:space="preserve">
+    <value>Начальное Время</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate13" xml:space="preserve">
+    <value>Конечное Время</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate14" xml:space="preserve">
+    <value>Изображение</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate15" xml:space="preserve">
+    <value>Введите время в правильном формате (пример: 13:30)</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate2" xml:space="preserve">
+    <value>Введите название конференции на английском языке!</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate3" xml:space="preserve">
+    <value>Введите контент конференции на азербайджанском языке</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate4" xml:space="preserve">
+    <value>Введите контент конференции на русском языке</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate5" xml:space="preserve">
+    <value>Введите содержание конференции на английском языке</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate6" xml:space="preserve">
+    <value>Добавить специального гостя</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate7" xml:space="preserve">
+    <value>Удалить специального гостя</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate8" xml:space="preserve">
+    <value>Выберите аудиторию</value>
+  </data>
+  <data name="DashboardConfranceForUserCreate9" xml:space="preserve">
+    <value>категория</value>
+  </data>
+  <data name="DashboardConfranceForUserUpdate0" xml:space="preserve">
+    <value>Вы не можете удалить предыдущих специальных гостей!</value>
+  </data>
+  <data name="DashboardConfranceForUserUpdate1" xml:space="preserve">
+    <value>Если вы внесете изменения в конференцию, статус автоматически изменится!</value>
+  </data>
+  <data name="DashboardHome0" xml:space="preserve">
+    <value>Система управления электронными конференциями АзТУ. Добро пожаловать!</value>
+  </data>
+  <data name="DashboardRole0" xml:space="preserve">
+    <value>Название роли</value>
+  </data>
+  <data name="DashboardUserInfo0" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="DashboardUserInfo1" xml:space="preserve">
+    <value>Выход</value>
+  </data>
   <data name="Footer" xml:space="preserve">
     <value>&lt;p&gt;
      Авторские права © 2024 Электронная Система Управления Конференциями в Азербайджанском Техническом Университете.

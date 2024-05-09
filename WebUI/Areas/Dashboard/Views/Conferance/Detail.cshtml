@@ -4,76 +4,16 @@
 
 
 <div class="form-group">
-
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item active" role="presentation">
-            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="false">AZ</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">RU</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">US</button>
-        </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <div class="form-group">
-                <input disabled type="text" class="form-control" asp-for="ConferenceName" name="ConferenceName" placeholder="Konferans Adini Daxil Edin Azərbaycan Dilində" />
-
-            </div>
-        </div>
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            <div class="form-group">
-                <input disabled type="text" class="form-control" asp-for="ConferenceName" name="ConferenceName" placeholder="Konferans Adı Daxil Edin Rus Dilində" />
-
-            </div>
-        </div>
-        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-            <div class="form-group">
-                <input disabled type="text" class="form-control" asp-for="ConferenceName" name="ConferenceName" placeholder="Konferans Adı Daxil Edin İngilis dilində" />
-
-            </div>
-        </div>
-    </div>
+    <label>@_localization.GetKey("DashboardConfranceDetail0")</label>
+    <input disabled type="text" class="form-control" value="@Model.ConferenceName" />
+</div>
+<div class="form-group">
+    <label>@_localization.GetKey("DashboardConfranceDetail1")</label>
+    <input disabled type="text" class="form-control"  value="@Model.ConferenceContent" />
 </div>
 <div class="form-group">
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item active" role="presentation">
-            <button class="nav-link active" id="home_dec-tab" data-bs-toggle="tab" data-bs-target="#home_dec" type="button" role="tab" aria-controls="home_dec" aria-selected="false">AZ</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="profile_dec-tab" data-bs-toggle="tab" data-bs-target="#profile_dec" type="button" role="tab" aria-controls="profile_dec" aria-selected="false">RU</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="contact_dec-tab" data-bs-toggle="tab" data-bs-target="#contact_dec" type="button" role="tab" aria-controls="contact_dec" aria-selected="false">US</button>
-        </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home_dec" role="tabpanel" aria-labelledby="home_dec-tab">
-            <div class="form-group">
-                <input disabled type="text" class="form-control" asp-for="ConferenceContent" name="ConferenceContent" placeholder="Azərbaycan dilində Konferans məzmunu daxil edin" />
-
-            </div>
-        </div>
-        <div class="tab-pane fade" id="profile_dec" role="tabpanel" aria-labelledby="profile_dec-tab">
-            <div class="form-group">
-                <input disabled type="text" class="form-control" asp-for="ConferenceContent" name="ConferenceContent" placeholder="Rus dilində Konferans məzmunu daxil edin" />
-
-            </div>
-        </div>
-        <div class="tab-pane fade" id="contact_dec" role="tabpanel" aria-labelledby="contact_dec-tab">
-            <div class="form-group">
-                <input disabled type="text" class="form-control" asp-for="ConferenceContent" name="ConferenceContent" placeholder="İngilis Dilində Konferans məzmunu daxil edin" />
-
-            </div>
-        </div>
-    </div>
-</div>
-<div class="form-group">
-
-    <label>Kateqoriyası</label>
+    <label>@_localization.GetKey("DashboardConfranceDetail2")</label>
     <input class="form-control" disabled type="text" value="@Model.CategoryName" />
 </div>
 <div class="form-group specialGuest">
@@ -82,11 +22,11 @@
         {
 
             <div class="col-5">
-                <label>Xüsüsi qonaq Ad və Soyadı</label>
+                <label>@_localization.GetKey("DashboardConfranceDetail3")</label>
                 <input disabled type="text" class="form-control" value="@guest.Name" />
             </div>
             <div class="col-5">
-                <label>Xüsüsi qonaq E-Poçt ünvanı</label>
+                <label>@_localization.GetKey("DashboardConfranceDetail4")</label>
                 <input disabled type="email" class="form-control" value="@guest.Email" />
 
             </div>
@@ -101,25 +41,25 @@
     {
 
         <div class="alert alert-warning">
-            <strong>Status</strong> @Model.Status
+            <strong>@_localization.GetKey("DashboardConfranceDetail5")</strong> @_localization.GetKey("DashboardConfranceDetail6")
         </div>
     }
     else if (Model.Status == Aztu_Events.Entities.EnumClass.ConferanceStatus.Təsdiq)
     {
         <div class="alert alert-success">
-            <strong>Status</strong> @Model.Status
+            <strong>@_localization.GetKey("DashboardConfranceDetail5")</strong> @_localization.GetKey("DashboardConfranceChangeStatus2")
         </div>
     }
     else
     {
         <div class="alert alert-danger">
-            <strong>Status</strong> @Model.Status
+            <strong>@_localization.GetKey("DashboardConfranceDetail5")</strong> @_localization.GetKey("DashboardConfranceChangeStatus3")
         </div>
 
     }
 
     <div class="alert alert-info">
-        <strong>Məlumat!</strong> Təsdiq olunandan Sonra @Model.AudutoriumName nömrəli auditoriya-da bu tarix aralığı keçiriləcək:
+        <strong>@_localization.GetKey("DashboardConfranceDetail7")</strong> @_localization.GetKey("DashboardConfranceDetail8") @Model.AudutoriumName @_localization.GetKey("DashboardConfranceDetail9")
         <ul>
 
             <li>

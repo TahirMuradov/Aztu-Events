@@ -18,19 +18,19 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="form-group">
-                    <input type="text" class="form-control" asp-for="ConferenceName" value="@Model.ConferenceName[0]" name="ConferenceName" placeholder="Konferans Adini Daxil Edin Azərbaycan Dilində" />
+                    <input type="text" class="form-control" asp-for="ConferenceName" value="@Model.ConferenceName[0]" name="ConferenceName" placeholder="@_localization.GetKey("DashboardConfranceForUserCreate0")" />
 
                 </div>
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <div class="form-group">
-                    <input type="text" class="form-control" asp-for="ConferenceName" value="@Model.ConferenceName[1]" name="ConferenceName" placeholder="Konferans Adı Daxil Edin Rus Dilində" />
+                    <input type="text" class="form-control" asp-for="ConferenceName" value="@Model.ConferenceName[1]" name="ConferenceName" placeholder="@_localization.GetKey("DashboardConfranceForUserCreate1")" />
 
                 </div>
             </div>
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                 <div class="form-group">
-                    <input type="text" class="form-control" asp-for="ConferenceName" value="@Model.ConferenceName[2]" name="ConferenceName" placeholder="Konferans Adı Daxil Edin İngilis dilində" />
+                    <input type="text" class="form-control" asp-for="ConferenceName" value="@Model.ConferenceName[2]" name="ConferenceName" placeholder="@_localization.GetKey("DashboardConfranceForUserCreate2")" />
 
                 </div>
             </div>
@@ -52,19 +52,19 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="home_dec" role="tabpanel" aria-labelledby="home_dec-tab">
                 <div class="form-group">
-                    <input type="text" class="form-control" asp-for="ConferenceContent" value="@Model.ConferenceContent[0]" name="ConferenceContent" placeholder="Azərbaycan dilində Konferans məzmunu daxil edin" />
+                    <input type="text" class="form-control" asp-for="ConferenceContent" value="@Model.ConferenceContent[0]" name="ConferenceContent" placeholder="@_localization.GetKey("DashboardConfranceForUserCreate3")" />
                     <input type="hidden" asp-for="LangCode" value="az" name="LangCode" />
                 </div>
             </div>
             <div class="tab-pane fade" id="profile_dec" role="tabpanel" aria-labelledby="profile_dec-tab">
                 <div class="form-group">
-                    <input type="text" class="form-control" asp-for="ConferenceContent" value="@Model.ConferenceContent[1]" name="ConferenceContent" placeholder="Rus dilində Konferans məzmunu daxil edin" />
+                    <input type="text" class="form-control" asp-for="ConferenceContent" value="@Model.ConferenceContent[1]" name="ConferenceContent" placeholder="@_localization.GetKey("DashboardConfranceForUserCreate4")" />
                     <input type="hidden" asp-for="LangCode" value="ru" name="LangCode" />
                 </div>
             </div>
             <div class="tab-pane fade" id="contact_dec" role="tabpanel" aria-labelledby="contact_dec-tab">
                 <div class="form-group">
-                    <input type="text" class="form-control" asp-for="ConferenceContent" value="@Model.ConferenceContent[2]" name="ConferenceContent" placeholder="İngilis Dilində Konferans məzmunu daxil edin" />
+                    <input type="text" class="form-control" asp-for="ConferenceContent" value="@Model.ConferenceContent[2]" name="ConferenceContent" placeholder="@_localization.GetKey("DashboardConfranceForUserCreate5")" />
                     <input type="hidden" asp-for="LangCode" value="en" name="LangCode" />
                 </div>
             </div>
@@ -72,32 +72,32 @@
     </div>
     <div class="form-group specialGuest">
             <div class="alert alert-warning">
-                <strong>Qeyd!</strong> Əvvəlki Xüsusi Qonaqlari silmək olmur!
+            <strong>@_localization.GetKey("DashboardConfranceDetail7")</strong> @_localization.GetKey("DashboardConfranceForUserUpdate0")
             </div>
         <div class="row">
             @for (int i=0;i<Model.specialGuestsEmail.Count;i++)
             {
                 
             <div class="col-5">
-                <label >Xüsüsi qonaq Ad və Soyadı</label>
-                <input disabled type="text" class="form-control" placeholder="Xüsüsi qonaq Ad və Soyadı" value="@Model.specialGuestsName[i]" />
+                    <label>@_localization.GetKey("DashboardConfranceDetail3")</label>
+                    <input disabled type="text" class="form-control" placeholder="@_localization.GetKey("DashboardConfranceDetail3")" value="@Model.specialGuestsName[i]" />
             </div>
             <div class="col-5">
-                <label >Xüsüsi qonaq E-Poçt ünvanı</label>
-                    <input disabled type="email" class="form-control" placeholder="Xüsüsi qonaq E-Poçt ünvanı" value="@Model.specialGuestsEmail[i]" />
+                    <label>@_localization.GetKey("DashboardConfranceDetail4")</label>
+                    <input disabled type="email" class="form-control" placeholder="@_localization.GetKey("DashboardConfranceDetail4")" value="@Model.specialGuestsEmail[i]" />
 
             </div>
             }
             <div class="col-2">
-                <button onclick="addSpecialGuest()" class="btn btn-outline-success mx-auto" type="button">Xüsusi Qonaq Əlavə Et</button>
+                <button onclick="addSpecialGuest()" class="btn btn-outline-success mx-auto" type="button">@_localization.GetKey("DashboardConfranceForUserCreate6")</button>
 
-                <button onclick="removeSpecialGuest()" class="btn btn-outline-danger mx-auto" type="button">Xüsusi Qonaq Sil</button>
+                <button onclick="removeSpecialGuest()" class="btn btn-outline-danger mx-auto" type="button">@_localization.GetKey("DashboardConfranceForUserCreate7")</button>
             </div>
         </div>
 
     </div>
     <div class="form-group">
-        <label asp-for="AudutoriumId">Auditoriya</label>
+        <label asp-for="AudutoriumId">@_localization.GetKey("DashboardConfranceDetail13")</label>
 
         <select class="form-control" asp-for=AudutoriumId name="AudutoriumId">
             @if (ViewBag.Auditorium is List<GetAuditoriumDTO> auditorium && auditorium.Count > 0)
@@ -107,12 +107,12 @@
                 {
                     if (@item.AuditoriumId==Model.AudutoriumId)
                     {
-                        
-                        <option selected value="@item.AuditoriumId">Auditoriya Nömrəsi-@item.AudutoriyaNumber Tutumu-@item.AuditoriumCapacity</option>
+
+                        <option selected value="@item.AuditoriumId">@_localization.GetKey("DashboardAuditoriumCreate3")-@item.AudutoriyaNumber @_localization.GetKey("DashboardAuditoriumCreate0")-@item.AuditoriumCapacity</option>
                     }
                     else
                     {
-                        <option  value="@item.AuditoriumId">Auditoriya Nömrəsi-@item.AudutoriyaNumber Tutumu-@item.AuditoriumCapacity</option>
+                        <option value="@item.AuditoriumId">@_localization.GetKey("DashboardAuditoriumCreate3")-@item.AudutoriyaNumber @_localization.GetKey("DashboardAuditoriumCreate0")-@item.AuditoriumCapacity</option>
 
                     }
                 }
@@ -120,25 +120,25 @@
             }
         </select>
         <div class="alert alert-warning">
-            <strong>Xəbərdarlıq!</strong> Konfransda Dəyişiklik etsəniz avtomatik statusu dəyişəcək!
+            <strong>@_localization.GetKey("DashboardAuditoriumCreate1")</strong> @_localization.GetKey("DashboardConfranceForUserUpdate1")
         </div>
         @if (Model.Status == Aztu_Events.Entities.EnumClass.ConferanceStatus.Gözlənilir)
         {
 
             <div class="alert alert-warning">
-                <strong>Status</strong> @Model.Status
+                <strong>@_localization.GetKey("DashboardConfranceDetail5")</strong> @_localization.GetKey("DashboardConfranceDetail6")
             </div>
         }
         else if (Model.Status == Aztu_Events.Entities.EnumClass.ConferanceStatus.Təsdiq)
         {
             <div class="alert alert-success">
-                <strong>Status</strong> @Model.Status
+                <strong>@_localization.GetKey("DashboardConfranceDetail5")</strong> @_localization.GetKey("DashboardConfranceChangeStatus2")
             </div>
         }
         else
         {
             <div class="alert alert-danger">
-                <strong>Status</strong> @Model.Status
+                <strong>@_localization.GetKey("DashboardConfranceDetail5")</strong> @_localization.GetKey("DashboardConfranceChangeStatus3")
             </div>
 
         }
@@ -147,7 +147,7 @@
             @foreach (var a in auditoriumTime)
             {
                 <div class="alert alert-info">
-                    <strong>Məlumat!</strong> @a.AudutoriyaNumber nömrəli auditoriya dolu vaxtları:
+                    <strong>@_localization.GetKey("DashboardConfranceDetail7")</strong> @a.AudutoriyaNumber @_localization.GetKey("DashboardConfranceForUserCreate10")
                     <ul>
                         @for (int i = 0; i < a.Date.Count && i < a.StartedTime.Count && i < a.EndTime.Count; i++)
                         {
@@ -162,19 +162,19 @@
 
     </div>
     <div class="form-group">
-        <label for="Day">Gün:</label>
+        <label for="Day">@_localization.GetKey("DashboardConfranceForUserCreate11"):</label>
         <input type="date" id="Day" name="Day" asp-for="Day" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="@Model.Day.ToString("yyyy-MM-dd")" />
     </div>
     <div class="form-group">
-        <label for="StartTime">Başlama Saatı:</label>
+        <label for="StartTime">@_localization.GetKey("DashboardConfranceForUserCreate12"):</label>
         <input type="text" id="StartTime" name="StartedDate" asp-for="StartedDate" class="form-control" />
     </div>
     <div class="form-group">
-        <label for="EndDate">Bitmə Saatı:</label>
+        <label for="EndDate">@_localization.GetKey("DashboardConfranceForUserCreate13"):</label>
         <input type="text" id="EndDate" name="EndDate" asp-for="EndDate" class="form-control" />
     </div>
     <div class="form-group">
-        <label>Kateqoriya</label>
+        <label>@_localization.GetKey("DashboardConfranceForUserCreate9")</label>
         <select class="form-control" asp-for="CategoryId">
 
             @if (ViewBag.Category is not null)
@@ -198,7 +198,7 @@
         </select>
     </div>
     <div class="form-group" id="form-file">
-        <label for="Photo"></label>
+        <label for="Photo">@_localization.GetKey("DashboardConfranceForUserCreate14")</label>
         <input type="file" accept="image/*" value="" id="photo" name="Photo" class="form-control-file" />
 
 
@@ -217,7 +217,7 @@
 
     </div>
 
-    <button class="btn btn-outline-success" type="submit">Yadda Saxla</button>
+    <button class="btn btn-outline-success" type="submit">@_localization.GetKey("DashboardAuditoriumEdit0")</button>
 </form>
 @section scripts {
     <script>
@@ -228,12 +228,12 @@
             specialGuestsContainer.innerHTML += `  <div class='row added'>
 
                   <div class='col-5'>
-                          <label for='specialGuestsName'>Xüsüsi qonaq Ad və Soyadı</label>
-                          <input type='text' class='form-control' id=specialGuestsName  name='specialGuestsName' placeholder='Xüsüsi qonaq Ad və Soyadı' value='' />
+                                  <label for='specialGuestsName'>@_localization.GetKey("DashboardConfranceDetail3")</label>
+                                  <input type='text' class='form-control' id=specialGuestsName  name='specialGuestsName' placeholder='@_localization.GetKey("DashboardConfranceDetail3")' value='' />
                   </div>
                       <div class='col-5'>
-                          <label  for='specialGuestsEmail'>Xüsüsi qonaq E-Poçt ünvanı</label>
-                          <input type='email' class='form-control' id=specialGuestsEmail name='specialGuestsEmail' placeholder='Xüsüsi qonaq E-Poçt ünvanı'  />
+                                  <label  for='specialGuestsEmail'>@_localization.GetKey("DashboardConfranceDetail4")</label>
+                                  <input type='email' class='form-control' id=specialGuestsEmail name='specialGuestsEmail' placeholder='@_localization.GetKey("DashboardConfranceDetail4")'  />
 
                       </div>
                       <div class='col-2'>
@@ -302,7 +302,7 @@
             var input = this.value;
             var regex = /^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/;
             if (!regex.test(input)) {
-                alert("Düzgün Formatda yazin Saatı (nümünə: 13:30)");
+                alert("@_localization.GetKey("DashboardConfranceForUserCreate15")");
                 this.value = "";
             }
         });
@@ -310,7 +310,7 @@
             var input = this.value;
             var regex = /^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/;
             if (!regex.test(input)) {
-                alert("Düzgün Formatda yazin Saatı (nümünə: 13:30)");
+                alert("@_localization.GetKey("DashboardConfranceForUserCreate15")");
                 this.value = "";
             }
         });

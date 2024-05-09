@@ -162,6 +162,10 @@ namespace WebUI.Areas.Dashboard.Controllers
             var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var culture=Thread.CurrentThread.CurrentCulture.Name;
             var data = _confransService.GetConferanceDetailForUser(UserId: CurrentUserId, ConfranceId: Id, LangCode: culture);
+            if (data.Data is null ||!data.IsSuccess)
+            {
+                return Redirect("/dashboard/ConferanceForUser/index");
+            }
             return View(data.Data);
         }
         [HttpGet]

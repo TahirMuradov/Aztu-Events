@@ -13,19 +13,32 @@
     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
          aria-labelledby="alertsDropdown">
         <h6 class="dropdown-header">
-            Bildirişlər
+            @_localization.GetKey("DashboardAlert0")
         </h6>
 
         @foreach (var conferance in Model)
         {
-
+            if (User.IsInRole("Admin"))
+            {
+                
             <a class="dropdown-item d-flex align-items-center" href="/dashboard/ConferanceForUser/detail/@conferance.Id">
          
             <div>
-             
-                <span class="font-weight-bold">@conferance.ConferenceName Adlı konferansinizin statusu dəyişdirildi.</span>
+
+                        <span class="font-weight-bold">@conferance.ConferenceName @_localization.GetKey("DashboardAlert1") @conferance.UserFullname @_localization.GetKey("DashboardAlert2") @conferance.AudutoriumName @_localization.GetKey("DashboardAlert3")</span>
             </div>
         </a>
+            }
+            else
+            {
+                <a class="dropdown-item d-flex align-items-center" href="/dashboard/ConferanceForUser/detail/@conferance.Id">
+
+                    <div>
+
+                        <span class="font-weight-bold">@conferance.ConferenceName @_localization.GetKey("DashboardAlert4")</span>
+                    </div>
+                </a>
+            }
         }
       
 

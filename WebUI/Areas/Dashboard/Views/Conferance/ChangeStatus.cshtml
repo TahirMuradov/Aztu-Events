@@ -8,34 +8,34 @@
 
     </div>
     <div class="alert alert-info">
-        <strong>Xəbərdarlıq!</strong>
-        Əgər Confransı təsdiq etsəniz sonra imtina etmək mümkün olmayacaq! 
+        <strong>@_localization.GetKey("DashboardAuditoriumCreate1")</strong>
+        @_localization.GetKey("DashboardConfranceChangeStatus0")
     </div>
     <div class="form-group">
 
-        <label>Statuslar</label>
+        <label>@_localization.GetKey("DashboardConfranceChangeStatus1")</label>
         <select class="form-control" asp-for=Status name="Status">
 
             @if (Model.Status != @ConferanceStatus.Təsdiq && !Model.specialGuests.Any(x=>x.SendEmail==true))
             {
                 
-            <option value="@ConferanceStatus.İmtina">@ConferanceStatus.İmtina</option>
+                <option value="@ConferanceStatus.İmtina">@_localization.GetKey("DashboardConfranceChangeStatus3")</option>
             }
-            <option value="@ConferanceStatus.Təsdiq">@ConferanceStatus.Təsdiq</option>
+            <option value="@ConferanceStatus.Təsdiq">@_localization.GetKey("DashboardConfranceChangeStatus2")</option>
        
         </select>
     </div>
     @if (Model.Status != @ConferanceStatus.Təsdiq && !Model.specialGuests.Any(x => x.SendEmail == true))
     {
     <div class="alert alert-info">
-        <strong>Xəbərdarlıq!</strong>
-        Əgər Confransı imtina etməmisinizsə bu xananı doldurmaya bilərsiniz!
+            <strong>@_localization.GetKey("DashboardAuditoriumCreate1")</strong>
+            @_localization.GetKey("DashboardConfranceChangeStatus4")
     </div>
         
     <div class="form-group">
-            <label class="form-label" for="responseMessage">İmtina Səbəbi</label>
+            <label class="form-label" for="responseMessage">@_localization.GetKey("DashboardConfranceChangeStatus5")</label>
             <input class="form-control" type="text" name="responseMessage" id="responseMessage"/>
     </div>
     }
-    <button class="btn btn-outline-success">Təsdiq</button>
+    <button class="btn btn-outline-success">@_localization.GetKey("DashboardConfranceChangeStatus2")</button>
 </form>

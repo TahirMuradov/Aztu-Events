@@ -50,8 +50,13 @@ namespace WebUI.Areas.Dashboard.Controllers
         }
         [HttpGet]
         public async Task< IActionResult> Detail(string id) {
+            if (string.IsNullOrEmpty(id)) return Redirect("/dashboard/Conferance/index");
             var currenCulture = Thread.CurrentThread.CurrentCulture.Name;
             var result = await _confransService.ConferenceGetDetailForAdminAsync(id: Guid.Parse(id), lang: currenCulture);
+            if (result.Data is null ||!result.IsSuccess)
+            {
+                return Redirect("/dashboard/Conferance/index");
+            }
             return View(result.Data);
         }
     
