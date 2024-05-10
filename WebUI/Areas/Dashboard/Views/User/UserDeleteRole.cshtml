@@ -9,7 +9,7 @@
         @foreach (var role in Model.Roles)
         {
                 <li id="@role" class="list-group-item d-flex justify-content-between align-items-center">
-                  Vəzifə: @role
+                @_localization.GetKey("DashboardUserDeleteRole0") @role
                 <span class=""> <button onclick="DeleteRole('@role')" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button></span>
             </li>  }
                
@@ -18,7 +18,7 @@
         
 
   
-    <button class="btn btn-outline-success" type="submit">Yadda Saxla</button>
+    <button class="btn btn-outline-success" type="submit">@_localization.GetKey("DashboardAuditoriumEdit0")</button>
 </form>
 <script>
 

@@ -39,7 +39,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard/home/index">
                 
                 <div class="sidebar-brand-text mx-3">AzTU- Events</div>
             </a>
@@ -62,16 +62,16 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                    aria-expanded="true" aria-controls="collapseTwo">
                   
-                    <span>Admin</span>
+                        <span>@_localization.GetKey("DashboardLayout0")</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Admin üçün:</h6>
-                        <a class="collapse-item" href="/dashboard/role/index">Rollar</a>
-                        <a class="collapse-item" href="/dashboard/user/index">İstifadəçilər</a>
-                            <a class="collapse-item" href="/dashboard/category/index">Category</a>
-                        <a class="collapse-item" href="/dashboard/auditorium/index">Auditoriya</a>
-                        <a class="collapse-item" href="/dashboard/Conferance/index">Conferance</a>
+                      
+                            <a class="collapse-item" href="/dashboard/role/index">@_localization.GetKey("DashboardLayout1")</a>
+                            <a class="collapse-item" href="/dashboard/user/index">@_localization.GetKey("DashboardLayout2")</a>
+                            <a class="collapse-item" href="/dashboard/category/index">@_localization.GetKey("DashboardLayout3")</a>
+                            <a class="collapse-item" href="/dashboard/auditorium/index">@_localization.GetKey("DashboardLayout4")</a>
+                            <a class="collapse-item" href="/dashboard/Conferance/index">@_localization.GetKey("DashboardLayout5")</a>
                     </div>
                 </div>
             </li>
@@ -84,13 +84,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                    aria-expanded="true" aria-controls="collapseUtilities">
                   
-                    <span>İstifadəçi</span>
+                        <span>@_localization.GetKey("DashboardLayout6")</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                        
-                        <a class="collapse-item" href="/dashboard/ConferanceForUser/index">Confranslarım</a>
+                            <a class="collapse-item" href="/dashboard/ConferanceForUser/index">@_localization.GetKey("DashboardLayout7")</a>
                        
                     </div>
                 </div>
@@ -227,7 +227,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>@_localization.GetKey("HomeMain1")</span>
                     </div>
                 </div>
             </footer>
@@ -249,15 +249,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">@_localization.GetKey("DashboardLayout10")</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">@_localization.GetKey("DashboardLayout11")</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="/auth/LogOut">Logout</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">@_localization.GetKey("DashboardLayout8")</button>
+                    <a class="btn btn-primary" href="/auth/LogOut">@_localization.GetKey("DashboardLayout9")</a>
                 </div>
             </div>
         </div>

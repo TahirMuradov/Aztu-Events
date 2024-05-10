@@ -10,6 +10,7 @@ namespace Aztu_Events.Business.Abstarct
 {
     public interface IUserService
     {
+        public Task<IResult> UpdateUserAsync (UserUpdateDTO userUpdateDTO);
         public Task< IDataResult<GetUsersDTO>> GetUserAsync(string UserId, string LangCode);
         public Task< IDataResult<List<GetUsersDTO>>> GetAllUserAsync( string LangCode);
         public Task< IResult> DeleteUserAsync(string UserId);

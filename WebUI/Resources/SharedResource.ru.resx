@@ -123,6 +123,9 @@
   <data name="AuthConfirmEmail2" xml:space="preserve">
     <value>Войти!</value>
   </data>
+  <data name="ConfranceCreate" xml:space="preserve">
+    <value>Создать конференцию</value>
+  </data>
   <data name="DashboardAlert0" xml:space="preserve">
     <value>Уведомления</value>
   </data>
@@ -303,8 +306,92 @@
   <data name="DashboardHome0" xml:space="preserve">
     <value>Система управления электронными конференциями АзТУ. Добро пожаловать!</value>
   </data>
+  <data name="DashboardLayout0" xml:space="preserve">
+    <value>Админ</value>
+  </data>
+  <data name="DashboardLayout1" xml:space="preserve">
+    <value>Должности</value>
+  </data>
+  <data name="DashboardLayout10" xml:space="preserve">
+    <value>Вы уверены, что хотите выйти?</value>
+  </data>
+  <data name="DashboardLayout11" xml:space="preserve">
+    <value>Если хотите выйти, достаточно нажать кнопку "Выйти".</value>
+  </data>
+  <data name="DashboardLayout2" xml:space="preserve">
+    <value>Пользователи</value>
+  </data>
+  <data name="DashboardLayout3" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="DashboardLayout4" xml:space="preserve">
+    <value>Аудитория</value>
+  </data>
+  <data name="DashboardLayout5" xml:space="preserve">
+    <value>Конференция</value>
+  </data>
+  <data name="DashboardLayout6" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
+  <data name="DashboardLayout7" xml:space="preserve">
+    <value>Мои конференции</value>
+  </data>
+  <data name="DashboardLayout8" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="DashboardLayout9" xml:space="preserve">
+    <value>Не выходить</value>
+  </data>
   <data name="DashboardRole0" xml:space="preserve">
     <value>Название роли</value>
+  </data>
+  <data name="DashboardSettings0" xml:space="preserve">
+    <value>Имя пользователя</value>
+  </data>
+  <data name="DashboardSettings1" xml:space="preserve">
+    <value>Введите текущий пароль и подтверждение для сохранения изменений!</value>
+  </data>
+  <data name="DashboardSettings2" xml:space="preserve">
+    <value>Текущий пароль</value>
+  </data>
+  <data name="DashboardSettings3" xml:space="preserve">
+    <value>Подтвердите текущий пароль</value>
+  </data>
+  <data name="DashboardSettings4" xml:space="preserve">
+    <value>Если вы не хотите изменять пароль, вам не нужно заполнять эти поля!</value>
+  </data>
+  <data name="DashboardSettings5" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
+  <data name="DashboardSettings6" xml:space="preserve">
+    <value>Подтвердите новый пароль</value>
+  </data>
+  <data name="DashboardUserAddRole0" xml:space="preserve">
+    <value>Назначить должность</value>
+  </data>
+  <data name="DashboardUserDeleteRole0" xml:space="preserve">
+    <value>Должность:</value>
+  </data>
+  <data name="DashboardUserIndex0" xml:space="preserve">
+    <value>Имя Фамилия</value>
+  </data>
+  <data name="DashboardUserIndex1" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="DashboardUserIndex2" xml:space="preserve">
+    <value>Контактный номер</value>
+  </data>
+  <data name="DashboardUserIndex3" xml:space="preserve">
+    <value>Должность</value>
+  </data>
+  <data name="DashboardUserIndex4" xml:space="preserve">
+    <value>Проведённые конференции</value>
+  </data>
+  <data name="DashboardUserIndex5" xml:space="preserve">
+    <value>Назначить должность</value>
+  </data>
+  <data name="DashboardUserIndex6" xml:space="preserve">
+    <value>Удалить должность</value>
   </data>
   <data name="DashboardUserInfo0" xml:space="preserve">
     <value>Настройки</value>

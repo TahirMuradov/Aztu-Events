@@ -6,17 +6,21 @@
 
 
 
-<table id="example" class="display table table-striped" style="width:100%">
+<table id="example" class="display table table-striped table-responsive-md" style="width:100%">
     <thead>
         <tr>
 
             <th>№</th>
-            <th>Adı Soyadı</th>
-            <th>Elektron Poçtu</th>
-            <th>Əlaqə Nömrəsi</th>
-            <th>Vəzifəsi</th>
-            <th>Keçirtdiyi Konfranslar</th>
-            <th>Digər</th>
+            <th>@_localization.GetKey("DashboardUserIndex0")</th>
+            <th>@_localization.GetKey("DashboardUserIndex1")</th>
+
+            <th>@_localization.GetKey("DashboardUserIndex2")</th>
+
+            <th>@_localization.GetKey("DashboardUserIndex3")</th>
+
+            <th>@_localization.GetKey("DashboardUserIndex4")</th>
+
+            <th>@_localization.GetKey("DashboardAuditoriumIndex1")</th>
 
 
 
@@ -86,8 +90,8 @@
                     @if (_contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value!=user.Id)
                     {
                         <button class="btn btn-outline-danger" onclick="userDelet('@user.Id')"><i class="fa-solid fa-trash"></i></button>
-                        <a class="btn btn-outline-success" href="/dashboard/user/addRole/@user.Id">Vəzifə Ver</a>
-                        <a class="btn btn-outline-warning" href="/dashboard/user/UserDeleteRole/@user.Id">Vəzifə Sil</a>
+                        <a class="btn btn-outline-success" href="/dashboard/user/addRole/@user.Id">@_localization.GetKey("DashboardUserIndex5")</a>
+                        <a class="btn btn-outline-warning" href="/dashboard/user/UserDeleteRole/@user.Id">@_localization.GetKey("DashboardUserIndex6")</a>
                     }
 
                 </td>
@@ -100,12 +104,16 @@
         <tr>
 
             <th>№</th>
-            <th>Adı</th>
-            <th>Soyadı</th>
-            <th>Elektron Poçtu</th>
-            <th>Əlaqə Nömrəsi</th>
-            <th>Vəzifəsi</th>
-            <th>Digər</th>
+            <th>@_localization.GetKey("DashboardUserIndex0")</th>
+            <th>@_localization.GetKey("DashboardUserIndex1")</th>
+
+            <th>@_localization.GetKey("DashboardUserIndex2")</th>
+
+            <th>@_localization.GetKey("DashboardUserIndex3")</th>
+
+            <th>@_localization.GetKey("DashboardUserIndex4")</th>
+
+            <th>@_localization.GetKey("DashboardAuditoriumIndex1")</th>
 
 
 

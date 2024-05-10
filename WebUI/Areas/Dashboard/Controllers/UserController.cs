@@ -1,7 +1,10 @@
-﻿using Aztu_Events.Business.Abstarct;
+﻿
+using Aztu_Events.Business.Abstarct;
+using Aztu_Events.Business.FluentValidation.UserDTOValidator;
 using Aztu_Events.Entities.DTOs.UserDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace WebUI.Areas.Dashboard.Controllers
 {
@@ -11,10 +14,12 @@ namespace WebUI.Areas.Dashboard.Controllers
     {
         private readonly IUserService _userService;
         private readonly IRoleService _roleService;
-        public UserController(IUserService userService, IRoleService roleService)
+        private readonly IHttpContextAccessor _contextAccessor;
+        public UserController(IUserService userService, IRoleService roleService, IHttpContextAccessor contextAccessor)
         {
             _userService = userService;
             _roleService = roleService;
+            _contextAccessor = contextAccessor;
         }
         [HttpGet]
 
@@ -98,5 +103,87 @@ namespace WebUI.Areas.Dashboard.Controllers
                View(result.Message);
 
         }
+        [HttpGet]
+    public async Task< IActionResult> Settings(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+                Redirect("/dashboard/home/index");
+            var currentUserId= _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (string.IsNullOrEmpty(currentUserId))
+                Redirect("/");
+            if (id.ToLower()!=currentUserId.ToLower())
+                Redirect("/dashboard/home/index");
+            var user = await _userService.GetUserAsync(UserId:currentUserId, "az");
+            if (user.Data is null)
+                Redirect("/dashboard/home/index");
+
+            return View(new UserUpdateDTO
+            {
+                UserId= user.Data.Id,
+                Firstname = user.Data.FirstName,
+                Lastname = user.Data.LastName,
+                PhoneNumber = user.Data.PhoneNumber,
+                UserName = user.Data.UserName
+                
+            });
+        }
+        [HttpPost]
+        public async Task<IActionResult> Settings (UserUpdateDTO userUpdateDTO)
+        { 
+            var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
+            var currentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (string.IsNullOrEmpty(currentUserId))
+                Redirect("/");
+            if (userUpdateDTO.UserId.ToLower() != currentUserId.ToLower())
+                Redirect("/dashboard/home/index");
+            UserUpdateDTOValidator validationRules =new UserUpdateDTOValidator(currentCulture);
+            var ValidatorResult=validationRules.Validate(userUpdateDTO);
+            if (!ValidatorResult.IsValid)
+            {
+                for (int i = 0; i < ValidatorResult.Errors.Count; i++)
+                {
+                    ModelState.AddModelError("Error", ValidatorResult.Errors[i].ErrorMessage);
+                }
+                return View(userUpdateDTO);
+            }
+            var result=await _userService.UpdateUserAsync(userUpdateDTO);
+            if (!result.IsSuccess&& result.Message == "This is UserName Not Empty!")
+            {
+                if (currentCulture == "az")
+                {
+                    ModelState.AddModelError("Error", "Bu İstifadəçi Adında Artıq İstifadəçi Var!");
+                }
+                else if (currentCulture == "en")
+                {
+                    ModelState.AddModelError("Error", "There is already a user with this Username!");
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", "Уже есть пользователь с таким именем пользователя!");
+                }
+            }
+            if (!result.IsSuccess && result.Message=="password is not correct")
+            {
+                if (currentCulture == "az")
+                {
+                    ModelState.AddModelError("Error", "Cari Şifrə Yanlışdır!");
+                }
+                else if (currentCulture == "en")
+                {
+                    ModelState.AddModelError("Error", "Current Password is incorrect!");
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", "Неверный текущий пароль!");
+                }
+            return View(userUpdateDTO);
+            }
+      
+            return Redirect("/dashboard/home/index"); 
+        
+        }
+
+
+
     }
 }

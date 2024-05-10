@@ -123,6 +123,9 @@
   <data name="AuthConfirmEmail2" xml:space="preserve">
     <value>Daxil Olun!</value>
   </data>
+  <data name="ConfranceCreate" xml:space="preserve">
+    <value>Konfrans Yarat</value>
+  </data>
   <data name="DashboardAlert0" xml:space="preserve">
     <value>Bildirişlər</value>
   </data>
@@ -303,8 +306,92 @@
   <data name="DashboardHome0" xml:space="preserve">
     <value>Aztu Elektron Konfrans İdarəetmə sistemi.Xoş Gəldiniz</value>
   </data>
+  <data name="DashboardLayout0" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="DashboardLayout1" xml:space="preserve">
+    <value>Vəzifələr</value>
+  </data>
+  <data name="DashboardLayout10" xml:space="preserve">
+    <value>Çixmaq istədiyinizə əminsinizmi?</value>
+  </data>
+  <data name="DashboardLayout11" xml:space="preserve">
+    <value>Əgər çixmaq istəsəniz `Çıx` düyməsinə basmanız kifayətdir.</value>
+  </data>
+  <data name="DashboardLayout2" xml:space="preserve">
+    <value>İstifadəçilər</value>
+  </data>
+  <data name="DashboardLayout3" xml:space="preserve">
+    <value>Kateqoriya</value>
+  </data>
+  <data name="DashboardLayout4" xml:space="preserve">
+    <value>Auditoriya</value>
+  </data>
+  <data name="DashboardLayout5" xml:space="preserve">
+    <value>Konferans</value>
+  </data>
+  <data name="DashboardLayout6" xml:space="preserve">
+    <value>İstifadəçi</value>
+  </data>
+  <data name="DashboardLayout7" xml:space="preserve">
+    <value>Konfranslarım</value>
+  </data>
+  <data name="DashboardLayout8" xml:space="preserve">
+    <value>Çıxma</value>
+  </data>
+  <data name="DashboardLayout9" xml:space="preserve">
+    <value>Çıx</value>
+  </data>
   <data name="DashboardRole0" xml:space="preserve">
     <value>Rol Adı</value>
+  </data>
+  <data name="DashboardSettings0" xml:space="preserve">
+    <value>İstifadəçi Adı</value>
+  </data>
+  <data name="DashboardSettings1" xml:space="preserve">
+    <value>Etdiyiniz Dəyişikliklərin Yadda Saxlanılması Üçün Cari Şifrə Və Təkrarını Daxil Edin!</value>
+  </data>
+  <data name="DashboardSettings2" xml:space="preserve">
+    <value>Cari Şifrə</value>
+  </data>
+  <data name="DashboardSettings3" xml:space="preserve">
+    <value>Cari Şifrə Təkrarı</value>
+  </data>
+  <data name="DashboardSettings4" xml:space="preserve">
+    <value>Şifrə dəyişmək İstəmirsinizsə Bu Xanaları Doldurmağa Ehtiyac Yoxdur!</value>
+  </data>
+  <data name="DashboardSettings5" xml:space="preserve">
+    <value>Yeni Şifrə</value>
+  </data>
+  <data name="DashboardSettings6" xml:space="preserve">
+    <value>Yeni Şifrə Təkrarı</value>
+  </data>
+  <data name="DashboardUserAddRole0" xml:space="preserve">
+    <value>Vəzifə Ver</value>
+  </data>
+  <data name="DashboardUserDeleteRole0" xml:space="preserve">
+    <value>Vəzifə:</value>
+  </data>
+  <data name="DashboardUserIndex0" xml:space="preserve">
+    <value>Adı Soyadı</value>
+  </data>
+  <data name="DashboardUserIndex1" xml:space="preserve">
+    <value>Elektron Poçtu</value>
+  </data>
+  <data name="DashboardUserIndex2" xml:space="preserve">
+    <value>Əlaqə Nömrəsi</value>
+  </data>
+  <data name="DashboardUserIndex3" xml:space="preserve">
+    <value>Vəzifəsi</value>
+  </data>
+  <data name="DashboardUserIndex4" xml:space="preserve">
+    <value>Keçirtdiyi Konfranslar</value>
+  </data>
+  <data name="DashboardUserIndex5" xml:space="preserve">
+    <value>Vəzifə Ver</value>
+  </data>
+  <data name="DashboardUserIndex6" xml:space="preserve">
+    <value>Vəzifə Sil</value>
   </data>
   <data name="DashboardUserInfo0" xml:space="preserve">
     <value>Düzəliş Et</value>

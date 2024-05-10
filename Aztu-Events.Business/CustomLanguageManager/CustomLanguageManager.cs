@@ -12,6 +12,41 @@ namespace Aztu_Events.Business.CustomLanguageManager
     {
         public CustomLanguageManager()
         {
+            #region UserValidationMessage
+            AddTranslation("az", "UserIdIsRequird", "Istifadəçi İd-si Boş Ola Bilməz!.");
+            AddTranslation("az", "FirstNameIsRequird", "Ad Boş Ola Bilməz!.");
+            AddTranslation("az", "UserNameIsRequird", "Istifadəçi Adı Boş Ola Bilməz!.");
+            AddTranslation("az", "LastNameIsRequird", "Soy Ad Boş Ola Bilməz!.");
+            AddTranslation("az", "PhoneNumberIsRequird", "Əlaqə Nömrəsi Boş Ola Bilməz!.");
+            AddTranslation("az", "PhoneNumberIsFormat", "Əlaqə Nömrəsi Formatı Düzgün Yazın!.");
+            AddTranslation("az", "PasswordIsRequird", "Şifrə boş ola bilməz!.");
+            AddTranslation("az", "ConfirmPasswordIsRequird", "Şifrənin təkrarı boş ola bilməz!.");
+            AddTranslation("az", "PasswordChecked", "Şifrə ilə Şifrənin təkrarı eyni deyil!");
+            AddTranslation("az", "NewPasswordChecked", "Yeni Şifrə ilə Yeni Şifrənin təkrarı eyni deyil!");
+
+            AddTranslation("ru", "UserIdIsRequird", "Идентификатор пользователя не может быть пустым!");
+            AddTranslation("ru", "FirstNameIsRequird", "Имя не может быть пустым!");
+            AddTranslation("ru", "UserNameIsRequird", "Имя пользователя не может быть пустым!");
+            AddTranslation("ru", "LastNameIsRequird", "Фамилия не может быть пустой!");
+            AddTranslation("ru", "PhoneNumberIsRequird", "Номер телефона не может быть пустым!");
+            AddTranslation("ru", "PhoneNumberIsFormat", "Неверный формат номера телефона!");
+            AddTranslation("ru", "PasswordIsRequird", "Пароль не может быть пустым!");
+            AddTranslation("ru", "ConfirmPasswordIsRequird", "Подтверждение пароля не может быть пустым!");
+            AddTranslation("ru", "PasswordChecked", "Пароли не совпадают!");
+            AddTranslation("ru", "NewPasswordChecked", "Новый пароль и его подтверждение не совпадают!");
+
+            AddTranslation("en", "UserIdIsRequird", "User ID cannot be empty!");
+            AddTranslation("en", "FirstNameIsRequird", "First name cannot be empty!");
+            AddTranslation("en", "UserNameIsRequird", "Username cannot be empty!");
+            AddTranslation("en", "LastNameIsRequird", "Last name cannot be empty!");
+            AddTranslation("en", "PhoneNumberIsRequird", "Phone number cannot be empty!");
+            AddTranslation("en", "PhoneNumberIsFormat", "Incorrect phone number format!");
+            AddTranslation("en", "PasswordIsRequird", "Password cannot be empty!");
+            AddTranslation("en", "ConfirmPasswordIsRequird", "Confirm password cannot be empty!");
+            AddTranslation("en", "PasswordChecked", "Passwords do not match!");
+            AddTranslation("en", "NewPasswordChecked", "New password and confirmation do not match!");
+
+            #endregion
             #region LoginValidationMessage
 
             AddTranslation("az", "PasswordIsRequird", "Şifrə bos olmamalidir!.");

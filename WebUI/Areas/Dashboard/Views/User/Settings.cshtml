@@ -1,0 +1,66 @@
+﻿@model UserUpdateDTO
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <input type="hidden" asp-for=UserId  />
+    <div class="form-group">
+        <label>@_localization.GetKey("Register2")</label>
+        <input type="text" class="form-control" asp-for=Firstname placeholder="@_localization.GetKey("Register2")" />
+    </div>
+    <div class="form-group">
+        <label>@_localization.GetKey("Register3")</label>
+        <input type="text" class="form-control" asp-for=Lastname placeholder="@_localization.GetKey("Register3")" />
+    </div>
+    <div class="form-group">
+        <label>@_localization.GetKey("DashboardSettings0")</label>
+        <input type="text" class="form-control" asp-for=UserName placeholder="@_localization.GetKey("DashboardSettings0")" />
+    </div>
+    <div class="form-group">
+        <label>@_localization.GetKey("DashboardUserIndex2")</label>
+        <input type="text" class="form-control" asp-for=PhoneNumber placeholder="@_localization.GetKey("DashboardUserIndex2")" />
+    </div>
+
+    
+
+    <div class="alert alert-info">
+
+        <strong>@_localization.GetKey("DashboardConfranceDetail7")</strong>@_localization.GetKey("DashboardSettings4")
+
+    </div>
+
+    <div class="form-group">
+        <div class="row">
+
+        <div class="col-6">
+
+            <label>@_localization.GetKey("DashboardSettings5")</label>
+            <input type="password" class="form-control form-control-user" asp-for=NewPassword placeholder="@_localization.GetKey("DashboardSettings5")" />
+        </div>
+        <div class="col-6">
+
+            <label>@_localization.GetKey("DashboardSettings6")</label>
+            <input type="password" class="form-control form-control-user" asp-for=NewConfirmPassword placeholder="@_localization.GetKey("DashboardSettings6")" />
+        </div>
+        </div>
+    </div>
+    <div class="alert alert-info">
+
+        <strong>@_localization.GetKey("DashboardConfranceDetail7")</strong>@_localization.GetKey("DashboardSettings1")
+
+    </div>
+    <div class="form-group">
+        <div class="row">
+
+        <div class="col-6">
+
+            <label>@_localization.GetKey("DashboardSettings2")</label>
+            <input type="password" class="form-control form-control-user" asp-for=Password placeholder="@_localization.GetKey("DashboardSettings2")" />
+        </div>
+        <div class="col-6">
+
+            <label>@_localization.GetKey("DashboardSettings3")</label>
+            <input type="password" class="form-control form-control-user" asp-for=ConfirmPassword placeholder="@_localization.GetKey("DashboardSettings3")" />
+        </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-outline-success">@_localization.GetKey("DashboardAuditoriumEdit0")</button>
+</form>

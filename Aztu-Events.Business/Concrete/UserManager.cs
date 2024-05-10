@@ -87,7 +87,7 @@ namespace Aztu_Events.Business.Concrete
                         Email = user.Email,
                         PhoneNumber = user.PhoneNumber,
                         Id = user.Id,
-                        Conferances = user.Confrans.Select(y => y.ConfranceLaunguages.FirstOrDefault(z => z.LangCode == LangCode).ConfransName).ToList(),
+                        Conferances = user.Confrans.Where(x => x.Status == Entities.EnumClass.ConferanceStatus.Təsdiq).Select(y => y.ConfranceLaunguages.FirstOrDefault(z => z.LangCode == LangCode).ConfransName).ToList(),
                         Roles = roles.ToList()
                     });
                 }
@@ -116,7 +116,7 @@ namespace Aztu_Events.Business.Concrete
                 var roles = await _userManager.GetRolesAsync(user);
 
               
-                var conferances = user.Confrans?
+                var conferances = user.Confrans?.Where(x=>x.Status==Entities.EnumClass.ConferanceStatus.Təsdiq)
                     .Select(y => y.ConfranceLaunguages?.FirstOrDefault(z => z.LangCode == LangCode)?.ConfransName)
                     .ToList();
 
@@ -140,6 +140,41 @@ namespace Aztu_Events.Business.Concrete
             {
                 
                 return new ErrorDataResult<GetUsersDTO>(message: ex.Message);
+            }
+        }
+
+        public async Task<IResult> UpdateUserAsync(UserUpdateDTO userUpdateDTO)
+        {
+            try
+            {
+                var User = await _userManager.FindByIdAsync(userUpdateDTO.UserId);
+                if (User == null) return new ErrorResult(message:"User Is Not Found!");
+                var UserNameChecked=await _userManager.FindByNameAsync(userUpdateDTO.UserName);
+
+                if (UserNameChecked != null &&User.Id!=UserNameChecked.Id) return new ErrorResult(message: "This is UserName Not Empty!");
+                var result = await _userManager.CheckPasswordAsync(User, userUpdateDTO.Password);
+                    if (!result)
+                    {
+                        return new ErrorResult(message: "password is not correct");
+                    }
+                   
+                
+                User.PhoneNumber = userUpdateDTO.PhoneNumber != null ? userUpdateDTO.PhoneNumber : User.PhoneNumber;
+                User.FirstName = userUpdateDTO.Firstname != null ? userUpdateDTO.Firstname : User.FirstName;
+                User.UserName = userUpdateDTO.UserName ?? User.UserName;
+                User.LastName = userUpdateDTO.Lastname != null ? userUpdateDTO.Lastname : User.LastName;
+                if (userUpdateDTO.NewPassword is not null)
+                {
+
+                    var changePassword = await _userManager.ChangePasswordAsync(User, userUpdateDTO.Password, userUpdateDTO.NewPassword);
+                }
+                await _userManager.UpdateAsync(User);
+                return new SuccessResult();
+            }
+            catch (Exception ex)
+            {
+
+                return new ErrorResult(message: ex.Message);
             }
         }
 
