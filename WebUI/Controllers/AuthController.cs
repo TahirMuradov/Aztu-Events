@@ -196,10 +196,7 @@ namespace WebUI.Controllers
                 {
                   await  _userManager.AddToRoleAsync(user, "Admin");
                 }
-                else
-                {
-                    await _userManager.AddToRoleAsync(user, "User");
-                }
+              
                 string token= await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var confirmLink = Url.ActionLink(controller: "Auth",
         action: "ConfirmEmail",
@@ -211,17 +208,22 @@ namespace WebUI.Controllers
                     if (currentCulture == "az")
                     {
                         ModelState.AddModelError("Error", "Emailinize Tesdiqleme Linki Gonderirldi!");
+                        ModelState.AddModelError("Error", "Təsdiqləmə Linkinə Keçid Etdikdən Sonra Sizin Məlumatlariniza Baxilacaq Və Profiliniz Təsdiqlənəndən Sonra Daxil Ola Biləcəksiniz!");
                     }
                     else if (currentCulture == "ru")
                     {
                         ModelState.AddModelError("Error", "Ссылка для подтверждения отправлена на вашу электронную почту!");
+                        ModelState.AddModelError("Error", "После перехода по ссылке подтверждения ваши данные будут проверены, и вы сможете войти после подтверждения профиля!");
+
                     }
                     else
                     {
                         ModelState.AddModelError("Error", "Confirmation link has been sent to your email!");
+                        ModelState.AddModelError("Error", "After clicking the confirmation link, your information will be verified, and you will be able to log in after your profile is confirmed!");
+
                     }
-                  
-                return View();
+
+                    return View();
                 }
 
 
