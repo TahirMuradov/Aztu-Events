@@ -144,9 +144,9 @@ namespace Aztu_Events.DataAccess.Concrete
             {
                 conferenceQueries = conferenceQueries.Where(x => x.Status == filter.Status);
             }
-            if (filter.AuditoriumId is not null)
+            if (filter.CategoryId is not null)
             {
-                conferenceQueries = conferenceQueries.Where(x => x.AudutoriumId == filter.AuditoriumId);
+                conferenceQueries = conferenceQueries.Where(x => x.CategoryId == filter.CategoryId);
             }
 
             conferenceQueries = conferenceQueries.OrderByDescending(x => x.Time.Date).ThenByDescending(x => x.Time.StartedTime);
@@ -161,7 +161,7 @@ namespace Aztu_Events.DataAccess.Concrete
                 AudutoriumName = x.Audutorium.AudutoriyaNumber,
                 CategoryId = x.CategoryId.ToString(),
                 CategoryName = x.Category.CategoryLaunguages.FirstOrDefault(y => y.LangCode == lang).CategoryName,
-
+                ConferenceContent=x.ConfranceLaunguages.FirstOrDefault(x=>x.LangCode==lang).ConfransContent,
                 ConferenceName = x.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == lang).ConfransName,
                 Id = x.Id,
                 ImgUrl = x.ImgUrl,

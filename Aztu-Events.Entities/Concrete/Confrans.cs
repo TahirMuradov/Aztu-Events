@@ -12,8 +12,8 @@ namespace Aztu_Events.Entities.Concrete
         public Guid Id { get; set; }
 
         public string ImgUrl { get; set; }
-  
-       
+     
+
         public Guid TimeId { get; set; }
         public Time Time { get; set; }
         public ConferanceStatus Status { get; set; }
