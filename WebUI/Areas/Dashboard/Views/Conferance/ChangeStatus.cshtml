@@ -36,6 +36,12 @@
             <label class="form-label" for="responseMessage">@_localization.GetKey("DashboardConfranceChangeStatus5")</label>
             <input class="form-control" type="text" name="responseMessage" id="responseMessage"/>
     </div>
+   
     }
+  
+    <div class="form-group">
+        <label>Önə Çıxarılma Vəziyyəti</label>
+        <input type="checkbox" asp-for="IsFeatured" class="form-check" />
+    </div>
     <button class="btn btn-outline-success">@_localization.GetKey("DashboardConfranceChangeStatus2")</button>
 </form>

@@ -1,4 +1,4 @@
-﻿@using System.Globalization
+﻿
 
 
 @model PaginatedList<ConferenceGetAdminListDTO>
@@ -11,12 +11,27 @@
                     <div class="col-lg-12">
                         <div class="filters">
                             <ul>
-                                <li data-filter="*" class="active">All Meetings</li>
+                                @if (ViewBag.CurrentCategory is  null)
+                                {
+
+                                    <li class="active"> <a href="/conferences/index?page=1&category=null">@_localization.GetKey("ConferancesCategory")</a> </li>
+                                }
+                                else
+                                {
+                                    <li> <a href="/conferences/index?page=1&category=null">@_localization.GetKey("ConferancesCategory")</a> </li>
+                                }
 
                                 @foreach (var category in ViewBag.Category as List<CategoryGetDTO>)
                                 {
+                                    if (ViewBag.CurrentCategory is not null && ViewBag.CurrentCategory==category.Id)
+                                    {
 
-                                    <li data-filter=".@category.Name">@category.Name</li>
+                                        <li class="active"> <a href="/conferences/index?page=1&category=@category.Id">@category.Name</a> </li>
+                                    }
+                                    else
+                                    {
+                                        <li> <a href="/conferences/index?page=1&category=@category.Id">@category.Name</a> </li>
+                                    }
                                 }
                                
                             </ul>
@@ -33,13 +48,13 @@
                                         <div class="price">
                                                 <span> @Html.Raw(new DateTime(conferance.Day, conferance.StartedDate).ToString("HH:mm") + "-" + new DateTime(conferance.Day, conferance.EndDate).ToString("HH:mm"))</span>
                                         </div>
-                                        <a href="/confrancedetail/@conferance.Id"><img src="@conferance.ImgUrl" alt=""></a>
+                                        <a href="/confrancedetail/index/@conferance.Id"><img style="object-fit:cover;" width="385px" height="273px" src="@conferance.ImgUrl" alt=""></a>
                                     </div>
                                     <div class="down-content">
                                         <div class="date">
                                                 <h6> @Html.Raw(new DateTime(conferance.Day, conferance.StartedDate).ToString("MMMM", new CultureInfo(Thread.CurrentThread.CurrentCulture.Name))) <span>@Html.Raw(new DateTime(conferance.Day, conferance.StartedDate).ToString("dd"))</span></h6>
                                         </div>
-                                        <a href="meeting-details.html"><h4>@conferance.ConferenceName</h4></a>
+                                            <a href="/confrancedetail/index/@conferance.Id"><h4>@conferance.ConferenceName</h4></a>
                                            
                                                 <p>@conferance.ConferenceContent</p>
                                            
@@ -69,10 +84,14 @@
                                 @{
                                     int b = Convert.ToInt32(ViewBag.CurrentPage) + 1;
                                 }
-                                @if (ViewBag.CurrentPage != Model.TotalPages)
+                                @if (ViewBag.CurrentPage != Model.TotalPages )
                                 {
-                                    
+                                    if (ViewBag.CurrentPage<Model.TotalPages)
+                                    {
+                                        
                                 <li><a href="/conferences/index?page=@b"><i class="fa fa-angle-right"></i></a></li>
+                                    }
+                                    
                                 }
                             </ul>
                         </div>

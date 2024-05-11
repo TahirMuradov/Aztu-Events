@@ -11,6 +11,7 @@ using Aztu_Events.Entities.Concrete;
 using Aztu_Events.Entities.DTOs.Conferences;
 using Aztu_Events.Entities.EnumClass;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Immutable;
 
 namespace Aztu_Events.DataAccess.Concrete
 {
@@ -25,7 +26,7 @@ namespace Aztu_Events.DataAccess.Concrete
             _emailHelper = emailHelper;
         }
 
-        public async Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status, string ResponseMessage = null)
+        public async Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status, string ResponseMessage = null,bool IsFeatured = false)
         {
             try
             {
@@ -59,6 +60,8 @@ namespace Aztu_Events.DataAccess.Concrete
                     }
                     confrans.Time.UpdateTime = false;
                 }
+                confrans.IsFeatured = IsFeatured;
+
                 _context.Confrans.Update(confrans);
                 await _context.SaveChangesAsync();
                 return new SuccessResult();
@@ -121,7 +124,8 @@ namespace Aztu_Events.DataAccess.Concrete
                         specialGuests = gETConfranceSpecialGuestDTO,
                         Day = dto.Time.Date,
                         CategoryId = dto.CategoryId.ToString(),
-                        CategoryName = dto.Category.CategoryLaunguages.FirstOrDefault(x => x.LangCode == lang).CategoryName
+                        CategoryName = dto.Category.CategoryLaunguages.FirstOrDefault(x => x.LangCode == lang).CategoryName,
+                        IsFeatured=dto.IsFeatured,
 
                     }
 
@@ -142,7 +146,10 @@ namespace Aztu_Events.DataAccess.Concrete
             var conferenceQueries = _context.Confrans.AsNoTracking().AsSplitQuery().AsQueryable();
             if (filter.Status is not null)
             {
-                conferenceQueries = conferenceQueries.Where(x => x.Status == filter.Status);
+                var currentDate = DateOnly.FromDateTime(DateTime.Now);
+                var currentTime = TimeOnly.FromDateTime(DateTime.Now);
+
+                conferenceQueries =  conferenceQueries.Where(x => x.Status == filter.Status &&( x.Time.Date > currentDate || (x.Time.Date == currentDate && x.Time.StartedTime > currentTime)));
             }
             if (filter.CategoryId is not null)
             {
@@ -165,7 +172,7 @@ namespace Aztu_Events.DataAccess.Concrete
                 ConferenceName = x.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == lang).ConfransName,
                 Id = x.Id,
                 ImgUrl = x.ImgUrl,
-
+                IsFeatured = x.IsFeatured,
                 UserEmail = x.User.Email,
                 UserFullname = x.User.FirstName + " " + x.User.LastName
             });
@@ -190,7 +197,8 @@ namespace Aztu_Events.DataAccess.Concrete
                     CategoryId = checekedCategory.Id,
                     ImgUrl = dto.ImgUrl,
                     UserId = dto.UserId,
-                    Status = ConferanceStatus.Gözlənilir
+                    Status = ConferanceStatus.Gözlənilir,
+                    
                 };
                 _context.Confrans.Add(confrans);
 
@@ -366,6 +374,7 @@ namespace Aztu_Events.DataAccess.Concrete
                         AudutoriumId = x.AudutoriumId,
                         AudutoriumName = x.Audutorium.AudutoriyaNumber,
                         ConferenceName = x.ConfranceLaunguages.FirstOrDefault(y => y.LangCode == LangCode).ConfransName,
+                        ConferenceContent=x.ConfranceLaunguages.FirstOrDefault(y=>y.LangCode==LangCode).ConfransContent,
                         Day = x.Time.Date,
                         EndDate = x.Time.EndTime,
                         Id = x.Id,
@@ -376,7 +385,8 @@ namespace Aztu_Events.DataAccess.Concrete
                         CategoryName = x.Category.CategoryLaunguages.FirstOrDefault(y => y.LangCode == LangCode).CategoryName,
                         UserEmail = x.User.Email,
                         UserFullname = x.User.FirstName + " " + x.User.LastName,
-                        UserId = Guid.Parse(x.UserId)
+                        UserId = Guid.Parse(x.UserId),
+                        IsFeatured = x.IsFeatured,
 
 
 
@@ -418,6 +428,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     StartedDate = x.Time.StartedTime,
                     CategoryId = x.CategoryId.ToString(),
                     CategoryName = x.Category.CategoryLaunguages.FirstOrDefault(y => y.LangCode == LangCode).CategoryName,
+                    IsFeatured=x.IsFeatured,
                 }).ToList());
 
             }
@@ -476,7 +487,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     UserFullname = data.User.FirstName + " " + data.User.LastName,
                     CategoryId = data.CategoryId.ToString(),
                     CategoryName = data.Category.CategoryLaunguages.FirstOrDefault(y => y.LangCode == LangCode).CategoryName,
-
+                    IsFeatured=data.IsFeatured,
 
                 };
                 return new SuccessDataResult<GetConferenceUserDTO>(data: getConferenceUserDTO);
@@ -518,6 +529,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     Status = data.Status,
                     StartedDate = data.Time.StartedTime,
                     CategoryId = data.CategoryId.ToString(),
+                    
                   
                 });
             }

@@ -123,8 +123,20 @@
   <data name="AuthConfirmEmail2" xml:space="preserve">
     <value>Log In!</value>
   </data>
+  <data name="ConferancesCategory" xml:space="preserve">
+    <value>All</value>
+  </data>
   <data name="ConfranceCreate" xml:space="preserve">
     <value>Create Conference</value>
+  </data>
+  <data name="ConfranceDetailBacToAllConferance" xml:space="preserve">
+    <value>Back to All Conferences</value>
+  </data>
+  <data name="ConfranceDetailHours" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="ConfranceDetailLocation" xml:space="preserve">
+    <value>Location</value>
   </data>
   <data name="DashboardAlert0" xml:space="preserve">
     <value>Notifications</value>
@@ -302,6 +314,9 @@
   </data>
   <data name="DashboardConfranceForUserUpdate1" xml:space="preserve">
     <value>If you make changes to the conference, the status will automatically change!</value>
+  </data>
+  <data name="DashboardForUserConferanceIndexAlert" xml:space="preserve">
+    <value>To highlight your conference on the main page, please contact us at 055-000-00-00!</value>
   </data>
   <data name="DashboardHome0" xml:space="preserve">
     <value>Aztu Electronic Conference Management System. Welcome!</value>

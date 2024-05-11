@@ -12,7 +12,7 @@ namespace Aztu_Events.Entities.DTOs.Conferences
         public Guid Id { get; set; }
         public string ConferenceName { get; set; }
         public string? ConferenceContent { get; set; }
-
+        public bool IsFeatured { get; set; }
         public string CategoryId { get; set; }
         public string CategoryName { get; set; }
 

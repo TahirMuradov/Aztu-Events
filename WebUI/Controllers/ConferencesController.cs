@@ -18,7 +18,7 @@ namespace WebUI.Controllers
             _categoryService = categoryService;
         }
 
-        public async Task<IActionResult> Index(int page=1)
+        public async Task<IActionResult> Index(int page=1,string Category=null)
         {
             
             string currentCulture=Thread.CurrentThread.CurrentCulture.Name;
@@ -31,31 +31,18 @@ namespace WebUI.Controllers
             {
                 Page = page,
                 Status=ConferanceStatus.Təsdiq,
-                CategoryId=null,
+                CategoryId=Guid.TryParse( Category,out Guid result)?result:null,
                 PageSize=9
                 
                 
                 
             }, lang: currentCulture);
-                if (data.Data.Data is null||data.Data.Data.Count==0)
-                {
-                    page = 1;
-                data = await _confransService.ConferenceGetListFilterAsync(new FilterConferenceDto
-                {
-                    Page = page,
-                    Status = ConferanceStatus.Təsdiq,
-                    CategoryId = null,
-                    PageSize = 9
-
-
-
-                }, lang: currentCulture);
-
-            }
+         
             
           
             ViewBag.Category = _categoryService.GetAllCategory(currentCulture).Data;
             ViewBag.CurrentPage = page;
+            ViewBag.CurrentCategory = Category;
             return View(data.Data);
         }
     }

@@ -123,8 +123,20 @@
   <data name="AuthConfirmEmail2" xml:space="preserve">
     <value>Войти!</value>
   </data>
+  <data name="ConferancesCategory" xml:space="preserve">
+    <value>Все</value>
+  </data>
   <data name="ConfranceCreate" xml:space="preserve">
     <value>Создать конференцию</value>
+  </data>
+  <data name="ConfranceDetailBacToAllConferance" xml:space="preserve">
+    <value>Вернуться ко всем конференциям</value>
+  </data>
+  <data name="ConfranceDetailHours" xml:space="preserve">
+    <value>Дата и время</value>
+  </data>
+  <data name="ConfranceDetailLocation" xml:space="preserve">
+    <value>Местоположение</value>
   </data>
   <data name="DashboardAlert0" xml:space="preserve">
     <value>Уведомления</value>
@@ -302,6 +314,9 @@
   </data>
   <data name="DashboardConfranceForUserUpdate1" xml:space="preserve">
     <value>Если вы внесете изменения в конференцию, статус автоматически изменится!</value>
+  </data>
+  <data name="DashboardForUserConferanceIndexAlert" xml:space="preserve">
+    <value>Для того чтобы выделить вашу конференцию на главной странице, свяжитесь с нами по номеру 055-000-00-00!</value>
   </data>
   <data name="DashboardHome0" xml:space="preserve">
     <value>Система управления электронными конференциями АзТУ. Добро пожаловать!</value>

@@ -1,7 +1,12 @@
 ﻿@model List<GetALLConferenceUserDTO>
+<div class="w-100 text-center">
 
+<div class="alert alert-info">
+        <strong>@_localization.GetKey("DashboardConfranceDetail7")</strong> @_localization.GetKey("DashboardForUserConferanceIndexAlert")
 
+</div>
 <a class="btn btn-outline-success" href="/dashboard/ConferanceForUser/create">@_localization.GetKey("ConfranceCreate")</a>
+</div>
 
 <table id="example" class="display table table-striped" style="width:100%">
     <thead>

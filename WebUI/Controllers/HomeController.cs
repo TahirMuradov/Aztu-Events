@@ -1,3 +1,4 @@
+using Aztu_Events.Business.Abstarct;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,10 +9,11 @@ namespace WebUI.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IConfransService _confransService;
+        public HomeController(ILogger<HomeController> logger, IConfransService confransService)
         {
             _logger = logger;
+            _confransService = confransService;
         }
 
         public IActionResult Index()
@@ -26,9 +28,9 @@ namespace WebUI.Controllers
                               );
                 return RedirectToAction("Index");
             }
-
-
-            return View();
+            var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
+            var data = _confransService.GetAllConferanceForAdmin(currentCulture).Data.Where(x=>x.IsFeatured).ToList();
+            return View(data);
         }
         public IActionResult ChangeLanguage(string culture)
         {

@@ -123,8 +123,20 @@
   <data name="AuthConfirmEmail2" xml:space="preserve">
     <value>Daxil Olun!</value>
   </data>
+  <data name="ConferancesCategory" xml:space="preserve">
+    <value>Hamısı</value>
+  </data>
   <data name="ConfranceCreate" xml:space="preserve">
     <value>Konfrans Yarat</value>
+  </data>
+  <data name="ConfranceDetailBacToAllConferance" xml:space="preserve">
+    <value>Bütün Konfranslara Bax</value>
+  </data>
+  <data name="ConfranceDetailHours" xml:space="preserve">
+    <value>Tarix</value>
+  </data>
+  <data name="ConfranceDetailLocation" xml:space="preserve">
+    <value>Ünvan</value>
   </data>
   <data name="DashboardAlert0" xml:space="preserve">
     <value>Bildirişlər</value>
@@ -302,6 +314,9 @@
   </data>
   <data name="DashboardConfranceForUserUpdate1" xml:space="preserve">
     <value>Konfransda Dəyişiklik etsəniz avtomatik statusu dəyişəcək!</value>
+  </data>
+  <data name="DashboardForUserConferanceIndexAlert" xml:space="preserve">
+    <value>Konfransınızı Ana Səhifədə Önə Çixartmaq Üçün 055-000-00-00 Əlaqə saxlayin!</value>
   </data>
   <data name="DashboardHome0" xml:space="preserve">
     <value>Aztu Elektron Konfrans İdarəetmə sistemi.Xoş Gəldiniz</value>

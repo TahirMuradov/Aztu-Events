@@ -21,14 +21,11 @@ namespace Aztu_Events.Business.Concrete
             _confrenceDal = confrenceDal;
         }
 
-        public async Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status)
-        {
-            return await _confrenceDal.ApproveConfransAsync(id, status);
-        }
+       
 
-        public async Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status, string ResponseMessage = null)
+        public async Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status, string ResponseMessage = null , bool IsFeatured=false)
         {
-           return await _confrenceDal.ApproveConfransAsync(id, status, ResponseMessage);
+           return await _confrenceDal.ApproveConfransAsync(id, status, ResponseMessage,IsFeatured);
         }
 
         public async Task<IDataResult<ConferenceGetAdminDTO>> ConferenceGetDetailForAdminAsync(Guid id, string lang)

@@ -37,7 +37,7 @@ namespace WebUI.Areas.Dashboard.Controllers
         public async Task< IActionResult> ChangeStatus(ConferenceGetAdminDTO conferenceGetAdminDTO,string responseMessage)
         {
             if (string.IsNullOrEmpty(conferenceGetAdminDTO.Id.ToString())) return Redirect("/dashboard/Conferance/index");
-            var result = await _confransService.ApproveConfransAsync(conferenceGetAdminDTO.Id, conferenceGetAdminDTO.Status, responseMessage);
+            var result = await _confransService.ApproveConfransAsync(conferenceGetAdminDTO.Id, conferenceGetAdminDTO.Status, responseMessage, conferenceGetAdminDTO.IsFeatured);
             return Redirect("/dashboard/Conferance/index");
         }
         [HttpDelete]
