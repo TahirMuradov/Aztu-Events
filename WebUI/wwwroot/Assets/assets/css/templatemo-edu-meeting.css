@@ -34,6 +34,88 @@ font & reset css
 reset
 --------------------------------------------- 
 */
+
+
+.comments {
+    background-color: transparent;
+}
+
+  /*  .comments .container {
+        background-color: #eef2f5;
+        width: 400px;
+    }*/
+
+    .comments .addtxt {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+        font-size: 13px;
+        width: 350px;
+        background-color: #e5e8ed;
+        font-weight: 500;
+    }
+
+    .comments .form-control: focus {
+        color: #000;
+    }
+
+    .comments .second {
+        width: 350px;
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 10px 10px 5px #aaaaaa;
+    }
+
+    .comments .text1 {
+        font-size: 13px;
+        font-weight: 500;
+        color: #56575b;
+    }
+
+    .comments .text2 {
+        font-size: 13px;
+        font-weight: 500;
+        margin-left: 6px;
+        color: #56575b;
+    }
+
+.comments .text3 {
+    font-size: 13px;
+    font-weight: 500;
+    margin-right: 4px;
+    color: #828386;
+}
+
+.comments .text3o {
+    color: #00a5f4;
+}
+
+.comments .text4 {
+    font-size: 13px;
+    font-weight: 500;
+    color: #828386;
+}
+
+.comments .text4i {
+    color: #00a5f4;
+}
+
+.comments .text4o {
+    color: white;
+}
+
+.comments .thumbup {
+    font-size: 13px;
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+.comments .thumbupo {
+    color: #17a2b8;
+}
+
+
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, div
 pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q,
 s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
@@ -154,17 +236,17 @@ body {
     margin-bottom: 60px;
   }
 }
-
+.main-button-red button,
 .main-button-red a {
-  font-size: 13px;
-  color: #fff;
-  background-color: #a12c2f;
-  padding: 12px 30px;
-  display: inline-block;
-  border-radius: 22px;
-  font-weight: 500;
-  text-transform: uppercase;
-  transition: all .3s;
+    font-size: 13px;
+    color: #fff;
+    background-color: #a12c2f;
+    padding: 12px 30px;
+    display: inline-block;
+    border-radius: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all .3s;
 }
 
 .main-button-red a:hover {

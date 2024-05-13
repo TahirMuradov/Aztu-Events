@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebUI.Areas.Dashboard.Controllers
 {
     [Area(nameof(Dashboard))]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

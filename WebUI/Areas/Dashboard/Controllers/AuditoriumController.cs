@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebUI.Areas.Dashboard.Controllers
 {
     [Area(nameof(Dashboard))]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class AuditoriumController : Controller
     {
         private readonly IAuditoriumService _auditoriumService;

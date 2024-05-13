@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebUI.Areas.Dashboard.Controllers
 {
     [Area(nameof(Dashboard))]
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles ="SuperAdmin")]
     public class RoleController : Controller
     {
         private readonly IRoleService _roleService;

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aztu_Events.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240511120341_IsfeaturedAddedForConfrans")]
-    partial class IsfeaturedAddedForConfrans
+    [Migration("20240512134953_UpdateDateAddedForComment")]
+    partial class UpdateDateAddedForComment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace Aztu_Events.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Audutoria");
+                    b.ToTable("Audutoriums");
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Category", b =>
@@ -76,6 +76,41 @@ namespace Aztu_Events.DataAccess.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("CategoryLaunguages");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Comment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ConfransId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsSafe")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConfransId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.ConfranceLaunguage", b =>
@@ -424,6 +459,25 @@ namespace Aztu_Events.DataAccess.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Comment", b =>
+                {
+                    b.HasOne("Aztu_Events.Entities.Concrete.Confrans", "Confrans")
+                        .WithMany("Comments")
+                        .HasForeignKey("ConfransId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aztu_Events.Entities.Concrete.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Confrans");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.ConfranceLaunguage", b =>
                 {
                     b.HasOne("Aztu_Events.Entities.Concrete.Confrans", "Confrans")
@@ -559,6 +613,8 @@ namespace Aztu_Events.DataAccess.Migrations
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Confrans", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("ConfranceLaunguages");
 
                     b.Navigation("SpecialGuests");
@@ -572,6 +628,8 @@ namespace Aztu_Events.DataAccess.Migrations
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.User", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Confrans");
                 });
 #pragma warning restore 612, 618

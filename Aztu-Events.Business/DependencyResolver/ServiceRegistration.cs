@@ -31,10 +31,9 @@ namespace Aztu_Events.Business.DependencyResolver
             services.AddScoped<ITimeService, TimeManager>();
             services.AddScoped<ICategoryDAL, EFCategoryDAL>();
             services.AddScoped<ICategoryService, CategoryManager>();
-            #region ValidatorScoped
-            
-           
-            #endregion
+            services.AddScoped<ICommentDAL, EFCommentDAL>();
+            services.AddScoped<ICommentService, CommentManager>();
+      
             services.Configure<IdentityOptions>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = true;

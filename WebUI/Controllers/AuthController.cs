@@ -5,7 +5,6 @@ using Aztu_Events.Entities.DTOs.AuthDTOs;
 using Aztu_Events.Entities.DTOs.UserDTOs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.RegularExpressions;
 
 
 namespace WebUI.Controllers
@@ -34,24 +33,24 @@ namespace WebUI.Controllers
             return View();
         }
         [HttpPost]
-        public async Task< IActionResult> Login(LoginDTO loginDTO)
+        public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
-            var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
+            var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             LoginDTOValidation validator = new LoginDTOValidation(currentCulture);
-            var result=validator.Validate(loginDTO);
+            var result = validator.Validate(loginDTO);
             if (!result.IsValid)
             {
-                for (int i=0;i<result.Errors.Count;i++)
+                for (int i = 0; i < result.Errors.Count; i++)
                 {
-                    if (i%2!=0)
+                    if (i % 2 != 0)
                     {
 
-                    ModelState.AddModelError("Error", result.Errors[i].ErrorMessage);
+                        ModelState.AddModelError("Error", result.Errors[i].ErrorMessage);
                     }
-            
+
 
                 }
-                return View();    
+                return View();
             }
 
 
@@ -68,7 +67,7 @@ namespace WebUI.Controllers
                 {
                     ModelState.AddModelError("Error", "Неверный адрес электронной почты или пароль!");
                 }
-                else 
+                else
                 {
                     ModelState.AddModelError("Error", "Incorrect email or password!");
                 }
@@ -113,7 +112,7 @@ namespace WebUI.Controllers
             return RedirectToAction("login");
 
         }
-    
+
         [HttpGet]
         public async Task<IActionResult> Register()
         {
@@ -127,17 +126,17 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDTO registerDTO)
         {
-          var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
-           RegisterDTOValidator validator=new RegisterDTOValidator(currentCulture);
-            var ValidatorResult=validator.Validate(registerDTO);
+            var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
+            RegisterDTOValidator validator = new RegisterDTOValidator(currentCulture);
+            var ValidatorResult = validator.Validate(registerDTO);
             if (!ValidatorResult.IsValid)
             {
                 for (int i = 0; i < ValidatorResult.Errors.Count; i++)
                 {
-                  
 
-                        ModelState.AddModelError("Error", ValidatorResult.Errors[i].ErrorMessage);
-                    
+
+                    ModelState.AddModelError("Error", ValidatorResult.Errors[i].ErrorMessage);
+
 
 
                 }
@@ -158,7 +157,7 @@ namespace WebUI.Controllers
                 {
                     ModelState.AddModelError("Error", "User with this email already exists!");
                 }
-               
+
                 return View();
             }
             registerDTO.UserName = registerDTO.Firstname + registerDTO.Lastname + Guid.NewGuid().ToString().Substring(0, 5);
@@ -172,37 +171,53 @@ namespace WebUI.Controllers
                 PhoneNumber = registerDTO.PhoneNumber
 
             }, registerDTO.Password);
-            var role = await _roleManager.FindByNameAsync("Admin");
-            if (role is null)
-            {
-                await _roleManager.CreateAsync(new IdentityRole
-                {
-                    Name = "Admin"
-                });
-            }
-            var role2 = await _roleManager.FindByNameAsync("User");
-            if (role2 is null)
-            {
-                await _roleManager.CreateAsync(new IdentityRole
-                {
-                    Name = "User"
-                });
-            }
+
 
             if (result.Succeeded)
             {
                 var user = await _userManager.FindByEmailAsync(registerDTO.Email);
                 if (_userManager.Users.Count() == 1)
                 {
-                  await  _userManager.AddToRoleAsync(user, "Admin");
+
+
+                    await _roleManager.CreateAsync(new IdentityRole
+                    {
+                        Name = "Admin"
+                    });
+                    await _roleManager.CreateAsync(new IdentityRole
+                    {
+                        Name = "SuperAdmin"
+                    });
+
+
+             
+                    await _roleManager.CreateAsync(
+                        new IdentityRole
+                        {
+                            Name = "Student"
+                        }
+                        );
+                    await _roleManager.CreateAsync(
+                     new IdentityRole
+                     {
+                         Name = "Teacher"
+                     }
+                     );
+                    await _roleManager.CreateAsync( new IdentityRole
+               {
+                   Name = "Organizer"
+               }
+               );
+
+                    await _userManager.AddToRoleAsync(user, "SuperAdmin");
                 }
-              
-                string token= await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var confirmLink = Url.ActionLink(controller: "Auth",
         action: "ConfirmEmail",
         host: Request.Host.Value,
-        values: new { email = user.Email,token });
-          var emailResult=    await  _EmailHelper.SendEmailAsync(userEmail: user.Email, confirmationLink: confirmLink, UserName: user.UserName);
+        values: new { email = user.Email, token });
+                var emailResult = await _EmailHelper.SendEmailAsync(userEmail: user.Email, confirmationLink: confirmLink, UserName: user.UserName);
                 if (emailResult.IsSuccess)
                 {
                     if (currentCulture == "az")
@@ -227,7 +242,7 @@ namespace WebUI.Controllers
                 }
 
 
-               await _userManager.DeleteAsync(user);
+                await _userManager.DeleteAsync(user);
                 if (currentCulture == "az")
                 {
                     ModelState.AddModelError("Error", "Qeydiyyat Uğursuz oldu yenidən cəhd edin!");
@@ -240,7 +255,7 @@ namespace WebUI.Controllers
                 {
                     ModelState.AddModelError("Error", "Registration failed, please try again!");
                 }
-       
+
                 return View();
 
 
@@ -273,7 +288,7 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(string Email)
         {
-            var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
+            var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             if (string.IsNullOrEmpty(Email))
             {
 
@@ -306,7 +321,7 @@ namespace WebUI.Controllers
                 {
                     ModelState.AddModelError("Error", "No user found with this email!");
                 }
-            
+
                 return View();
             }
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -329,8 +344,8 @@ namespace WebUI.Controllers
                 {
                     ModelState.AddModelError("Error", "Confirmation link has been sent to your email!");
                 }
-            }    
-               
+            }
+
             return View();
 
         }
@@ -378,7 +393,7 @@ namespace WebUI.Controllers
 
             });
         }
-        public async Task<IActionResult> ConfirmEmail(string email,string token)
+        public async Task<IActionResult> ConfirmEmail(string email, string token)
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(token))
             {

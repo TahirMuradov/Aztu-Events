@@ -1,0 +1,74 @@
+﻿
+@model IQueryable<GetCommentForAdminDTO>
+
+
+<div asp-validation-summary="All" class="text text-danger"></div>
+
+
+
+
+<table id="example" class="display table table-striped" style="width:100%">
+    <thead>
+        <tr>
+
+            <th>#</th>
+            <th>Yazan Istifadeci Adi</th>
+            <th>Yazilan Conferans Adi</th>
+            <th>Mezmun</th>
+            <th>Yazilma Tarixi</th>
+            <th>Yenilenme Tarixi</th>
+            <th>Tehlukesizliyi</th>
+
+
+
+
+        </tr>
+
+    </thead>
+    <tbody id="parent">
+        @{
+            int counter = 0;
+        }
+        @foreach (var comment in Model)
+        {
+            counter++;
+
+            <tr>
+                <td>@counter</td>
+
+                <td>@comment.UserFullName</td>
+                <td>@comment.ConferenceName</td>
+                <td>@comment.Content</td>
+                <td>@comment.CreatedDate</td>
+                <td>@comment.UpdateDate</td>
+                <td>@comment.IsSafe</td>
+
+
+            </tr>
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+
+            <th>#</th>
+            <th>Yazan Istifadeci Adi</th>
+            <th>Yazilan Conferans Adi</th>
+            <th>Mezmun</th>
+            <th>Yazilma Tarixi</th>
+            <th>Yenilenme Tarixi</th>
+            <th>Tehlukesizliyi</th>
+
+
+
+        </tr>
+
+    </tfoot>
+</table>
+
+<script>
+    let table = new DataTable('#example', {
+        responsive: true
+    });
+
+</script>

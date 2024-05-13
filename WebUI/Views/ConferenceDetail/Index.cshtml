@@ -1,4 +1,4 @@
-﻿@model ConferenceGetAdminDTO
+﻿@model ConferenceGetDetailForUIDTO
 
 
 <section class="meetings-page" id="meetings">
@@ -42,7 +42,20 @@
 
                                         </div>
                                     </div>
-                                 
+                                    <div class="col-lg-4">
+                                        <div class="location">
+                                            <h5>Xususi Qonaqlar</h5>
+                                           @foreach (var guest in Model.specialGuests)
+                                            {
+                                                <p>
+
+                                                @guest.Name 
+                                                </p>
+                                                <br/>
+                                            }
+
+                                        </div>
+                                    </div>
                                
                                 </div>
                             </div>
@@ -58,4 +71,146 @@
         </div>
     </div>
 
+    <div class="comments w-100">
+
+   
+
+        <div class="container">
+            <div class="row justify-content-center align-items-center">
+                <div style="font-size:50px;" class="col-5 text-white my-5 text-center text-capitalize caption">
+                    Yorum Setri
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-6">
+@foreach (var Comment in Model.Comments)
+                    {
+                        
+    <div class="container justify-content-center mt-5 border-left border-right">
+        <div class="d-flex justify-content-center py-2">
+            <div class="second py-2 px-2">
+                <span class="text1">@Comment.Content</span>
+                <div class="d-flex justify-content-between py-1 pt-2">
+                    <div><span class="text2">@Comment.UserFullName</span></div>
+                                        <div>
+                                            @if (Comment.UpdateDate==default(DateTime))
+                                            {
+                                                
+                                                <span class="text3">Paylasma Tarixi:</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text3">Yenileme Tarixi:</span>
+                                            }
+                                            <span class="thumbup">
+                                            @if (Comment.UpdateDate == default(DateTime))
+                                            {
+
+                                               
+                                               
+                                                    @Comment.CreatedDate.ToString("yyyy-MM-dd HH:mm",new CultureInfo(Thread.CurrentThread.CurrentCulture.Name))
+                                                }
+                                                else
+                                                {
+                                                    @Comment.UpdateDate.ToString("yyyy-MM-dd HH:mm", new CultureInfo(Thread.CurrentThread.CurrentCulture.Name))
+
+                                                }
+                                                <span />
+                                        </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+                    }
+
+                    
+
+            </div>
+            <div class="col-4">
+
+            @if (User.Identity.IsAuthenticated)
+                {
+                    
+              
+
+                    <div class="form-group my-5">
+                        <label class="form-label">Yorumunuz</label>
+                        <input type="text" class="form-control comment" />
+                    </div>
+                        <div class="main-button-red">
+
+                            <button onclick="CategoryDelet('@ViewBag.CurrentUserId','@Model.Id')" type="button" class="">Yorumu Gonder</button>
+                        </div>
+               
+                }
+                else
+                {
+                        <div class="alert mt-5 alert-light" role="alert">
+
+                        <strong>Melumat!</strong>Yorum yazmaq ucun daxil olun!
+                    </div>
+                }
+                    </div>
+
+        </div>
+        </div>
+    </div>
+
 </section>
+@section scripts{
+
+
+
+    <script>
+
+            function CategoryDelet(UserId, ConferenceId) {
+      
+                var comment = document.querySelector('.comment').value
+                console.log("CommentContent "+comment)
+                console.log("UserId "+UserId)
+                console.log("conferanceId "+ConferenceId)
+                swal({
+                    title: "Silmək İstədiynizə əminsiniz?",
+
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                }).then((willDelete) => {
+                      
+                        if (willDelete) {
+                            var datas = new FormData();
+                            datas.append("UserId", UserId);
+                            datas.append("ConferenceId", ConferenceId);
+                            datas.append("Content", comment);
+                    $.ajax({
+                        url: `/ConferenceDetail/AddComment`,
+                        method: "POST",
+                        dataType: "json",
+                        data: datas,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            if (response) {
+                                swal("Yorumunuz Elave Edildi Admin Terefinden Tesdiq Edilenden Sonra Gorunecekdir!", {
+                                    icon: "success",
+                                })
+                            } else {
+                                console.log("Response is false or empty.");
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr.status)
+                            console.log(xhr.responseText)
+                           
+                            swal(`Error!${xhr.status}`, `${xhr.responseText} ${status} ${error}`, "error")
+                        }
+                    });
+
+
+                        }
+                    }); 
+            }
+    </script>
+
+}

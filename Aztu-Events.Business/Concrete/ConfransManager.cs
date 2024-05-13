@@ -68,6 +68,11 @@ namespace Aztu_Events.Business.Concrete
         {return _confrenceDal.GetConferanceDetailForUser( UserId: UserId,ConfranceId: ConfranceId,LangCode: LangCode);
         }
 
+        public IDataResult<ConferenceGetDetailForUIDTO> GetConferenceDetailForUI(string ConferenceId, string LangCode)
+        {
+            return _confrenceDal.GetConferenceDetailForUI(ConferenceId,LangCode);
+        }
+
         public IDataResult<ConferenceUpdateDto> GetConferenceForUpdateUser(string UserId, string ConferenceId)
         {
            return _confrenceDal.GetConferenceForUpdateUser(UserId:UserId,ConferenceId:ConferenceId);

@@ -8,6 +8,7 @@ using Aztu_Events.Core.Utilities.Results.Concrete.SuccessResults;
 using Aztu_Events.DataAccess.Abstarct;
 using Aztu_Events.DataAccess.Concrete.SQLServer;
 using Aztu_Events.Entities.Concrete;
+using Aztu_Events.Entities.DTOs.CommentDTOs;
 using Aztu_Events.Entities.DTOs.Conferences;
 using Aztu_Events.Entities.EnumClass;
 using Microsoft.EntityFrameworkCore;
@@ -187,7 +188,7 @@ namespace Aztu_Events.DataAccess.Concrete
         {
             try
             {
-                var checekAuditorium = _context.Audutoria.Include(x => x.Times).FirstOrDefault(x => x.Id == dto.AudutoriumId);
+                var checekAuditorium = _context.Audutoriums.Include(x => x.Times).FirstOrDefault(x => x.Id == dto.AudutoriumId);
                 if (checekAuditorium is null) return new ErrorResult(message: "Auditorium is NotFound!");
                 if (_context.Times.Any(x => (x.StartedTime >= dto.StartedDate || dto.EndDate <= x.EndTime) && dto.Day == x.Date && x.AuditoriumId == checekAuditorium.Id)) return new ErrorResult(message: "Time Is Not Empty!");
                 var checekedCategory = _context.Categories.FirstOrDefault(x => x.Id.ToString() == dto.CategoryId);
@@ -496,6 +497,78 @@ namespace Aztu_Events.DataAccess.Concrete
             {
 
                 return new ErrorDataResult<GetConferenceUserDTO>(message: ex.Message);
+            }
+        }
+
+        public IDataResult<ConferenceGetDetailForUIDTO> GetConferenceDetailForUI(string ConferenceId, string LangCode)
+        {
+            try
+            {
+                var data = _context.Confrans
+                    .Include(x => x.ConfranceLaunguages)
+                    .Include(x => x.Comments.Where(y => y.IsSafe))
+                    .ThenInclude(x => x.User)
+                    .Include(x => x.Category)
+                    .ThenInclude(x => x.CategoryLaunguages)
+                    .Include(x => x.User)
+                    .Include(x=>x.SpecialGuests)
+                    .Include(x=>x.Audutorium)
+                    .Include(x=>x.Time)
+                    .FirstOrDefault(x=>x.Id.ToString()==ConferenceId);
+                if (data is null) return new ErrorDataResult<ConferenceGetDetailForUIDTO>(message:"Conference is NotFound!");
+
+                List<GETConfranceSpecialGuestDTO> specialGuestDTO = new List<GETConfranceSpecialGuestDTO>();
+
+
+
+                foreach (var Guest in data.SpecialGuests)
+                {
+                    specialGuestDTO.Add(new GETConfranceSpecialGuestDTO
+                    {
+                        Email = Guest.Email,
+                        Id = Guest.Id,
+                        Name = Guest.Name,
+                        SendEmail = Guest.SendEmail,
+                    });
+                }
+                List< GetCommentForUIDTO > comments= new List< GetCommentForUIDTO >();
+                foreach (var comment in data.Comments)
+                {
+                    comments.Add(new GetCommentForUIDTO
+                    {
+                        CommentId = comment.Id.ToString(),
+                        Content = comment.Content,
+                        CreatedDate = comment.CreatedDate,
+                        UpdateDate = comment.UpdateDate,
+                        UserFullName = comment.User.FirstName + " " + comment.User.LastName,
+                        UserId = comment.UserId
+                    });
+                }
+                return new SuccessDataResult<ConferenceGetDetailForUIDTO>(data: new ConferenceGetDetailForUIDTO
+                {
+                    Id = data.Id,
+                    AudutoriumName=data.Audutorium.AudutoriyaNumber,
+                    CategoryName=data.Category.CategoryLaunguages.FirstOrDefault(x=>x.LangCode==LangCode).CategoryName,
+                    Comments = comments,
+                    ConferenceContent=data.ConfranceLaunguages.FirstOrDefault(x=>x.LangCode==LangCode).ConfransName,
+                    ConferenceName=data.ConfranceLaunguages.FirstOrDefault(x=>x.LangCode==LangCode).ConfransName,
+                    Day=data.Time.Date,
+                    StartedDate=data.Time.StartedTime,
+                    EndDate=data.Time.EndTime,
+                    ImgUrl=data.ImgUrl,
+                    specialGuests= specialGuestDTO,
+                    UserEmail=data.User.Email,
+                    UserFullname=data.User.FirstName+" "+data.User.LastName,
+                    
+
+
+                });
+
+            }
+            catch (Exception ex)
+            {
+
+                return new ErrorDataResult<ConferenceGetDetailForUIDTO>(message: ex.Message);
             }
         }
 

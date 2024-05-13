@@ -9,7 +9,7 @@ using System.Security.Claims;
 namespace WebUI.Areas.Dashboard.Controllers
 {
     [Area(nameof(Dashboard))]
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles ="SuperAdmin")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -48,7 +48,7 @@ namespace WebUI.Areas.Dashboard.Controllers
             var userRole = await _userService.GetUserAsync(id, "az");
             if (userRole is null)
                 RedirectToAction("Index");
-            if (userRole.Data.Roles.Contains("Admin"))
+            if (userRole.Data.Roles.Contains("SuperAdmin"))
                 return Redirect("/dashboard/user/index");
             ViewBag.Roles = roles.Where(x => !userRole.Data.Roles.Contains(x.RoleName)).ToList();
 
@@ -62,6 +62,10 @@ namespace WebUI.Areas.Dashboard.Controllers
         [HttpPost]
         public async Task<IActionResult> AddRole(UserAddRoleDTO userAddRoleDTO)
         {
+            var role = _roleService.GetRole(userAddRoleDTO.RoleId);
+            if (!role .IsSuccess && role.Data is null) return Redirect("/dashboard/user/index");
+            if (role.Data.RoleName=="SuperAdmin")
+                Redirect("/dashboard/user/index");
             var result = await _userService.AssignRoleToUserAsnyc(UserId: userAddRoleDTO.UserId, RoleId: userAddRoleDTO.RoleId);
             if (!result.IsSuccess)
                 return Redirect($"/dashboard/user/addrole/{userAddRoleDTO.UserId}");
@@ -78,7 +82,7 @@ namespace WebUI.Areas.Dashboard.Controllers
             if (!role.IsSuccess) return Redirect("/dashboard/user/index");
 
             if (role.Data.Roles.Count == 0) return Redirect("/dashboard/user/index");
-            if (!role.Data.Roles.Contains("Admin")) return Redirect("/dashboard/user/index");
+            if (!role.Data.Roles.Contains("SuperAdmin")) return Redirect("/dashboard/user/index");
 
             return View(new UserDeleteRoleDTO
             {

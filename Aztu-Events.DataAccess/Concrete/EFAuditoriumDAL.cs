@@ -22,7 +22,7 @@ namespace Aztu_Events.DataAccess.Concrete
                         AuditoryCapacity=addAudutoriumDTO.AuditoryCapacity,
                         AudutoriyaNumber=addAudutoriumDTO.AudutoriyaNumber
                     };
-                    context.Audutoria.Add(auditorium);
+                    context.Audutoriums.Add(auditorium);
                     context.SaveChanges();
 
 
@@ -42,10 +42,10 @@ namespace Aztu_Events.DataAccess.Concrete
             {
                 using (var context=new AppDbContext())
                 {
-                    var Auditorium = context.Audutoria.Include(x=>x.Times).FirstOrDefault(x => x.Id.ToString() == AuditoriumId);
+                    var Auditorium = context.Audutoriums.Include(x=>x.Times).FirstOrDefault(x => x.Id.ToString() == AuditoriumId);
                     if (Auditorium is null) return new ErrorResult(message: "Data Is NotFound");
                     context.Times.RemoveRange(Auditorium.Times);
-                    context.Audutoria.Remove(Auditorium);
+                    context.Audutoriums.Remove(Auditorium);
                     context.SaveChanges();
                   
 
@@ -64,7 +64,7 @@ namespace Aztu_Events.DataAccess.Concrete
             try
             {
                 using var context=new AppDbContext();
-                return new SuccessDataResult<List<GetAuditoriumDTO>>(data:context.Audutoria.Include(x=>x.Times).Select(x=>new GetAuditoriumDTO
+                return new SuccessDataResult<List<GetAuditoriumDTO>>(data:context.Audutoriums.Include(x=>x.Times).Select(x=>new GetAuditoriumDTO
                 {
                     AuditoriumCapacity=x.AuditoryCapacity,
                     Date=x.Times.Where(y=>y.AuditoriumId==x.Id).Select(z=>z.Date).ToList(),
@@ -87,7 +87,7 @@ namespace Aztu_Events.DataAccess.Concrete
             try
             {
                 using var context = new AppDbContext();
-                var Auditorium = context.Audutoria.Include(x=>x.Times).Select(x=>new GetAuditoriumDTO
+                var Auditorium = context.Audutoriums.Include(x=>x.Times).Select(x=>new GetAuditoriumDTO
                 {
                     AuditoriumCapacity = x.AuditoryCapacity,
                     Date = x.Times.Where(y => y.AuditoriumId == x.Id).Select(z => z.Date).ToList(),
@@ -114,11 +114,11 @@ namespace Aztu_Events.DataAccess.Concrete
             {
                 using (var context = new AppDbContext()) 
                 {
-                    var data = context.Audutoria.FirstOrDefault(x => x.Id == updateAuditoriumDTO.AuditoriumId);
+                    var data = context.Audutoriums.FirstOrDefault(x => x.Id == updateAuditoriumDTO.AuditoriumId);
                     if (data == null) return new ErrorResult(message: "Auditorium is NotFound");
                     data.AudutoriyaNumber = updateAuditoriumDTO.AudutoriyaNumber;
                     data.AuditoryCapacity = updateAuditoriumDTO.AuditoriumCapacity;
-                    context.Audutoria.Update(data);
+                    context.Audutoriums.Update(data);
                     context.SaveChanges();
 
                 }

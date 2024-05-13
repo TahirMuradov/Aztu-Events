@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1.Esf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +22,13 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
 
 
         public DbSet<Confrans> Confrans { get; set; }
-        public DbSet<Auditorium> Audutoria { get; set; }
+        public DbSet<Auditorium> Audutoriums { get; set; }
         public DbSet<Time> Times { get; set; }
         public DbSet<ConfranceLaunguage>ConfranceLaunguages { get; set; }
         public DbSet<SpecialGuest> SpecialGuests { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryLaunguage> CategoryLaunguages { get; set; }
-
+        public DbSet<Comment> Comments { get; set; }
 
 
 
@@ -45,6 +46,11 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
                 .HasOne(x=>x.Category)
                 .WithMany(x => x.Confrans)
                 .HasForeignKey(x => x.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Comment>()
+                .HasOne(x=>x.User)
+                .WithMany(x=>x.Comments)
+                .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
     

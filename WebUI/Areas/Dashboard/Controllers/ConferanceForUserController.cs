@@ -13,7 +13,7 @@ using System.Security.Claims;
 namespace WebUI.Areas.Dashboard.Controllers
 {
     [Area(nameof(Dashboard))]
-    [Authorize(Roles = "Admin,User")]
+    [Authorize(Roles = "Admin,User,SuperAdmin")]
     public class ConferanceForUserController : Controller
     {
         private readonly IConfransService _confransService;
