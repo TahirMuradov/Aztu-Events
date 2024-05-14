@@ -1,10 +1,4 @@
 ﻿using FluentValidation.Resources;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aztu_Events.Business.CustomLanguageManager
 {
@@ -95,17 +89,17 @@ namespace Aztu_Events.Business.CustomLanguageManager
             AddTranslation("az", "AuditoriumNumberIsRequird", "Auditoriya nömrəsi boş olmamalidir!.");
             AddTranslation("az", "AuditoriumNumberLength", "Auditoriya nömrəsi 3-10 simvoldan ibarət olmalidir!");
             AddTranslation("az", "AuditoriumCapacityIsRequird", "Auditoriya tutumu boş ola bilməz!");
-            AddTranslation("az", "AuditoriumCapacityIsNull", "Auditoriya tutumu boş ola bilməz!");
+            AddTranslation("az", "AuditoriumCapacityIsNull", "Auditoriya tutumu 0-dan böyük olmalıdır!");
 
             AddTranslation("en", "AuditoriumNumberIsRequird", "Auditorium number cannot be empty!");
             AddTranslation("en", "AuditoriumNumberLength", "Auditorium number must be between 3 and 10 characters!");
             AddTranslation("en", "AuditoriumCapacityIsRequird", "Capacity cannot be empty!");
-            AddTranslation("en", "AuditoriumCapacityIsNull", "Capacity cannot be empty!");
+            AddTranslation("en", "AuditoriumCapacityIsNull", "Audience capacity must be greater than 0!");
 
             AddTranslation("ru", "AuditoriumNumberIsRequird", "Номер аудитории не может быть пустым!");
             AddTranslation("ru", "AuditoriumNumberLength", "Номер аудитории должен содержать от 3 до 10 символов!");
             AddTranslation("ru", "AuditoriumCapacityIsRequird", "Вместимость не может быть пустой!");
-            AddTranslation("ru", "AuditoriumCapacityIsNull", "Вместимость не может быть пустой!");
+            AddTranslation("ru", "AuditoriumCapacityIsNull", "Емкость аудитории должна быть больше 0.!");
             #endregion
             #region AuditoriumUpdateDTO
             AddTranslation("az", "AuditoriumIdIsRequird", "Auditoriya Id boş ola bilməz!");

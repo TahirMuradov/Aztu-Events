@@ -228,6 +228,9 @@
   <data name="DashboardComment5" xml:space="preserve">
     <value>Безопасность</value>
   </data>
+  <data name="DashboardConferenceForUserCategory" xml:space="preserve">
+    <value>Выберите категорию</value>
+  </data>
   <data name="DashboardConfranceChangeStatus0" xml:space="preserve">
     <value>Если вы подтвердите конференцию, отменить ее позже будет невозможно!</value>
   </data>

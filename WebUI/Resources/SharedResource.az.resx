@@ -228,6 +228,9 @@
   <data name="DashboardComment5" xml:space="preserve">
     <value>Təhlükəsizliyi</value>
   </data>
+  <data name="DashboardConferenceForUserCategory" xml:space="preserve">
+    <value>Kateqoriya seçin</value>
+  </data>
   <data name="DashboardConfranceChangeStatus0" xml:space="preserve">
     <value>Əgər Confransı təsdiq etsəniz sonra imtina etmək mümkün olmayacaq!</value>
   </data>

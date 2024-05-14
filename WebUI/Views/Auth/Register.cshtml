@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <select class="form-control form-select" asp-for="RoleId">
-                                <option selected value="null">Vəzifə Seçin</option>
+                                <option selected value="" >@_localization.GetKey("SelectPosition")</option>
                                 @foreach (var role in ViewBag.Roles as List<IdentityRole>)
                                 {
                                     if (role.Name == "Admin" || role.Name == "SuperAdmin")

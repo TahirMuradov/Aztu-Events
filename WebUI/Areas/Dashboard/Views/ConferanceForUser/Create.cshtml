@@ -96,7 +96,7 @@
         <select  onchange="GetAuditoriumTime()"  class="form-control mySelect" asp-for=AudutoriumId name="AudutoriumId">
             @if (ViewBag.Auditorium is List<GetAuditoriumDTO> auditorium && auditorium.Count > 0)
             {
-                <option selected>@_localization.GetKey("DashboardConfranceForUserCreate8")</option>
+                <option selected value="">@_localization.GetKey("DashboardConfranceForUserCreate8")</option>
                
                 @foreach (var item in ViewBag.Auditorium as List<GetAuditoriumDTO>)
                 {
@@ -113,7 +113,7 @@
 
             @if (ViewBag.Category is not null)
             {
-
+                <option selected value="">@_localization.GetKey("DashboardConferenceForUserCategory")</option>
                 foreach (var category in ViewBag.Category as List<CategoryGetDTO>)
                 {
                     <option value="@category.Id">@category.Name</option>
