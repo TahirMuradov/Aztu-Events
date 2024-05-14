@@ -516,6 +516,9 @@
   <data name="NavbarLogin" xml:space="preserve">
     <value>Daxil Ol</value>
   </data>
+  <data name="Organizer" xml:space="preserve">
+    <value>Təşkilatçı</value>
+  </data>
   <data name="Register1" xml:space="preserve">
     <value>Qeyydiyat!</value>
   </data>
@@ -540,6 +543,12 @@
   <data name="Register8" xml:space="preserve">
     <value>Qeydiyyatdan Keç</value>
   </data>
+  <data name="SelectPosition" xml:space="preserve">
+    <value>Vəzifə Seçin</value>
+  </data>
+  <data name="Student" xml:space="preserve">
+    <value>Tələbə</value>
+  </data>
   <data name="SweetAlertMessageError" xml:space="preserve">
     <value>Proses Düzgün getmədi</value>
   </data>
@@ -554,5 +563,8 @@
   </data>
   <data name="SweetAlertMessageTitleCommentApporive" xml:space="preserve">
     <value>Təsdiqləmək İstədiynizə əminsinizmi?</value>
+  </data>
+  <data name="Teacher" xml:space="preserve">
+    <value>Müəllim</value>
   </data>
 </root>

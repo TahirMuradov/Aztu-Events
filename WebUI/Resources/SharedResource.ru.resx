@@ -516,6 +516,9 @@
   <data name="NavbarLogin" xml:space="preserve">
     <value>Войти</value>
   </data>
+  <data name="Organizer" xml:space="preserve">
+    <value>Организатор</value>
+  </data>
   <data name="Register1" xml:space="preserve">
     <value>Регистрация!</value>
   </data>
@@ -540,6 +543,12 @@
   <data name="Register8" xml:space="preserve">
     <value>Зарегистрироваться</value>
   </data>
+  <data name="SelectPosition" xml:space="preserve">
+    <value>Должность</value>
+  </data>
+  <data name="Student" xml:space="preserve">
+    <value>Студент</value>
+  </data>
   <data name="SweetAlertMessageError" xml:space="preserve">
     <value>Процесс не выполнен правильно.</value>
   </data>
@@ -554,5 +563,8 @@
   </data>
   <data name="SweetAlertMessageTitleCommentApporive" xml:space="preserve">
     <value>Вы уверены, что хотите одобрить?</value>
+  </data>
+  <data name="Teacher" xml:space="preserve">
+    <value>Учитель</value>
   </data>
 </root>

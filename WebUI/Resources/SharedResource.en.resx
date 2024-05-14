@@ -516,6 +516,9 @@
   <data name="NavbarLogin" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="Organizer" xml:space="preserve">
+    <value>Organizer</value>
+  </data>
   <data name="Register1" xml:space="preserve">
     <value>Register!</value>
   </data>
@@ -540,6 +543,12 @@
   <data name="Register8" xml:space="preserve">
     <value>Register</value>
   </data>
+  <data name="SelectPosition" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Student" xml:space="preserve">
+    <value>Student</value>
+  </data>
   <data name="SweetAlertMessageError" xml:space="preserve">
     <value>Process did not go well.</value>
   </data>
@@ -554,5 +563,8 @@
   </data>
   <data name="SweetAlertMessageTitleCommentApporive" xml:space="preserve">
     <value>Are you sure you want to approve?</value>
+  </data>
+  <data name="Teacher" xml:space="preserve">
+    <value>Teacher</value>
   </data>
 </root>

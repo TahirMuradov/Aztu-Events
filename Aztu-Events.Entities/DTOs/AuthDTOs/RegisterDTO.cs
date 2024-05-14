@@ -13,7 +13,7 @@ namespace Aztu_Events.Entities.DTOs.AuthDTOs
 
         public string Firstname { get; set; }
         public string? UserName { get; set; }
-       
+       public string? RoleId { get; set; }
 
         public string Lastname { get; set; }
        

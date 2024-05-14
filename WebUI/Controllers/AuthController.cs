@@ -13,6 +13,7 @@ namespace WebUI.Controllers
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+     
         private readonly IEmailHelper _EmailHelper;
         private readonly RoleManager<IdentityRole> _roleManager;
         public AuthController(SignInManager<User> signInManager, UserManager<User> userManager, IEmailHelper emailHelper, RoleManager<IdentityRole> roleManager)
@@ -120,7 +121,7 @@ namespace WebUI.Controllers
             {
                 return RedirectToAction(controllerName: "home", actionName: "index");
             }
-
+            ViewBag.Roles=_roleManager.Roles.ToList();
             return View();
         }
         [HttpPost]
@@ -131,6 +132,7 @@ namespace WebUI.Controllers
             var ValidatorResult = validator.Validate(registerDTO);
             if (!ValidatorResult.IsValid)
             {
+                ViewBag.Roles = _roleManager.Roles.ToList();
                 for (int i = 0; i < ValidatorResult.Errors.Count; i++)
                 {
 
@@ -145,6 +147,7 @@ namespace WebUI.Controllers
             var checekEmail = await _userManager.FindByEmailAsync(registerDTO.Email);
             if (checekEmail != null)
             {
+                ViewBag.Roles = _roleManager.Roles.ToList();
                 if (currentCulture == "az")
                 {
                     ModelState.AddModelError("Error", "Bu Emailde Istifadeci var");
@@ -211,7 +214,11 @@ namespace WebUI.Controllers
 
                     await _userManager.AddToRoleAsync(user, "SuperAdmin");
                 }
-
+                if (!string.IsNullOrEmpty(registerDTO.RoleId))
+                {
+                    var role = await _roleManager.FindByIdAsync(registerDTO.RoleId);
+                    await _userManager.AddToRoleAsync(user, role.Name);
+                }
                 string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var confirmLink = Url.ActionLink(controller: "Auth",
         action: "ConfirmEmail",
@@ -220,6 +227,7 @@ namespace WebUI.Controllers
                 var emailResult = await _EmailHelper.SendEmailAsync(userEmail: user.Email, confirmationLink: confirmLink, UserName: user.UserName);
                 if (emailResult.IsSuccess)
                 {
+                    ViewBag.Roles = _roleManager.Roles.ToList();
                     if (currentCulture == "az")
                     {
                         ModelState.AddModelError("Error", "Emailinize Tesdiqleme Linki Gonderirldi!");
@@ -245,6 +253,7 @@ namespace WebUI.Controllers
                 await _userManager.DeleteAsync(user);
                 if (currentCulture == "az")
                 {
+                    ViewBag.Roles = _roleManager.Roles.ToList();
                     ModelState.AddModelError("Error", "Qeydiyyat Uğursuz oldu yenidən cəhd edin!");
                 }
                 else if (currentCulture == "ru")
