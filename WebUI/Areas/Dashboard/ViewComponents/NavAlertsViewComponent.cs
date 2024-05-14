@@ -8,16 +8,18 @@ namespace WebUI.Areas.Dashboard.ViewComponents
 {
     public class NavAlertsViewComponent:ViewComponent
     {
+        private readonly ICommentService _commentService;
         private readonly IConfransService _confransService;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly IUserService _userService;
         private readonly IRoleService _roleService;
-        public NavAlertsViewComponent(IConfransService confransService, IHttpContextAccessor contextAccessor, IUserService userService, IRoleService roleService)
+        public NavAlertsViewComponent(IConfransService confransService, IHttpContextAccessor contextAccessor, IUserService userService, IRoleService roleService, ICommentService commentService)
         {
             _confransService = confransService;
             _contextAccessor = contextAccessor;
             _userService = userService;
             _roleService = roleService;
+            _commentService = commentService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
@@ -29,13 +31,13 @@ namespace WebUI.Areas.Dashboard.ViewComponents
 
             if (User.IsInRole("Admin"))
             {
-                conferance = _confransService.GetAllConferanceForUser(UserId: currentUserId, LangCode: currentCulture).Data.Where(x => x.Status == ConferanceStatus.Gözlənilir).ToList();
-
+                conferance = _confransService.GetAllConferanceForUser(UserId: currentUserId, LangCode: currentCulture).Data.Where(x => x.Status == ConferanceStatus.Gözlənilir && !x.AlertSeen).ToList();
+                ViewBag.CommentAlert = _commentService.GetAllCommentsForAmin(currentCulture).Data.Where(x =>!x.AlertSeen);
             }
             else
             {
 
-            conferance = _confransService.GetAllConferanceForUser(UserId: currentUserId, LangCode: currentCulture).Data.Where(x => x.Status != ConferanceStatus.Gözlənilir).ToList();
+            conferance = _confransService.GetAllConferanceForUser(UserId: currentUserId, LangCode: currentCulture).Data.Where(x => x.Status != ConferanceStatus.Gözlənilir && !x.AlertSeen).ToList();
             }
            
            

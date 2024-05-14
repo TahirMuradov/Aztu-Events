@@ -126,6 +126,24 @@
   <data name="ConferancesCategory" xml:space="preserve">
     <value>Все</value>
   </data>
+  <data name="ConferenceDetailCommentAlertContent" xml:space="preserve">
+    <value>Войдите, чтобы оставить комментарий!</value>
+  </data>
+  <data name="ConferenceDetailReview" xml:space="preserve">
+    <value>Обзоры</value>
+  </data>
+  <data name="ConferenceDetailShareComment" xml:space="preserve">
+    <value>Поделиться комментарием</value>
+  </data>
+  <data name="ConferenceDetailShareDateComment" xml:space="preserve">
+    <value>Поделиться комментарием</value>
+  </data>
+  <data name="ConferenceDetailUpdateDateComment" xml:space="preserve">
+    <value>Дата обновления:</value>
+  </data>
+  <data name="ConferenceDetailYourComment" xml:space="preserve">
+    <value>Ваш комментарий</value>
+  </data>
   <data name="ConfranceCreate" xml:space="preserve">
     <value>Создать конференцию</value>
   </data>
@@ -191,6 +209,24 @@
   </data>
   <data name="DashboardCategoryIndex1" xml:space="preserve">
     <value>Создать Категорию</value>
+  </data>
+  <data name="DashboardComment0" xml:space="preserve">
+    <value>Пользовательское имя</value>
+  </data>
+  <data name="DashboardComment1" xml:space="preserve">
+    <value>Название конференции</value>
+  </data>
+  <data name="DashboardComment2" xml:space="preserve">
+    <value>Содержание</value>
+  </data>
+  <data name="DashboardComment3" xml:space="preserve">
+    <value>Дата написания</value>
+  </data>
+  <data name="DashboardComment4" xml:space="preserve">
+    <value>Дата обновления</value>
+  </data>
+  <data name="DashboardComment5" xml:space="preserve">
+    <value>Безопасность</value>
   </data>
   <data name="DashboardConfranceChangeStatus0" xml:space="preserve">
     <value>Если вы подтвердите конференцию, отменить ее позже будет невозможно!</value>
@@ -503,5 +539,20 @@
   </data>
   <data name="Register8" xml:space="preserve">
     <value>Зарегистрироваться</value>
+  </data>
+  <data name="SweetAlertMessageError" xml:space="preserve">
+    <value>Процесс не выполнен правильно.</value>
+  </data>
+  <data name="SweetAlertMessageSuccess" xml:space="preserve">
+    <value>Удалено!</value>
+  </data>
+  <data name="SweetAlertMessageSuccessCommentApporive" xml:space="preserve">
+    <value>Процесс успешно завершен!</value>
+  </data>
+  <data name="SweetAlertMessageTitle" xml:space="preserve">
+    <value>Вы уверены, что хотите удалить?</value>
+  </data>
+  <data name="SweetAlertMessageTitleCommentApporive" xml:space="preserve">
+    <value>Вы уверены, что хотите одобрить?</value>
   </data>
 </root>

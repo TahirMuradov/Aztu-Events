@@ -7,6 +7,7 @@ namespace Aztu_Events.Business.Abstarct
 {
     public interface IConfransService
     {
+        public IResult AlertSeen();
         IResult ConfrenceRemove(string id);
         Task<IResult> ConfrenceAddAsync(ConferenceAddDTO dto);
         Task<IResult> ConfrenceUpdateAsync(ConferenceUpdateDto dto);

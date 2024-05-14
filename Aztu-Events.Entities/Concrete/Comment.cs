@@ -12,6 +12,7 @@ namespace Aztu_Events.Entities.Concrete
         public string Content { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdateDate { get; set; }
+        public bool AlertSeen { get; set; }
         public bool IsSafe { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }

@@ -10,8 +10,10 @@ namespace Aztu_Events.DataAccess.Abstarct
 {
     public interface ICommentDAL
     {
+        public IResult AlertSeen();
         public IResult AddComment(AddCommentDTO addCommentDTO);
-        public IResult DeleteComment(string Id,string? UserId);
+        public IResult ApporiveComment(string Id);
+        public IResult DeleteComment(string Id);
         public IResult UpdateComment(UpdateCommentDTO updateCommentDTO);
         public IDataResult<List<GetCommentForUIDTO>> GetCommentsForUI(string ConfransId);
         public IDataResult<List<GetCommentForAdminDTO>> GetCommentsForAmin(string ConfransId,string langCode);

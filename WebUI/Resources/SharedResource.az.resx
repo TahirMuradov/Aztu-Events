@@ -126,6 +126,24 @@
   <data name="ConferancesCategory" xml:space="preserve">
     <value>Hamısı</value>
   </data>
+  <data name="ConferenceDetailCommentAlertContent" xml:space="preserve">
+    <value>Yorum yazmaq üçün daxil olun!</value>
+  </data>
+  <data name="ConferenceDetailReview" xml:space="preserve">
+    <value>Şərhlər</value>
+  </data>
+  <data name="ConferenceDetailShareComment" xml:space="preserve">
+    <value>Şərhi Göndər</value>
+  </data>
+  <data name="ConferenceDetailShareDateComment" xml:space="preserve">
+    <value>Paylaşma Tarixi:</value>
+  </data>
+  <data name="ConferenceDetailUpdateDateComment" xml:space="preserve">
+    <value>Yenilənmə Tarixi:</value>
+  </data>
+  <data name="ConferenceDetailYourComment" xml:space="preserve">
+    <value>Yorumunuz</value>
+  </data>
   <data name="ConfranceCreate" xml:space="preserve">
     <value>Konfrans Yarat</value>
   </data>
@@ -191,6 +209,24 @@
   </data>
   <data name="DashboardCategoryIndex1" xml:space="preserve">
     <value>Kateqoriya Yarat</value>
+  </data>
+  <data name="DashboardComment0" xml:space="preserve">
+    <value>Yazan Istifadəçi Adı</value>
+  </data>
+  <data name="DashboardComment1" xml:space="preserve">
+    <value>Yazilan Conferans Adı</value>
+  </data>
+  <data name="DashboardComment2" xml:space="preserve">
+    <value>Məzmun</value>
+  </data>
+  <data name="DashboardComment3" xml:space="preserve">
+    <value>Yazılma Tarixi</value>
+  </data>
+  <data name="DashboardComment4" xml:space="preserve">
+    <value>Yenilənmə Tarixi</value>
+  </data>
+  <data name="DashboardComment5" xml:space="preserve">
+    <value>Təhlükəsizliyi</value>
   </data>
   <data name="DashboardConfranceChangeStatus0" xml:space="preserve">
     <value>Əgər Confransı təsdiq etsəniz sonra imtina etmək mümkün olmayacaq!</value>
@@ -503,5 +539,20 @@
   </data>
   <data name="Register8" xml:space="preserve">
     <value>Qeydiyyatdan Keç</value>
+  </data>
+  <data name="SweetAlertMessageError" xml:space="preserve">
+    <value>Proses Düzgün getmədi</value>
+  </data>
+  <data name="SweetAlertMessageSuccess" xml:space="preserve">
+    <value>Silindi!</value>
+  </data>
+  <data name="SweetAlertMessageSuccessCommentApporive" xml:space="preserve">
+    <value>Proses Uğurla Bitdi!</value>
+  </data>
+  <data name="SweetAlertMessageTitle" xml:space="preserve">
+    <value>Silmək İstədiynizə əminsinizmi?</value>
+  </data>
+  <data name="SweetAlertMessageTitleCommentApporive" xml:space="preserve">
+    <value>Təsdiqləmək İstədiynizə əminsinizmi?</value>
   </data>
 </root>

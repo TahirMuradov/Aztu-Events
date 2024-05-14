@@ -89,14 +89,38 @@
 
     </tfoot>
 </table>
-
+@{
+    var langCode = CultureInfo.CurrentCulture.Name;
+    var SweetAlertMessageSuccess = _localization.GetKey("SweetAlertMessageSuccess");
+    var SweetAlertMessageError = _localization.GetKey("SweetAlertMessageError");
+    var SweetAlertMessageTitle = _localization.GetKey("SweetAlertMessageTitle");
+}
 <script>
+    var successMessage = "@Html.Raw(SweetAlertMessageSuccess)"
+    var errorMessage = "@Html.Raw(SweetAlertMessageError)"
+    var TitleMessage = "@Html.Raw(SweetAlertMessageTitle)"
+    var currentCulture = "@langCode";
+    var languageUrl = null;
+    if (currentCulture == "az") {
+
+        languageUrl = "//cdn.datatables.net/plug-ins/2.0.7/i18n/az-AZ.json";
+    }
+    else if (currentCulture == "ru") {
+        languageUrl = "//cdn.datatables.net/plug-ins/2.0.7/i18n/ru.json";
+    }
+    else {
+        languageUrl = "//cdn.datatables.net/plug-ins/2.0.7/i18n/en-GB.json";
+    }
     let table = new DataTable('#example', {
-        responsive: true
+        responsive: true,
+        language: {
+            url: languageUrl,
+        },
+
     });
     function AuditoriumDelet(id) {
         swal({
-            title: "Silmək İstədiynizə əminsiniz?",
+            title: TitleMessage,
 
             icon: "warning",
             buttons: true,
@@ -108,7 +132,7 @@
                         url:`/dashboard/auditorium/delete/${id}`,
                         method:"Post",
                         success: function (response) {
-                            swal("Silindi!", {
+                            swal(successMessage, {
                                 icon: "success",
                             }).then((e) => {
 
@@ -119,7 +143,7 @@
                             })
                         },
                         error: function () {
-                            swal("Proses Düzgun getmedi", "error");
+                            swal(errorMessage, "error");
                         }
                     })
 

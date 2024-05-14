@@ -21,7 +21,10 @@ namespace Aztu_Events.Business.Concrete
             _confrenceDal = confrenceDal;
         }
 
-       
+        public IResult AlertSeen()
+        {
+            return _confrenceDal.AlertSeen();
+        }
 
         public async Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status, string ResponseMessage = null , bool IsFeatured=false)
         {

@@ -27,6 +27,30 @@ namespace Aztu_Events.DataAccess.Concrete
             _emailHelper = emailHelper;
         }
 
+        public IResult AlertSeen()
+        {
+            try
+            {
+                var conferances=_context.Confrans.Where(x=>!x.AlertSeen);
+                if (conferances is null)
+                    return new SuccessResult();
+                foreach (var conference in conferances)
+                { 
+                    conference.AlertSeen = true;
+                _context.Confrans.Update(conference);
+                }
+              
+                _context.SaveChanges();
+                return new SuccessResult();
+
+            }
+            catch (Exception ex)
+            {
+
+                return new ErrorResult(message: ex.Message);
+            }
+        }
+
         public async Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status, string ResponseMessage = null,bool IsFeatured = false)
         {
             try
@@ -430,6 +454,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     CategoryId = x.CategoryId.ToString(),
                     CategoryName = x.Category.CategoryLaunguages.FirstOrDefault(y => y.LangCode == LangCode).CategoryName,
                     IsFeatured=x.IsFeatured,
+                    AlertSeen=x.AlertSeen
                 }).ToList());
 
             }

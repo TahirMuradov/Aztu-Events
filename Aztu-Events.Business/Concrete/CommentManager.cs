@@ -24,9 +24,19 @@ namespace Aztu_Events.Business.Concrete
            return _commentDAL.AddComment(addCommentDTO);
         }
 
-        public IResult DeleteComment(string Id, string? UserId)
+        public IResult AlertSeen()
         {
-           return _commentDAL.DeleteComment(Id, UserId);
+           return _commentDAL.AlertSeen();
+        }
+
+        public IResult ApporiveComment(string Id)
+        {
+       return _commentDAL.ApporiveComment(Id);
+        }
+
+        public IResult DeleteComment(string Id)
+        {
+           return _commentDAL.DeleteComment(Id);
         }
 
         public IDataResult<IQueryable<GetCommentForAdminDTO>> GetAllCommentsForAmin(string langCode)

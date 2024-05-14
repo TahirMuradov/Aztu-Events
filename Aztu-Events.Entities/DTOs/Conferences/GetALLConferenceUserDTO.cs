@@ -19,7 +19,7 @@ namespace Aztu_Events.Entities.DTOs.Conferences
         public TimeOnly EndDate { get; set; }
         public Guid UserId { get; set; }
         public bool IsFeatured { get; set; }
-
+        public bool AlertSeen {  get; set; }
         public string UserEmail { get; set; }
         public string UserFullname { get; set; }
         public Guid AudutoriumId { get; set; }

@@ -19,5 +19,21 @@ namespace WebUI.Areas.Dashboard.Controllers
             var data = _commentService.GetAllCommentsForAmin(currentCulture);
             return View(data.Data);
         }
+    
+        [HttpPut]
+        public IActionResult ApporiveComment(string Id)
+        {
+            if (string.IsNullOrEmpty(Id)) return BadRequest();
+            var data = _commentService.ApporiveComment(Id);
+            
+            return data.IsSuccess?Ok():BadRequest();
+        }
+        [HttpDelete]
+        public IActionResult DeleteComment(string Id)
+        {
+            if (string.IsNullOrEmpty(Id)) return BadRequest();
+            var resul = _commentService.DeleteComment(Id);
+            return resul.IsSuccess?Ok():BadRequest();
+        }
     }
 }

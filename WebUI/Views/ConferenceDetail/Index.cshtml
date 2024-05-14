@@ -78,7 +78,7 @@
         <div class="container">
             <div class="row justify-content-center align-items-center">
                 <div style="font-size:50px;" class="col-5 text-white my-5 text-center text-capitalize caption">
-                    Yorum Setri
+                    @_localization.GetKey("ConferenceDetailReview")
                 </div>
             </div>
         <div class="row">
@@ -89,18 +89,18 @@
     <div class="container justify-content-center mt-5 border-left border-right">
         <div class="d-flex justify-content-center py-2">
             <div class="second py-2 px-2">
-                <span class="text1">@Comment.Content</span>
-                <div class="d-flex justify-content-between py-1 pt-2">
-                    <div><span class="text2">@Comment.UserFullName</span></div>
+                                    <div><i class="fa-regular fa-user"></i> <span class="text2">@Comment.UserFullName</span></div>
+                <span class="text1"> @Comment.Content</span>
+                <div class="d-flex justify-content-end py-1 pt-2">
                                         <div>
                                             @if (Comment.UpdateDate==default(DateTime))
                                             {
-                                                
-                                                <span class="text3">Paylasma Tarixi:</span>
+
+                                                <span class="text3">@_localization.GetKey("ConferenceDetailUpdateDateComment")</span>
                                             }
                                             else
                                             {
-                                                <span class="text3">Yenileme Tarixi:</span>
+                                                <span class="text3">@_localization.GetKey("ConferenceDetailShareDateComment")</span>
                                             }
                                             <span class="thumbup">
                                             @if (Comment.UpdateDate == default(DateTime))
@@ -135,12 +135,12 @@
               
 
                     <div class="form-group my-5">
-                        <label class="form-label">Yorumunuz</label>
+                            <label class="form-label">@_localization.GetKey("ConferenceDetailYourComment")</label>
                         <input type="text" class="form-control comment" />
                     </div>
                         <div class="main-button-red">
 
-                            <button onclick="CategoryDelet('@ViewBag.CurrentUserId','@Model.Id')" type="button" class="">Yorumu Gonder</button>
+                            <button onclick="CategoryDelet('@ViewBag.CurrentUserId','@Model.Id')" type="button" class="">@_localization.GetKey("ConferenceDetailShareComment")</button>
                         </div>
                
                 }
@@ -148,7 +148,7 @@
                 {
                         <div class="alert mt-5 alert-light" role="alert">
 
-                        <strong>Melumat!</strong>Yorum yazmaq ucun daxil olun!
+                            <strong>@_localization.GetKey("DashboardConfranceDetail7")</strong>@_localization.GetKey("ConferenceDetailCommentAlertContent")
                     </div>
                 }
                     </div>

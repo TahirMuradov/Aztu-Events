@@ -23,7 +23,7 @@ namespace Aztu_Events.Entities.Concrete
         public User User { get; set; }
 
         public Guid CategoryId { get; set; }
-
+        public bool AlertSeen {  get; set; }
         public Category Category { get; set; }
         public List<ConfranceLaunguage> ConfranceLaunguages { get; set; }
         public List<SpecialGuest> SpecialGuests { get; set; }

@@ -1,4 +1,5 @@
 ﻿
+
 @model IQueryable<GetCommentForAdminDTO>
 
 
@@ -12,12 +13,13 @@
         <tr>
 
             <th>#</th>
-            <th>Yazan Istifadeci Adi</th>
-            <th>Yazilan Conferans Adi</th>
-            <th>Mezmun</th>
-            <th>Yazilma Tarixi</th>
-            <th>Yenilenme Tarixi</th>
-            <th>Tehlukesizliyi</th>
+            <th>@_localization.GetKey("DashboardComment0")</th>
+            <th>@_localization.GetKey("DashboardComment1")</th>
+            <th>@_localization.GetKey("DashboardComment2")</th>
+            <th>@_localization.GetKey("DashboardComment3")</th>
+            <th>@_localization.GetKey("DashboardComment4")</th>
+            <th>@_localization.GetKey("DashboardComment5")</th>
+            <th>@_localization.GetKey("DashboardAuditoriumIndex1")</th>
 
 
 
@@ -42,7 +44,10 @@
                 <td>@comment.CreatedDate</td>
                 <td>@comment.UpdateDate</td>
                 <td>@comment.IsSafe</td>
-
+                <th>
+                    <button onclick="ApporiveComment('@comment.CommentId')" class="btn btn-outline-success"><i class="fa-solid fa-check"></i></button>
+                    <button onclick="DeleteComment('@comment.CommentId')" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                </th>
 
             </tr>
         }
@@ -52,12 +57,14 @@
         <tr>
 
             <th>#</th>
-            <th>Yazan Istifadeci Adi</th>
-            <th>Yazilan Conferans Adi</th>
-            <th>Mezmun</th>
-            <th>Yazilma Tarixi</th>
-            <th>Yenilenme Tarixi</th>
-            <th>Tehlukesizliyi</th>
+            <th>@_localization.GetKey("DashboardComment0")</th>
+            <th>@_localization.GetKey("DashboardComment1")</th>
+            <th>@_localization.GetKey("DashboardComment2")</th>
+            <th>@_localization.GetKey("DashboardComment3")</th>
+            <th>@_localization.GetKey("DashboardComment4")</th>
+            <th>@_localization.GetKey("DashboardComment5")</th>
+            <th>@_localization.GetKey("DashboardAuditoriumIndex1")</th>
+
 
 
 
@@ -65,10 +72,104 @@
 
     </tfoot>
 </table>
+@{
+    var langCode = CultureInfo.CurrentCulture.Name;
+    var SweetAlertMessageTitleCommentApporive = _localization.GetKey("SweetAlertMessageTitleCommentApporive");
+    var SweetAlertMessageSuccessCommentApporive = _localization.GetKey("SweetAlertMessageSuccessCommentApporive");
+    var SweetAlertMessageError = _localization.GetKey("SweetAlertMessageError");
+    var SweetAlertMessageTitle = _localization.GetKey("SweetAlertMessageTitle");
 
+}
 <script>
-    let table = new DataTable('#example', {
-        responsive: true
-    });
+    var currentCulture ="@langCode";
+    var languageUrl = null;
+    var _1 = "@Html.Raw(SweetAlertMessageTitleCommentApporive)"
+    var _2 = "@Html.Raw(SweetAlertMessageSuccessCommentApporive)"
+    var _3 = "@Html.Raw(SweetAlertMessageError)"
+    var delete1 = "@Html.Raw(SweetAlertMessageTitle)"
 
+    if (currentCulture== "az") {
+        
+    languageUrl =  "//cdn.datatables.net/plug-ins/2.0.7/i18n/az-AZ.json";
+    }
+    else if (currentCulture== "ru") {
+         languageUrl = "//cdn.datatables.net/plug-ins/2.0.7/i18n/ru.json";
+    }
+    else
+    {
+        languageUrl = "//cdn.datatables.net/plug-ins/2.0.7/i18n/en-GB.json";
+    }
+    let table = new DataTable('#example', {
+        responsive: true,
+        language: {
+            url: languageUrl,
+        },
+      
+    });
+    function ApporiveComment(id) {
+        swal({
+            title: _1,
+
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                debugger
+                if (willDelete) {
+                    $.ajax({
+                        url: `/Dashboard/Comment/ApporiveComment?Id=${id}`,
+                        method: "PUT",
+                        success: function (response) {
+                            swal(_2, {
+                                icon: "success",
+                            }).then((e) => {
+
+                                if (e) {
+                                    window.location.reload();
+
+                                }
+                            })
+                        },
+                        error: function (xhr, status, error) {
+                            swal(_3, "error");
+                        }
+                    })
+
+                }
+            });
+    }
+    function DeleteComment(id) {
+        swal({
+            title: delete1,
+
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                debugger
+                if (willDelete) {
+                    $.ajax({
+                        url: `/Dashboard/Comment/DeleteComment?Id=${id}`,
+                        method: "DELETE",
+                        success: function (response) {
+                            swal(_2, {
+                                icon: "success",
+                            }).then((e) => {
+
+                                if (e) {
+                                    window.location.reload();
+
+                                }
+                            })
+                        },
+                        error: function (xhr, status, error) {
+                            swal(_3, "error");
+                        }
+                    })
+
+                }
+            });
+    }
 </script>

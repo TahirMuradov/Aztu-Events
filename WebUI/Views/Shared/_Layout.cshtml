@@ -48,7 +48,20 @@
                         <ul class="nav">
                             <li ><a asp-controller="home" asp-action="index" class=""> @_localization.GetKey("NavbarHome")</a></li>
                             <li><a asp-controller="conferences" asp-action="index"> @_localization.GetKey("NavbarConferances") </a></li>
+                          
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li><a asp-controller="auth" asp-action="LogOut"> <i class="fa-solid fa-right-from-bracket"></i></a></li>
+                                <li><a href="/dashboard/home/index"><i class="fa-solid fa-toolbox"></i></a></li>
+                            }
+
+                            else
+                            {
+                                
                             <li ><a  asp-controller="auth" asp-action="login"> @_localization.GetKey("NavbarLogin")</a></li>
+                            }
+
+
                             <li class="has-sub">
                                 <a href="javascript:void(0)"><i class="fa-solid fa-globe"></i></a>
                                 <ul class="sub-menu">
@@ -161,7 +174,7 @@
             checkSection();
         });
     </script>
-    @RenderSection("scripts",false);
+    @RenderSection("scripts",false)
 </body>
 
 

@@ -24,7 +24,7 @@ namespace Aztu_Events.DataAccess.Concrete
         {
             _Context = context;
         }
-
+     
         public IResult AddComment(AddCommentDTO addCommentDTO)
         {
             try
@@ -38,7 +38,8 @@ namespace Aztu_Events.DataAccess.Concrete
                     UserId = Userchecked.Id,
                     ConfransId = ConferenceChecked.Id,
                     Content = addCommentDTO.Content,
-                    CreatedDate = DateTime.Now
+                    CreatedDate = DateTime.Now,
+                   
                 
 
                 });
@@ -54,12 +55,62 @@ namespace Aztu_Events.DataAccess.Concrete
             }
         }
 
-        public IResult DeleteComment(string Id, string? UserId)
+        public IResult AlertSeen()
         {
             try
             {
-                var Userchecked = _Context.Users.FirstOrDefault(x => x.Id == UserId);
-                if (Userchecked is null) return new ErrorResult("User is NotFound!");
+                var comments = _Context.Comments.Where(x => !x.AlertSeen);
+                if (comments is null)
+                    return new SuccessResult();
+                foreach (var comment in comments)
+                {
+                    comment.AlertSeen= true;
+                _Context.Comments.Update(comment);
+                }
+                _Context.SaveChanges();
+                return new SuccessResult();
+            }
+            catch (Exception ex)
+            {
+
+                return new ErrorResult(message: ex.Message);
+            }
+        }
+
+        public IResult ApporiveComment(string Id)
+        {
+            try
+            {
+                var comment = _Context.Comments.FirstOrDefault(x => x.Id.ToString() == Id);
+
+                if (comment == null) return new ErrorResult(message: "Comment Is NotFound!");
+                switch (comment.IsSafe)
+                {
+                    case true:
+                        comment.IsSafe = false;
+                        break;
+                    case false:
+                        comment.IsSafe = true;
+                        break;
+
+                }
+                comment.AlertSeen = false;
+              _Context.Comments.Update(comment);
+                _Context.SaveChanges();
+                return new SuccessResult();
+            }
+            catch (Exception ex)
+            {
+
+                return new ErrorResult(message: ex.Message);
+            }
+        }
+
+        public IResult DeleteComment(string Id)
+        {
+            try
+            {
+              
                 var CommentChecked = _Context.Comments.FirstOrDefault(x => x.Id.ToString() == Id);
                 if (CommentChecked is null) return new ErrorResult("Comment is NotFound!");
                 _Context.Comments.Remove(CommentChecked);
@@ -87,7 +138,8 @@ namespace Aztu_Events.DataAccess.Concrete
                     ConferenceName = x.Confrans.ConfranceLaunguages.FirstOrDefault(y => y.LangCode == langCode).ConfransName,
                     Content = x.Content,
                     CreatedDate = x.CreatedDate,
-                    UpdateDate = x.UpdateDate
+                    UpdateDate = x.UpdateDate,
+                    AlertSeen=x.AlertSeen
 
 
                 }));
@@ -162,6 +214,7 @@ namespace Aztu_Events.DataAccess.Concrete
                 comment.Content = updateCommentDTO.NewContent;
                 comment.UpdateDate = DateTime.Now;
                 comment.IsSafe = false;
+                comment.AlertSeen = false;
                 _Context.Comments.Update(comment);
                 _Context.SaveChanges();
                 return new SuccessResult();
