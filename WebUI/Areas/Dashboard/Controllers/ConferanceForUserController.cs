@@ -2,11 +2,9 @@
 using Aztu_Events.Business.FluentValidation.ConferanceValidator;
 using Aztu_Events.Core.Helper;
 using Aztu_Events.Core.Helper.FileHelper;
-using Aztu_Events.Entities.Concrete;
 using Aztu_Events.Entities.DTOs.Conferences;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using System.Security.Claims;
 
@@ -34,39 +32,38 @@ namespace WebUI.Areas.Dashboard.Controllers
         public IActionResult Index()
         {
             string currentCultur = Thread.CurrentThread.CurrentCulture.Name;
-          var currentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var currentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var result = _confransService.GetAllConferanceForUser(currentUserId, currentCultur);
             return View(result.Data);
         }
         [HttpGet]
         public IActionResult Create()
         {
-            var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
+            var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var auditorium=_auditoriumService.GetAllAuditorium();
-            ViewBag.Auditorium= auditorium.Data;
+            var auditorium = _auditoriumService.GetAllAuditorium();
+            ViewBag.Auditorium = auditorium.Data;
             var category = _categoryService.GetAllCategory(currentCulture);
-            ViewBag.Category=category.Data;
-            return View( new ConferenceAddDTO
+            ViewBag.Category = category.Data;
+            return View(new ConferenceAddDTO
             {
-               UserId = CurrentUserId,
+                UserId = CurrentUserId,
             });
         }
         [HttpPost]
-        public async Task< IActionResult> Create(ConferenceAddDTO conferenceCreateDto, IFormFile Photo)
+        public async Task<IActionResult> Create(ConferenceAddDTO conferenceCreateDto, IFormFile Photo)
         {
-            var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
-            ConferanceAddDTOValidator validationRules=new ConferanceAddDTOValidator(currentCulture);
-            var resultValidator=validationRules.Validate(conferenceCreateDto);
+            var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
+            ConferanceAddDTOValidator validationRules = new ConferanceAddDTOValidator(currentCulture);
+            var resultValidator = validationRules.Validate(conferenceCreateDto);
             if (!resultValidator.IsValid)
             {
-                for (int i=0;i<resultValidator.Errors.Count;i++)
+                for (int i = 0; i < resultValidator.Errors.Count; i++)
                 {
-                    if (!resultValidator.Errors[i].ErrorMessage.Contains('"'))
-                    {
+                    if (resultValidator.Errors[i].ErrorMessage == "Conference start time cannot be empty." && (currentCulture == "az" || currentCulture == "ru"))
+                        continue;
+                    ModelState.AddModelError("Error", resultValidator.Errors[i].ErrorMessage);
 
-                        ModelState.AddModelError("Error", resultValidator.Errors[i].ErrorMessage);
-                    }
                 }
                 var auditorium = _auditoriumService.GetAllAuditorium();
                 ViewBag.Auditorium = auditorium.Data;
@@ -76,15 +73,15 @@ namespace WebUI.Areas.Dashboard.Controllers
                 conferenceCreateDto.UserId = CurrentUserId;
                 return View(conferenceCreateDto);
             }
-            var AllTimes=_timeService.GetAllTime().Data;
-            
-            if (AllTimes.Any(x=>(x.Date==conferenceCreateDto.Day&&x.AuditoriumId==conferenceCreateDto.AudutoriumId)&&!(x.EndTime <= conferenceCreateDto.StartedDate || x.StartedTime >= conferenceCreateDto.EndDate)))
+            var AllTimes = _timeService.GetAllTime().Data;
+
+            if (AllTimes.Any(x => (x.Date == conferenceCreateDto.Day && x.AuditoriumId == conferenceCreateDto.AudutoriumId) && !(x.EndTime <= conferenceCreateDto.StartedDate || x.StartedTime >= conferenceCreateDto.EndDate)))
             {
                 if (currentCulture == "az")
                 {
                     ModelState.AddModelError("Error", "Auditoriyada Həmin tarix-də konferans var.Zəhmət olmasa basqa tarixi seçin!");
                 }
-                else if (currentCulture=="en")
+                else if (currentCulture == "en")
                 {
                     ModelState.AddModelError("Error", "There is a conference on the same date in the auditorium. Please select another date!");
                 }
@@ -124,22 +121,23 @@ namespace WebUI.Areas.Dashboard.Controllers
             }
             var imgUrl = await FileHelper.SaveFileAsync(Photo, WWWRootGetPaths.GetwwwrootPath);
             conferenceCreateDto.ImgUrl = imgUrl;
-            var result=await _confransService.ConfrenceAddAsync(conferenceCreateDto);
+            var result = await _confransService.ConfrenceAddAsync(conferenceCreateDto);
 
 
             if (!result.IsSuccess)
             {
-                    if (!string.IsNullOrEmpty(result.Message)) 
-                    {
+                if (!string.IsNullOrEmpty(result.Message))
+                {
 
-                        ModelState.AddModelError("Error", result.Message);
+                    ModelState.AddModelError("Error", result.Message);
 
 
-                    }
-                if (currentCulture=="az")
+                }
+                if (currentCulture == "az")
                 {
                     ModelState.AddModelError("Error", "Konfrans Yaradila Bilmədi!Səhifəni yenidən yükləyərək Təkrar Yoxlayın");
-                } else if (currentCulture == "en")
+                }
+                else if (currentCulture == "en")
                 {
                     ModelState.AddModelError("Error", "Failed to create conference! Please reload the page and try again.");
                 }
@@ -148,21 +146,21 @@ namespace WebUI.Areas.Dashboard.Controllers
                     ModelState.AddModelError("Error", "Не удалось создать конференцию! Пожалуйста, перезагрузите страницу и попробуйте снова.");
                 }
 
-            return View(conferenceCreateDto);
+                return View(conferenceCreateDto);
             }
             return Redirect("/dashboard/ConferanceForUser/Index");
         }
         [HttpGet]
-    public IActionResult Detail(string Id)
+        public IActionResult Detail(string Id)
         {
             if (string.IsNullOrEmpty(Id))
             {
                 return Redirect("/dashboard/ConferanceForUser/index");
             }
             var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var culture=Thread.CurrentThread.CurrentCulture.Name;
+            var culture = Thread.CurrentThread.CurrentCulture.Name;
             var data = _confransService.GetConferanceDetailForUser(UserId: CurrentUserId, ConfranceId: Id, LangCode: culture);
-            if (data.Data is null ||!data.IsSuccess)
+            if (data.Data is null || !data.IsSuccess)
             {
                 return Redirect("/dashboard/ConferanceForUser/index");
             }
@@ -173,11 +171,11 @@ namespace WebUI.Areas.Dashboard.Controllers
         {
             if (string.IsNullOrEmpty(Id)) return Redirect("/dashboard/ConferanceForUser/Index");
             var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var result = _confransService.GetConferenceForUpdateUser(UserId: CurrentUserId,Id);
+            var result = _confransService.GetConferenceForUpdateUser(UserId: CurrentUserId, Id);
             if (!result.IsSuccess) return Redirect("/dashboard/ConferanceForUser/Index");
             var auditorium = _auditoriumService.GetAllAuditorium();
             ViewBag.Auditorium = auditorium.Data;
-            var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
+            var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             var category = _categoryService.GetAllCategory(currentCulture);
             ViewBag.Category = category.Data;
             return View(result.Data);
@@ -187,7 +185,7 @@ namespace WebUI.Areas.Dashboard.Controllers
         {
             var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             ConferenceUpdateDTOValidator validationRules = new ConferenceUpdateDTOValidator(currentCulture);
-            var ValidatorResult=validationRules.Validate(conferenceUpdateDto);
+            var ValidatorResult = validationRules.Validate(conferenceUpdateDto);
             if (!ValidatorResult.IsValid)
             {
                 var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -202,12 +200,12 @@ namespace WebUI.Areas.Dashboard.Controllers
                 ViewBag.Category = category.Data;
                 for (int i = 0; i < ValidatorResult.Errors.Count; i++)
                 {
-                    ModelState.AddModelError("Error",  ValidatorResult.Errors[i].ErrorMessage);
+                    ModelState.AddModelError("Error", ValidatorResult.Errors[i].ErrorMessage);
                 }
                 return View(result.Data);
             }
-         
-            var resulUpdate=await _confransService.ConfrenceUpdateAsync(conferenceUpdateDto);
+
+            var resulUpdate = await _confransService.ConfrenceUpdateAsync(conferenceUpdateDto);
             if (!resulUpdate.IsSuccess)
             {
                 var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -226,12 +224,12 @@ namespace WebUI.Areas.Dashboard.Controllers
         }
 
         [HttpGet]
-    public IActionResult GetConfranceTime(string AuditoriumId)
+        public IActionResult GetConfranceTime(string AuditoriumId)
         {
             if (string.IsNullOrEmpty(AuditoriumId)) return BadRequest();
-           
+
             var auditorium = _auditoriumService.GetAuditorium(AuditoriumId);
-            var serialaizer=JsonConvert.SerializeObject(auditorium.Data);
+            var serialaizer = JsonConvert.SerializeObject(auditorium.Data);
             return Json(serialaizer);
         }
     }
