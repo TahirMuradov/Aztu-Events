@@ -81,8 +81,8 @@ namespace WebUI.Areas.Dashboard.Controllers
 
             if (!role.IsSuccess) return Redirect("/dashboard/user/index");
 
-            if (role.Data.Roles.Count == 0) return Redirect("/dashboard/user/index");
-            if (!role.Data.Roles.Contains("SuperAdmin")) return Redirect("/dashboard/user/index");
+        
+            if (role.Data.Roles.Contains("SuperAdmin")) return Redirect("/dashboard/user/index");
 
             return View(new UserDeleteRoleDTO
             {

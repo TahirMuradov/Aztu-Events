@@ -185,6 +185,8 @@ namespace Aztu_Events.Business.Concrete
 
                 var user = await _userManager.FindByIdAsync(UserId);
                 if (user is null) return new ErrorResult();
+                if (RoleName is null)
+                    return new SuccessResult();
                 IdentityResult Result = await _userManager.RemoveFromRolesAsync(user, RoleName);
                 if (Result.Succeeded)
                 {

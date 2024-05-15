@@ -28,6 +28,7 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
         public DbSet<SpecialGuest> SpecialGuests { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryLaunguage> CategoryLaunguages { get; set; }
+        public DbSet<UserConfrance> UserConfrances { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
 
@@ -50,6 +51,11 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
             builder.Entity<Comment>()
                 .HasOne(x=>x.User)
                 .WithMany(x=>x.Comments)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<UserConfrance>()
+                .HasOne(x=>x.User)
+                .WithMany(x=>x.userConfrances)
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 

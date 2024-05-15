@@ -58,9 +58,24 @@
                                     </div>
                                
                                 </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p>Izləyici Sayı</p>
+                                        <div><i class="fa-regular fa-user"></i> <span class="text2">@Model.CurrentPerson</span></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        
+                    <div class="col-lg-12 mt-1">
+                        <div class="main-button-red">
+                            <button onclick="RegisterConference('@Model.Id')" >Konfrasnda İştirak Üçün Kiliklə</button>
+                        </div>
+                    </div>
+                    }
                     <div class="col-lg-12">
                         <div class="main-button-red">
                             <a href="/Conferences/index">@_localization.GetKey("ConfranceDetailBacToAllConferance")</a>
@@ -160,10 +175,39 @@
 </section>
 @section scripts{
 
-
+    @if (User.Identity.IsAuthenticated)
+{
+    
 
     <script>
 
+        function RegisterConference(conferenceId) {
+
+            $.ajax({
+                url: `/ConferenceDetail/RegisterConference?ConferenceId=${conferenceId}`,
+                method: "POST",
+               
+                contentType: false,
+                processData: false,
+                success: function (response) {
+               
+                        swal("Konfransin Auditoriyasida Sizin üçün bir Yer Ayrıldı!Təşəkkürlər", {
+                            icon: "success",
+                        }).then((e) => {
+                            if(e){
+                                window.location.reload();
+                            }
+                        })
+                
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.status)
+                    console.log(xhr.responseText)
+
+                    swal(`Error!${xhr.status}`, `Siz Artiq Qeydiyyatdan Kecmisiniz!`, "error")
+                }
+            });
+        }
             function CategoryDelet(UserId, ConferenceId) {
       
                 var comment = document.querySelector('.comment').value
@@ -212,5 +256,6 @@
                     }); 
             }
     </script>
+}
 
 }

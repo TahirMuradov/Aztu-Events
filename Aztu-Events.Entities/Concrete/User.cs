@@ -11,6 +11,7 @@ namespace Aztu_Events.Entities.Concrete
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public List<UserConfrance>? userConfrances { get; set; }
         public List<Confrans>? Confrans { get; set; }
         public List<Comment>? Comments { get; set; }
     }

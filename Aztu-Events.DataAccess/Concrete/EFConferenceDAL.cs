@@ -538,6 +538,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     .Include(x => x.SpecialGuests)
                     .Include(x => x.Audutorium)
                     .Include(x => x.Time)
+                    .Include(x=>x.userConfrances)
                     .FirstOrDefault(x => x.Id.ToString() == ConferenceId);
                 if (data is null) return new ErrorDataResult<ConferenceGetDetailForUIDTO>(message: "Conference is NotFound!");
 
@@ -583,6 +584,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     specialGuests = specialGuestDTO,
                     UserEmail = data.User.Email,
                     UserFullname = data.User.FirstName + " " + data.User.LastName,
+                    CurrentPerson=data.SpecialGuests.Count+data.userConfrances.Count
 
 
 

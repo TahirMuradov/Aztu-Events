@@ -1,4 +1,5 @@
-﻿using Aztu_Events.Business.FluentValidation.AuthDTOValidator;
+﻿using Aztu_Events.Business.Concrete;
+using Aztu_Events.Business.FluentValidation.AuthDTOValidator;
 using Aztu_Events.Core.Helper.EmailHelper;
 using Aztu_Events.Entities.Concrete;
 using Aztu_Events.Entities.DTOs.AuthDTOs;
@@ -30,13 +31,15 @@ namespace WebUI.Controllers
             {
                 return Redirect("/dashboard");
             }
+           
 
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
-            var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
+          
+           var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             LoginDTOValidation validator = new LoginDTOValidation(currentCulture);
             var result = validator.Validate(loginDTO);
             if (!result.IsValid)
@@ -100,7 +103,12 @@ namespace WebUI.Controllers
 
                 return View();
             }
+            if (User.IsInRole("Admin")||User.IsInRole("SuperAdmin"))
+            {
+
             return Redirect("/dashboard");
+            }
+            return Redirect("/");
         }
 
         public async Task<IActionResult> LogOut()
@@ -230,6 +238,12 @@ namespace WebUI.Controllers
                          Name = "Teacher"
                      }
                      );
+                    await _roleManager.CreateAsync(
+                 new IdentityRole
+                 {
+                     Name = "User"
+                 }
+                 );
                     await _roleManager.CreateAsync( new IdentityRole
                {
                    Name = "Organizer"

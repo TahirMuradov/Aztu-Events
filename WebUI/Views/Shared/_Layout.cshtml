@@ -52,7 +52,11 @@
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <li><a asp-controller="auth" asp-action="LogOut"> <i class="fa-solid fa-right-from-bracket"></i></a></li>
+                                if (User.IsInRole("Admin")||User.IsInRole("SuperAdmin")||User.IsInRole("User"))
+                                {
+                                    
                                 <li><a href="/dashboard/home/index"><i class="fa-solid fa-toolbox"></i></a></li>
+                                }
                             }
 
                             else

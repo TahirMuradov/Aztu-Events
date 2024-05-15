@@ -1,9 +1,11 @@
 ﻿using Aztu_Events.Business.Abstarct;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Areas.Dashboard.Controllers
 {
     [Area(nameof(Dashboard))]
+    [Authorize]
     public class CommentController : Controller
     {
         private readonly ICommentService _commentService;

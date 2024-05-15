@@ -33,7 +33,8 @@ namespace Aztu_Events.Business.DependencyResolver
             services.AddScoped<ICategoryService, CategoryManager>();
             services.AddScoped<ICommentDAL, EFCommentDAL>();
             services.AddScoped<ICommentService, CommentManager>();
-      
+            services.AddScoped<IRegisterConferenceDAL, EFRegisterConferenceDAL>();
+            services.AddScoped<IRegisterConferenceService, RegisterConferenceManager>();
             services.Configure<IdentityOptions>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = true;

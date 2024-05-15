@@ -48,13 +48,13 @@
                                         <div class="price">
                                                 <span> @Html.Raw(new DateTime(conferance.Day, conferance.StartedDate).ToString("HH:mm") + "-" + new DateTime(conferance.Day, conferance.EndDate).ToString("HH:mm"))</span>
                                         </div>
-                                        <a href="/confrancedetail/index/@conferance.Id"><img style="object-fit:cover;" width="385px" height="273px" src="@conferance.ImgUrl" alt=""></a>
+                                            <a href="/ConferenceDetail/index/@conferance.Id"><img style="object-fit:cover;" width="385px" height="273px" src="@conferance.ImgUrl" alt=""></a>
                                     </div>
                                     <div class="down-content">
                                         <div class="date">
                                                 <h6> @Html.Raw(new DateTime(conferance.Day, conferance.StartedDate).ToString("MMMM", new CultureInfo(Thread.CurrentThread.CurrentCulture.Name))) <span>@Html.Raw(new DateTime(conferance.Day, conferance.StartedDate).ToString("dd"))</span></h6>
                                         </div>
-                                            <a href="/confrancedetail/index/@conferance.Id"><h4>@conferance.ConferenceName</h4></a>
+                                            <a href="/ConferenceDetail/index/@conferance.Id"><h4>@conferance.ConferenceName</h4></a>
                                            
                                                 <p>@conferance.ConferenceContent</p>
                                            
