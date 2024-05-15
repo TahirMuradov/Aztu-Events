@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebUI.Areas.Dashboard.Controllers
 {
     [Area(nameof(Dashboard))]
-    [Authorize(Roles = "Admin,User,SuperAdmin")]
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class HomeController : Controller
     {
         private readonly IConfransService _confransService;

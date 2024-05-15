@@ -163,6 +163,30 @@ namespace WebUI.Controllers
 
                 return View();
             }
+
+            IdentityRole role = null;
+            if (!string.IsNullOrEmpty(registerDTO.RoleId))
+            {
+                role = await _roleManager.FindByIdAsync(registerDTO.RoleId);
+                if (role is null)
+                {
+                    ViewBag.Roles = _roleManager.Roles.ToList();
+                    if (currentCulture == "az")
+                    {
+                        ModelState.AddModelError("Error", "Vəzifə Tapilmadı!");
+                    }
+                    else if (currentCulture == "en")
+                    {
+                        ModelState.AddModelError("Error", "Position Not Found!");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Error", "Позиция не найдена!");
+                    }
+
+                    return View();
+                }
+            }
             registerDTO.UserName = registerDTO.Firstname + registerDTO.Lastname + Guid.NewGuid().ToString().Substring(0, 5);
 
             var result = await _userManager.CreateAsync(new User
@@ -214,9 +238,9 @@ namespace WebUI.Controllers
 
                     await _userManager.AddToRoleAsync(user, "SuperAdmin");
                 }
-                if (!string.IsNullOrEmpty(registerDTO.RoleId))
+                if (role is not null)
                 {
-                    var role = await _roleManager.FindByIdAsync(registerDTO.RoleId);
+
                     await _userManager.AddToRoleAsync(user, role.Name);
                 }
                 string token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
