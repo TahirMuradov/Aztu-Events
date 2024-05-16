@@ -13,6 +13,7 @@ namespace Aztu_Events.Entities.DTOs.CommentDTOs
         public string UserId { get; set; }
         public string UserFullName { get; set; }
         public string Content { get; set; }
+        public bool IsSafe { get; set; }
         public DateTime UpdateDate { get; set; }
            public DateTime CreatedDate { get; set; }
     }

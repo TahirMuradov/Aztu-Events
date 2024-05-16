@@ -29,7 +29,7 @@ namespace WebUI.Areas.Dashboard.ViewComponents
             var user=await _userService.GetUserAsync(LangCode:currentCulture,UserId:currentUserId);
             List<GetALLConferenceUserDTO> conferance = null;
 
-            if (User.IsInRole("Admin"))
+            if (User.IsInRole("Admin")||User.IsInRole("SuperAdmin"))
             {
                 conferance = _confransService.GetAllConferanceForUser(UserId: currentUserId, LangCode: currentCulture).Data.Where(x => x.Status == ConferanceStatus.Gözlənilir && !x.AlertSeen).ToList();
                 ViewBag.CommentAlert = _commentService.GetAllCommentsForAmin(currentCulture).Data.Where(x =>!x.AlertSeen);

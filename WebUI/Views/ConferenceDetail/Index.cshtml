@@ -100,22 +100,25 @@
             <div class="col-6">
 @foreach (var Comment in Model.Comments)
                     {
-                        
+                        if (User.Identity.IsAuthenticated && ViewBag.CurrentUserId==Comment.UserId)
+                        {
+                            
     <div class="container justify-content-center mt-5 border-left border-right">
         <div class="d-flex justify-content-center py-2">
             <div class="second py-2 px-2">
                                     <div><i class="fa-regular fa-user"></i> <span class="text2">@Comment.UserFullName</span></div>
                 <span class="text1"> @Comment.Content</span>
-                <div class="d-flex justify-content-end py-1 pt-2">
+                <div class="d-flex justify-content-between py-1 pt-2">
+                                            @* <div><i class="fa-solid fa-pen"></i> </div> *@
                                         <div>
                                             @if (Comment.UpdateDate==default(DateTime))
                                             {
 
-                                                <span class="text3">@_localization.GetKey("ConferenceDetailUpdateDateComment")</span>
+                                                    <span class="text3">@_localization.GetKey("ConferenceDetailShareDateComment")</span>
                                             }
                                             else
                                             {
-                                                <span class="text3">@_localization.GetKey("ConferenceDetailShareDateComment")</span>
+                                                    <span class="text3">@_localization.GetKey("ConferenceDetailUpdateDateComment")</span>
                                             }
                                             <span class="thumbup">
                                             @if (Comment.UpdateDate == default(DateTime))
@@ -124,19 +127,59 @@
                                                
                                                
                                                     @Comment.CreatedDate.ToString("yyyy-MM-dd HH:mm",new CultureInfo(Thread.CurrentThread.CurrentCulture.Name))
-                                                }
+                                            }
                                                 else
                                                 {
                                                     @Comment.UpdateDate.ToString("yyyy-MM-dd HH:mm", new CultureInfo(Thread.CurrentThread.CurrentCulture.Name))
 
                                                 }
-                                                <span />
+                                                </span >
                                         </div>
                 </div>
             </div>
         </div>
 
     </div>
+                        }else if(Comment.IsSafe)
+                        {
+                            <div class="container justify-content-center mt-5 border-left border-right">
+                                <div class="d-flex justify-content-center py-2">
+                                    <div class="second py-2 px-2">
+                                        <div><i class="fa-regular fa-user"></i> <span class="text2">@Comment.UserFullName</span></div>
+                                        <span class="text1"> @Comment.Content</span>
+                                        <div class="d-flex justify-content-end py-1 pt-2">
+                                            <div>
+                                                @if (Comment.UpdateDate == default(DateTime))
+                                                {
+
+                                                    <span class="text3">@_localization.GetKey("ConferenceDetailUpdateDateComment")</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text3">@_localization.GetKey("ConferenceDetailShareDateComment")</span>
+                                                }
+                                                <span class="thumbup">
+                                                    @if (Comment.UpdateDate == default(DateTime))
+                                                    {
+
+
+
+                                                        @Comment.CreatedDate.ToString("yyyy-MM-dd HH:mm", new CultureInfo(Thread.CurrentThread.CurrentCulture.Name))
+                                                    }
+                                                    else
+                                                    {
+                                                        @Comment.UpdateDate.ToString("yyyy-MM-dd HH:mm", new CultureInfo(Thread.CurrentThread.CurrentCulture.Name))
+
+                                                    }
+                                                    </span >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+
                     }
 
                     

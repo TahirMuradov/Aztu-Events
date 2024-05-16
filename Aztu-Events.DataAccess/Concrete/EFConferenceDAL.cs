@@ -54,7 +54,7 @@ namespace Aztu_Events.DataAccess.Concrete
         {
             try
             {
-                Confrans confrans = await _context.Confrans.Include(x => x.Audutorium).Include(x => x.Time).Include(x => x.SpecialGuests).FirstOrDefaultAsync(x => x.Id == id);
+                Confrans confrans = await _context.Confrans.Include(x=>x.User).Include(x => x.Audutorium).Include(x => x.Time).Include(x => x.SpecialGuests).FirstOrDefaultAsync(x => x.Id == id);
                 if (confrans == null) return new ErrorResult(message: "Data is NotFound");
                 confrans.Status = status;
                 _context.Confrans.Update(confrans);
@@ -530,7 +530,7 @@ namespace Aztu_Events.DataAccess.Concrete
             {
                 var data = _context.Confrans
                     .Include(x => x.ConfranceLaunguages)
-                    .Include(x => x.Comments.Where(y => y.IsSafe))
+                    .Include(x => x.Comments)
                     .ThenInclude(x => x.User)
                     .Include(x => x.Category)
                     .ThenInclude(x => x.CategoryLaunguages)
@@ -566,7 +566,8 @@ namespace Aztu_Events.DataAccess.Concrete
                         CreatedDate = comment.CreatedDate,
                         UpdateDate = comment.UpdateDate,
                         UserFullName = comment.User.FirstName + " " + comment.User.LastName,
-                        UserId = comment.UserId
+                        UserId = comment.UserId,
+                        IsSafe=comment.IsSafe,
                     });
                 }
                 return new SuccessDataResult<ConferenceGetDetailForUIDTO>(data: new ConferenceGetDetailForUIDTO
