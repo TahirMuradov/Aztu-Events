@@ -32,7 +32,8 @@ namespace WebUI.Areas.Dashboard.ViewComponents
             if (User.IsInRole("Admin")||User.IsInRole("SuperAdmin"))
             {
                 conferance = _confransService.GetAllConferanceForUser(UserId: currentUserId, LangCode: currentCulture).Data.Where(x => x.Status == ConferanceStatus.Gözlənilir && !x.AlertSeen).ToList();
-                ViewBag.CommentAlert = _commentService.GetAllCommentsForAmin(currentCulture).Data.Where(x =>!x.AlertSeen);
+                var a = _commentService.GetAllCommentsForAmin(currentCulture);
+                ViewBag.CommentAlert = a.Data.Where(x=>!x.IsSafe&&!x.AlertSeen);
             }
             else
             {

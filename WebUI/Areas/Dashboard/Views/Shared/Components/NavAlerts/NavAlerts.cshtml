@@ -29,7 +29,7 @@
 
         @foreach (var conferance in Model)
         {
-            if (User.IsInRole("Admin"))
+            if (User.IsInRole("Admin")||User.IsInRole("SuperAdmin"))
             {
                 
             <a class="dropdown-item d-flex align-items-center" href="/dashboard/ConferanceForUser/detail/@conferance.Id">
@@ -51,7 +51,7 @@
                 </a>
             }
         }
-        @if (User.IsInRole("Admin") && commentAlerts is not null)
+        @if ((User.IsInRole("Admin")||User.IsInRole("SuperAdmin")) && commentAlerts is not null)
         {
             foreach (var CommentAlert in commentAlerts)
             {

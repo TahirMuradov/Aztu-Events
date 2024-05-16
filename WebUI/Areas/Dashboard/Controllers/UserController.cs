@@ -9,7 +9,7 @@ using System.Security.Claims;
 namespace WebUI.Areas.Dashboard.Controllers
 {
     [Area(nameof(Dashboard))]
-    [Authorize(Roles ="SuperAdmin")]
+
     public class UserController : Controller
     {
         private readonly IUserService _userService;
@@ -22,7 +22,7 @@ namespace WebUI.Areas.Dashboard.Controllers
             _contextAccessor = contextAccessor;
         }
         [HttpGet]
-
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> Index()
         {
 
@@ -32,6 +32,7 @@ namespace WebUI.Areas.Dashboard.Controllers
             return View(result.Data);
         }
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin")]
         public  async Task< IActionResult> Delete(string id)
         {
             if (id == null) return BadRequest();
@@ -40,6 +41,7 @@ namespace WebUI.Areas.Dashboard.Controllers
             return Ok(result);
         }
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> AddRole(string id)
         {
             if (id is null)
@@ -60,6 +62,7 @@ namespace WebUI.Areas.Dashboard.Controllers
 
         }
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> AddRole(UserAddRoleDTO userAddRoleDTO)
         {
             var role = _roleService.GetRole(userAddRoleDTO.RoleId);
@@ -73,6 +76,7 @@ namespace WebUI.Areas.Dashboard.Controllers
 
         }
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> UserDeleteRole(string id)
 
         {
@@ -93,6 +97,7 @@ namespace WebUI.Areas.Dashboard.Controllers
 
         }
         [HttpPost]
+        [Authorize(Roles = "SuperAdmin")]
         public async Task<IActionResult> UserDeleteRole(UserDeleteRoleDTO userDeleteRoleDTO)
         {
          
