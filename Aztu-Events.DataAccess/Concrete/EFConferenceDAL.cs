@@ -71,13 +71,13 @@ namespace Aztu_Events.DataAccess.Concrete
                         if (confrans.Time.UpdateTime)
                         {
 
-                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7237/confranceDetail?id={confrans.Id}", UpdateDate: confrans.Time.UpdateTime, SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
+                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7233/ConferenceDetail/index/{confrans.Id}", UpdateDate: confrans.Time.UpdateTime, SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
 
                             confrans.SpecialGuests[i].SendEmail = true;
                         }
                         else if (!confrans.SpecialGuests[i].SendEmail)
                         {
-                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7237/confranceDetail?id={confrans.Id}", UpdateDate: false, SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
+                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7233/ConferenceDetail/index/{confrans.Id}", UpdateDate: false, SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
 
                             confrans.SpecialGuests[i].SendEmail = true;
                         }
