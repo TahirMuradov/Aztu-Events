@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="location">
-                                            <h5>Xususi Qonaqlar</h5>
+                                            <h5>@_localization.GetKey("SpecialGuest")</h5>
                                            @foreach (var guest in Model.specialGuests)
                                             {
                                                 <p>
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <p>Izləyici Sayı</p>
+                                        <p>@_localization.GetKey("ConferenceRegistredUserCount")</p>
                                         <div><i class="fa-regular fa-user"></i> <span class="text2">@Model.CurrentPerson</span></div>
                                     </div>
                                 </div>
@@ -72,7 +72,7 @@
                         
                     <div class="col-lg-12 mt-1">
                         <div class="main-button-red">
-                            <button onclick="RegisterConference('@Model.Id')" >Konfrasnda İştirak Üçün Kiliklə</button>
+                                <button onclick="RegisterConference('@Model.Id')">@_localization.GetKey("RegisterForConference")</button>
                         </div>
                     </div>
                     }
@@ -85,9 +85,7 @@
             </div>
         </div>
     </div>
-    @if (new DateTime(Model.Day, Model.EndDate) < DateTime.Now && Model.UsersId.Contains(ViewBag.CurrentUserId))
-    {
-        
+ 
     <div class="comments w-100">
 
    
@@ -98,8 +96,8 @@
                     @_localization.GetKey("ConferenceDetailReview")
                 </div>
             </div>
-        <div class="row">
-            <div class="col-6">
+        <div class="row justify-content-between">
+                    <div class="col-6" style="max-height: calc(100vh - 30vh);overflow-y: scroll;">
 @foreach (var Comment in Model.Comments)
                     {
                         if (User.Identity.IsAuthenticated && ViewBag.CurrentUserId==Comment.UserId)
@@ -187,9 +185,9 @@
                     
 
             </div>
-            <div class="col-4">
-
-            @if (User.Identity.IsAuthenticated)
+            <div class="col-5">
+                  
+                    @if (User.Identity.IsAuthenticated && new DateTime(Model.Day, Model.EndDate) < DateTime.Now && Model.UsersId.Contains(ViewBag.CurrentUserId))
                 {
                     
               
@@ -200,11 +198,11 @@
                     </div>
                         <div class="main-button-red">
 
-                            <button onclick="CategoryDelet('@ViewBag.CurrentUserId','@Model.Id')" type="button" class="">@_localization.GetKey("ConferenceDetailShareComment")</button>
+                            <button onclick="AddComment('@ViewBag.CurrentUserId','@Model.Id')" type="button" class="">@_localization.GetKey("ConferenceDetailShareComment")</button>
                         </div>
                
                 }
-                else
+                    else if ( new DateTime(Model.Day, Model.EndDate) < DateTime.Now)
                 {
                         <div class="alert mt-5 alert-light" role="alert">
 
@@ -216,19 +214,24 @@
         </div>
         </div>
     </div>
-    }
 
 </section>
 @section scripts{
 
-    @if (User.Identity.IsAuthenticated )
+    @if (User.Identity.IsAuthenticated)
 {
     
+        @if (  new DateTime(Model.Day, Model.StartedDate) > DateTime.Now)
+        {
+       
+            string CommentSuccess = _localization.GetKey("RegisterConferenceSwalTitle");
+            string CommentError = _localization.GetKey("RegisterConferenceSwalErrorMessage");
 
     <script>
 
         function RegisterConference(conferenceId) {
-
+            var CommentSuccess = @Html.Raw(CommentSuccess);
+            var CommentError = @Html.Raw(CommentError);
             $.ajax({
                 url: `/ConferenceDetail/RegisterConference?ConferenceId=${conferenceId}`,
                 method: "POST",
@@ -236,8 +239,8 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-               
-                        swal("Konfransin Auditoriyasida Sizin üçün bir Yer Ayrıldı!Təşəkkürlər", {
+
+                            swal(CommentSuccess, {
                             icon: "success",
                         }).then((e) => {
                             if(e){
@@ -250,23 +253,30 @@
                     console.log(xhr.status)
                     console.log(xhr.responseText)
 
-                    swal(`Error!${xhr.status}`, `Siz Artiq Qeydiyyatdan Kecmisiniz!`, "error")
+                            swal(`Error!${xhr.status}`, `${CommentError}`, "error")
                 }
             });
         }
           </script>
+    }
+   
         @if (new DateTime(Model.Day, Model.EndDate) < DateTime.Now && Model.UsersId.Contains(ViewBag.CurrentUserId))
     {
+            string Title = _localization.GetKey("ConferenceSwalTitleAddComment");
+            string CommentSuccess = _localization.GetKey("ConferenceSwalSuccessAddComment");
+            string CommentError = _localization.GetKey("SweetAlertMessageError");
         <script>
-
-        function CategoryDelet(UserId, ConferenceId) {
+            var Title = @Html.Raw(Title);
+                var CommentSuccess = @Html.Raw(CommentSuccess);
+                var CommentError = @Html.Raw(CommentError);
+                function AddComment(UserId, ConferenceId) {
       
                 var comment = document.querySelector('.comment').value
                 console.log("CommentContent "+comment)
                 console.log("UserId "+UserId)
                 console.log("conferanceId "+ConferenceId)
                 swal({
-                    title: "Silmək İstədiynizə əminsiniz?",
+                        title: Title,
 
                     icon: "warning",
                     buttons: true,
@@ -287,7 +297,7 @@
                         processData: false,
                         success: function (response) {
                             if (response) {
-                                swal("Yorumunuz Elave Edildi Admin Terefinden Tesdiq Edilenden Sonra Gorunecekdir!", {
+                                        swal(CommentSuccess, {
                                     icon: "success",
                                 })
                             } else {
@@ -297,8 +307,8 @@
                         error: function (xhr, status, error) {
                             console.log(xhr.status)
                             console.log(xhr.responseText)
-                           
-                            swal(`Error!${xhr.status}`, `${xhr.responseText} ${status} ${error}`, "error")
+
+                                    swal(`Error!${xhr.status}`, `${CommentError}`, "error")
                         }
                     });
 
@@ -308,7 +318,6 @@
             }
         </script>
     }
-   
 }
 
 }

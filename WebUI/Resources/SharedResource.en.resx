@@ -127,7 +127,7 @@
     <value>All</value>
   </data>
   <data name="ConferenceDetailCommentAlertContent" xml:space="preserve">
-    <value>Please log in to comment!</value>
+    <value>Comments can only be made by those registered for the conference!</value>
   </data>
   <data name="ConferenceDetailReview" xml:space="preserve">
     <value>Reviews</value>
@@ -143,6 +143,15 @@
   </data>
   <data name="ConferenceDetailYourComment" xml:space="preserve">
     <value>Your Comment</value>
+  </data>
+  <data name="ConferenceRegistredUserCount" xml:space="preserve">
+    <value>Number of registered users to watch</value>
+  </data>
+  <data name="ConferenceSwalSuccessAddComment" xml:space="preserve">
+    <value>Thank you for your comment. Your feedback is important to us. Your comment has been added and will be visible to everyone after approval!</value>
+  </data>
+  <data name="ConferenceSwalTitleAddComment" xml:space="preserve">
+    <value>Are you sure you want to submit your comment?</value>
   </data>
   <data name="ConfranceCreate" xml:space="preserve">
     <value>Create Conference</value>
@@ -546,8 +555,17 @@
   <data name="Register8" xml:space="preserve">
     <value>Register</value>
   </data>
+  <data name="RegisterConferenceSwalErrorMessage" xml:space="preserve">
+    <value>You are already registered!</value>
+  </data>
+  <data name="RegisterConferenceSwalTitle" xml:space="preserve">
+    <value>A seat has been reserved for you in the conference audience! Thank you!</value>
+  </data>
   <data name="SelectPosition" xml:space="preserve">
     <value>Position</value>
+  </data>
+  <data name="SpecialGuest" xml:space="preserve">
+    <value>Special Guests</value>
   </data>
   <data name="Student" xml:space="preserve">
     <value>Student</value>

@@ -228,12 +228,12 @@
             specialGuestsContainer.innerHTML += `  <div class='row added'>
 
                   <div class='col-5'>
-                                  <label for='specialGuestsName'>@_localization.GetKey("DashboardConfranceDetail3")</label>
-                                  <input type='text' class='form-control' id=specialGuestsName  name='specialGuestsName' placeholder='@_localization.GetKey("DashboardConfranceDetail3")' value='' />
+                                  <label for='specialGuestsName'>@Html.Raw(_localization.GetKey("DashboardConfranceDetail3"))</label>
+                                  <input type='text' class='form-control' id=specialGuestsName  name='specialGuestsName' placeholder='@Html.Raw(_localization.GetKey("DashboardConfranceDetail3"))' />
                   </div>
                       <div class='col-5'>
-                                  <label  for='specialGuestsEmail'>@_localization.GetKey("DashboardConfranceDetail4")</label>
-                                  <input type='email' class='form-control' id=specialGuestsEmail name='specialGuestsEmail' placeholder='@_localization.GetKey("DashboardConfranceDetail4")'  />
+                                  <label  for='specialGuestsEmail'>@Html.Raw(_localization.GetKey("DashboardConfranceDetail4"))</label>
+                                  <input type='email' class='form-control' id=specialGuestsEmail name='specialGuestsEmail' placeholder='@Html.Raw(_localization.GetKey("DashboardConfranceDetail4"))'  />
 
                       </div>
                       <div class='col-2'>
@@ -302,7 +302,7 @@
             var input = this.value;
             var regex = /^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/;
             if (!regex.test(input)) {
-                alert("@_localization.GetKey("DashboardConfranceForUserCreate15")");
+                alert("@Html.Raw(_localization.GetKey("DashboardConfranceForUserCreate15"))");
                 this.value = "";
             }
         });
@@ -310,7 +310,7 @@
             var input = this.value;
             var regex = /^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/;
             if (!regex.test(input)) {
-                alert("@_localization.GetKey("DashboardConfranceForUserCreate15")");
+                alert("@Html.Raw(_localization.GetKey("DashboardConfranceForUserCreate15"))");
                 this.value = "";
             }
         });
