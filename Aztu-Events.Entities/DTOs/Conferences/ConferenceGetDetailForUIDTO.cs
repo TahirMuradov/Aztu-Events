@@ -17,6 +17,7 @@ namespace Aztu_Events.Entities.DTOs.Conferences
         public DateOnly Day { get; set; }
         public TimeOnly StartedDate { get; set; }
         public TimeOnly EndDate { get; set; }
+        public List<string> UsersId { get; set; }
         public string UserEmail { get; set; }
         public string UserFullname { get; set; }
         public string AudutoriumName { get; set; }   

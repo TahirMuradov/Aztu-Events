@@ -173,7 +173,7 @@ namespace Aztu_Events.DataAccess.Concrete
                 var currentDate = DateOnly.FromDateTime(DateTime.Now);
                 var currentTime = TimeOnly.FromDateTime(DateTime.Now);
 
-                conferenceQueries = conferenceQueries.Where(x => x.Status == filter.Status && (x.Time.Date > currentDate || (x.Time.Date == currentDate && x.Time.StartedTime > currentTime)));
+                conferenceQueries = conferenceQueries.Where(x => x.Status == filter.Status/* && (x.Time.Date > currentDate || (x.Time.Date == currentDate && x.Time.StartedTime > currentTime))*/);
             }
             if (filter.CategoryId is not null)
             {
@@ -535,6 +535,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     .Include(x => x.Category)
                     .ThenInclude(x => x.CategoryLaunguages)
                     .Include(x => x.User)
+                    .Include(x=>x.userConfrances)
                     .Include(x => x.SpecialGuests)
                     .Include(x => x.Audutorium)
                     .Include(x => x.Time)
@@ -585,7 +586,8 @@ namespace Aztu_Events.DataAccess.Concrete
                     specialGuests = specialGuestDTO,
                     UserEmail = data.User.Email,
                     UserFullname = data.User.FirstName + " " + data.User.LastName,
-                    CurrentPerson=data.SpecialGuests.Count+data.userConfrances.Count
+                    CurrentPerson=data.SpecialGuests.Count+data.userConfrances.Count,
+                    UsersId=data.userConfrances.Select(x=>x.UserId).ToList(),
 
 
 

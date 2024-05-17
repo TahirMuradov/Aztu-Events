@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    @if (User.Identity.IsAuthenticated)
+                    @if (User.Identity.IsAuthenticated &&new DateTime(Model.Day, Model.StartedDate) > DateTime.Now)
                     {
                         
                     <div class="col-lg-12 mt-1">
@@ -85,7 +85,9 @@
             </div>
         </div>
     </div>
-
+    @if (new DateTime(Model.Day, Model.EndDate) < DateTime.Now && Model.UsersId.Contains(ViewBag.CurrentUserId))
+    {
+        
     <div class="comments w-100">
 
    
@@ -214,11 +216,12 @@
         </div>
         </div>
     </div>
+    }
 
 </section>
 @section scripts{
 
-    @if (User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated )
 {
     
 
@@ -251,7 +254,12 @@
                 }
             });
         }
-            function CategoryDelet(UserId, ConferenceId) {
+          </script>
+        @if (new DateTime(Model.Day, Model.EndDate) < DateTime.Now && Model.UsersId.Contains(ViewBag.CurrentUserId))
+    {
+        <script>
+
+        function CategoryDelet(UserId, ConferenceId) {
       
                 var comment = document.querySelector('.comment').value
                 console.log("CommentContent "+comment)
@@ -298,7 +306,9 @@
                         }
                     }); 
             }
-    </script>
+        </script>
+    }
+   
 }
 
 }
