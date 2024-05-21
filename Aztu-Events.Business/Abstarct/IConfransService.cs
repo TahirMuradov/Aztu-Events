@@ -8,6 +8,7 @@ namespace Aztu_Events.Business.Abstarct
     public interface IConfransService
     {
         public IResult AlertSeen(string CurrentUserId);
+        public Task<IResult> DeleteRegistretionUserAsync(string UserId, string ConferanceId);
         IResult ConfrenceRemove(string id);
         Task<IResult> ConfrenceAddAsync(ConferenceAddDTO dto);
         Task<IResult> ConfrenceUpdateAsync(ConferenceUpdateDto dto);
@@ -17,7 +18,7 @@ namespace Aztu_Events.Business.Abstarct
         Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status, string ResponseMessage = null, bool IsFeatured=false);
         IDataResult<List<ConferenceGetAdminListDTO>> GetAllConferanceForAdmin(string LangCode);
         IDataResult<List<GetALLConferenceUserDTO>> GetAllConferanceForUser(string UserId, string LangCode);
-        IDataResult<GetConferenceUserDTO> GetConferanceDetailForUser(string UserId, string ConfranceId, string LangCode);
+        Task<IDataResult<GetConferenceUserDTO>> GetConferanceDetailForUserAsync(string UserId, string ConfranceId, string LangCode);
         IDataResult<ConferenceUpdateDto> GetConferenceForUpdateUser(string UserId, string ConferenceId);
 
     }

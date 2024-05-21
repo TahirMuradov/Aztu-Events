@@ -45,7 +45,16 @@
                 <td>@comment.UpdateDate</td>
                 <td>@comment.IsSafe</td>
                 <th>
+                    @if (comment.IsSafe)
+                    {
+                        <button onclick="ApporiveComment('@comment.CommentId')" class="btn btn-outline-danger"><i class="fa-solid fa-x"></i></button>
+
+                    }
+                    else
+                    {
+                        
                     <button onclick="ApporiveComment('@comment.CommentId')" class="btn btn-outline-success"><i class="fa-solid fa-check"></i></button>
+                    }
                     <button onclick="DeleteComment('@comment.CommentId')" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                 </th>
 

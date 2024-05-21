@@ -56,6 +56,11 @@ namespace Aztu_Events.Business.Concrete
             return await _confrenceDal.ConfrenceUpdateAsync(dto);
         }
 
+        public async Task<IResult> DeleteRegistretionUserAsync(string UserId, string ConferanceId)
+        {
+          return await _confrenceDal.DeleteRegistretionUserAsync(UserId, ConferanceId);
+        }
+
         public IDataResult<List<ConferenceGetAdminListDTO>> GetAllConferanceForAdmin(string LangCode)
         {
            return _confrenceDal.GetAllConferanceForAdmin(LangCode);
@@ -67,8 +72,9 @@ namespace Aztu_Events.Business.Concrete
         return _confrenceDal.GetAllConferanceForUser(UserId:UserId,LangCode: LangCode);
         }
 
-        public IDataResult<GetConferenceUserDTO> GetConferanceDetailForUser(string UserId, string ConfranceId, string LangCode)
-        {return _confrenceDal.GetConferanceDetailForUser( UserId: UserId,ConfranceId: ConfranceId,LangCode: LangCode);
+        public async Task<IDataResult<GetConferenceUserDTO>> GetConferanceDetailForUserAsync(string UserId, string ConfranceId, string LangCode)
+        {
+            return await _confrenceDal.GetConferanceDetailForUserAsync( UserId: UserId,ConfranceId: ConfranceId,LangCode: LangCode);
         }
 
         public IDataResult<ConferenceGetDetailForUIDTO> GetConferenceDetailForUI(string ConferenceId, string LangCode)

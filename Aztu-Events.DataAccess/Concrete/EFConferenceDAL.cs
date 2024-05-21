@@ -11,6 +11,7 @@ using Aztu_Events.Entities.Concrete;
 using Aztu_Events.Entities.DTOs.CommentDTOs;
 using Aztu_Events.Entities.DTOs.Conferences;
 using Aztu_Events.Entities.EnumClass;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Aztu_Events.DataAccess.Concrete
@@ -19,11 +20,12 @@ namespace Aztu_Events.DataAccess.Concrete
     {
         private readonly AppDbContext _context;
         private readonly IEmailHelper _emailHelper;
-
-        public EFConferenceDAL(AppDbContext context, IEmailHelper emailHelper)
+        private readonly UserManager<User> _userManager;
+        public EFConferenceDAL(AppDbContext context, IEmailHelper emailHelper, UserManager<User> userManager)
         {
             _context = context;
             _emailHelper = emailHelper;
+            _userManager = userManager;
         }
 
         public IResult AlertSeen(string CurrentUserId)
@@ -111,7 +113,27 @@ namespace Aztu_Events.DataAccess.Concrete
                     .Include(x => x.SpecialGuests)
                     .Include(x => x.Category)
                     .ThenInclude(x => x.CategoryLaunguages)
+                    .Include(x=>x.userConfrances)
+                    .ThenInclude(x=>x.User)
                     .FirstOrDefaultAsync(x => x.Id == id);
+                
+                List<GetConferenceUserRegistrationDTO> getConferenceUserRegistrationDTOs = new List<GetConferenceUserRegistrationDTO>();
+                foreach (var userConfrance in dto.userConfrances)
+                {
+                    var roles = await _userManager.GetRolesAsync(userConfrance.User);
+                    getConferenceUserRegistrationDTOs.Add(new GetConferenceUserRegistrationDTO
+                    {
+                        Email = userConfrance.User.Email,
+                        FirstName = userConfrance.User.FirstName,
+                        LastName = userConfrance.User.LastName,
+                        PhoneNumber = userConfrance.User.PhoneNumber,
+                        Position = roles.ToList(),
+                        UserId=userConfrance.User.Id
+                        
+                    });
+                }
+
+
                 List<GETConfranceSpecialGuestDTO> gETConfranceSpecialGuestDTO = new List<GETConfranceSpecialGuestDTO>();
                 foreach (var guest in dto.SpecialGuests)
                 {
@@ -152,6 +174,7 @@ namespace Aztu_Events.DataAccess.Concrete
                         CategoryId = dto.CategoryId.ToString(),
                         CategoryName = dto.Category.CategoryLaunguages.FirstOrDefault(x => x.LangCode == lang).CategoryName,
                         IsFeatured = dto.IsFeatured,
+                        RegistrationUser= getConferenceUserRegistrationDTOs
 
                     }
 
@@ -388,6 +411,29 @@ namespace Aztu_Events.DataAccess.Concrete
             }
         }
 
+        public async Task< IResult> DeleteRegistretionUserAsync(string UserId, string ConferanceId)
+        {
+            try
+            {
+                var User=await _userManager.FindByIdAsync(UserId);
+                if (User == null) return new ErrorResult(message: "User Is NotFound!");
+                var Conference = _context.Confrans
+                    .Include(x=>x.userConfrances)
+                    .FirstOrDefault(x => x.Id.ToString() == ConferanceId);
+                if (Conference is null)
+                    return new ErrorResult(message: "Conference Is NotFound!");
+                _context.UserConfrances.Remove(Conference.userConfrances.FirstOrDefault(x => x.UserId == UserId));
+               await _context.SaveChangesAsync();
+                return new SuccessResult();
+
+            }
+            catch (Exception ex)
+            {
+
+                return new ErrorResult(message: ex.Message);
+            }
+        }
+
         public IDataResult<List<ConferenceGetAdminListDTO>> GetAllConferanceForAdmin(string LangCode)
         {
             try
@@ -473,7 +519,7 @@ namespace Aztu_Events.DataAccess.Concrete
             }
         }
 
-        public IDataResult<GetConferenceUserDTO> GetConferanceDetailForUser(string UserId, string ConfranceId, string LangCode)
+        public async Task<IDataResult<GetConferenceUserDTO>> GetConferanceDetailForUserAsync(string UserId, string ConfranceId, string LangCode)
         {
             try
             {
@@ -485,9 +531,27 @@ namespace Aztu_Events.DataAccess.Concrete
                          .Include(x => x.SpecialGuests)
                            .Include(x => x.Category)
   .ThenInclude(x => x.CategoryLaunguages)
+                              .Include(x => x.userConfrances)
+                    .ThenInclude(x => x.User)
                          .FirstOrDefault(x => x.UserId == UserId && x.Id.ToString() == ConfranceId);
                 if (data is null)
                     return new SuccessDataResult<GetConferenceUserDTO>(data: null);
+
+                List<GetConferenceUserRegistrationDTO> getConferenceUserRegistrationDTOs = new List<GetConferenceUserRegistrationDTO>();
+                foreach (var userConfrance in data.userConfrances)
+                {
+                    var roles = await _userManager.GetRolesAsync(userConfrance.User);
+                    getConferenceUserRegistrationDTOs.Add(new GetConferenceUserRegistrationDTO
+                    {
+                        Email = userConfrance.User.Email,
+                        FirstName = userConfrance.User.FirstName,
+                        LastName = userConfrance.User.LastName,
+                        PhoneNumber = userConfrance.User.PhoneNumber,
+                        Position = roles.ToList(),
+                        UserId = userConfrance.User.Id
+
+                    });
+                }
 
                 List<GETConfranceSpecialGuestDTO> gETConfranceSpecialGuestDTOs = new List<GETConfranceSpecialGuestDTO>();
                 foreach (var guest in data?.SpecialGuests)
@@ -522,7 +586,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     CategoryId = data.CategoryId.ToString(),
                     CategoryName = data.Category.CategoryLaunguages.FirstOrDefault(y => y.LangCode == LangCode).CategoryName,
                     IsFeatured = data.IsFeatured,
-
+                    RegistrationUser= getConferenceUserRegistrationDTOs
                 };
                 return new SuccessDataResult<GetConferenceUserDTO>(data: getConferenceUserDTO);
             }

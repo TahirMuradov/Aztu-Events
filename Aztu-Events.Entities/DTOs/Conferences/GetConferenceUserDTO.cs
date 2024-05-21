@@ -26,5 +26,6 @@ namespace Aztu_Events.Entities.DTOs.Conferences
         public ConferanceStatus Status { get; set; }
         public string ImgUrl { get; set; }
         public List<GETConfranceSpecialGuestDTO> specialGuests { get; set; }
+        public List<GetConferenceUserRegistrationDTO> RegistrationUser { get; set; }
     }
 }

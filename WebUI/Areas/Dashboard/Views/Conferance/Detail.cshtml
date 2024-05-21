@@ -93,6 +93,78 @@
 
 
 </div>
+    <div class="form-group">
+        <label class="form-label">Konfransda İştrak üçün qeydiyyatdan keçənlər</label>
+        @foreach (var users in Model.RegistrationUser)
+        {
+            
+        <div class="row justify-content-end align-items-end">
+            <div class="col-2">
+                <label class="form-label">Adı Soyadı</label>
+                <input type="text" disabled class="form-control" value="@users.FirstName @users.LastName" />
+            </div>
+            <div class="col-2">
+                <label class="form-label">Elektron Poçtu</label>
+                <input type="text" disabled class="form-control" value="@users.Email" />
+            </div>
+            <div class="col-2">
+                <label class="form-label">Əlaqə Nömrəsi</label>
+                <input type="text" disabled class="form-control" value="@users.PhoneNumber" />
+            </div>
+            <div class="col-2">
+
+                <label class="form-label">Vəzifəsi</label>
+                <input type="text" disabled class="form-control" value="@foreach (string role in users.Position){@Html.Raw(role)}" />
+            </div>
+            <div class="col-3">
+
+                <button onclick="RegistrationUserDelete('@users.UserId','@Model.Id')" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        </div>
+        }
+    </div>
 
 
 
+@section scripts{
+    <script>
+        function RegistrationUserDelete(UserId,ConferenceId) 
+        {
+            
+            var successMessage = '@Html.Raw(_localization.GetKey("SweetAlertMessageSuccess"))'
+            var errorMessage = '@Html.Raw(_localization.GetKey("SweetAlertMessageError"))'
+            var TitleMessage = '@Html.Raw(_localization.GetKey("SweetAlertMessageTitle"))'
+            swal({
+                title: TitleMessage,
+
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    debugger
+                    if (willDelete) {
+                        $.ajax({
+                            url: `/Dashboard/ConferanceForUser/DeleteRegistrationUser?UserId=${UserId}&ConferenceId=${ConferenceId}`,
+                            method: "DELETE",
+                            success: function (response) {
+                                swal(successMessage, {
+                                    icon: "success",
+                                }).then((e) => {
+
+                                    if (e) {
+                                        window.location.reload();
+
+                                    }
+                                })
+                            },
+                            error: function () {
+                                swal(errorMessage, "error");
+                            }
+                        })
+
+                    }
+                });
+        }
+    </script>
+}

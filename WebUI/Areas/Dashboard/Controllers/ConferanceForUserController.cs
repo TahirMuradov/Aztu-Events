@@ -151,7 +151,7 @@ namespace WebUI.Areas.Dashboard.Controllers
             return Redirect("/dashboard/ConferanceForUser/Index");
         }
         [HttpGet]
-        public IActionResult Detail(string Id)
+        public async Task<IActionResult> Detail(string Id)
         {
             if (string.IsNullOrEmpty(Id))
             {
@@ -159,7 +159,7 @@ namespace WebUI.Areas.Dashboard.Controllers
             }
             var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var culture = Thread.CurrentThread.CurrentCulture.Name;
-            var data = _confransService.GetConferanceDetailForUser(UserId: CurrentUserId, ConfranceId: Id, LangCode: culture);
+            var data = await _confransService.GetConferanceDetailForUserAsync(UserId: CurrentUserId, ConfranceId: Id, LangCode: culture);
             if (data.Data is null || !data.IsSuccess)
             {
                 return Redirect("/dashboard/ConferanceForUser/index");
@@ -232,5 +232,13 @@ namespace WebUI.Areas.Dashboard.Controllers
             var serialaizer = JsonConvert.SerializeObject(auditorium.Data);
             return Json(serialaizer);
         }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteRegistrationUser(string UserId,string ConferenceId) 
+        {
+           if (string.IsNullOrEmpty(UserId) ||string.IsNullOrEmpty(ConferenceId)) return BadRequest();
+           var result= await _confransService.DeleteRegistretionUserAsync(UserId,ConferenceId);
+            return result.IsSuccess? Ok():BadRequest();
+        }
+    
     }
 }
