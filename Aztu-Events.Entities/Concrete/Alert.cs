@@ -9,6 +9,11 @@ namespace Aztu_Events.Entities.Concrete
     public class Alert
     {
         public Guid Id { get; set; }
-        public string MyProperty { get; set; }
+        public bool ForUser { get; set; }
+       
+        public string? UserId { get; set; }
+        public string? ConferenceId { get; set; }
+       
+        public AlertLaunguage AlertLaunguage { get; set; }
     }
 }

@@ -68,11 +68,15 @@
 
     </div>
 </li>
-
+@if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+{
+    
     <script>
         function ClearAlerts() {
+        var currentUserId="@Html.Raw(ViewBag.CurrentUserId)"
+            console.log(currentUserId)
             $.ajax({
-                url: "/dashboard/home/AlertSeenChangeAll",
+                url: "/dashboard/home/AlertSeenChangeForAdmin/currentUserId",
                 type: "Get",
                
                 success: function (e) {
@@ -87,3 +91,28 @@
 
         }
     </script>
+}
+else
+{
+    <script>
+
+        function ClearAlerts() {
+        var currentUserId = "@Html.Raw(ViewBag.CurrentUserId)"
+            console.log(currentUserId)
+            $.ajax({
+                url: "/dashboard/home/AlertSeenChangeForUser/currentUserId",
+                type: "Get",
+
+                success: function (e) {
+                    document.querySelector(".badge").innerHTML = 0
+                    console.log(e)
+                },
+                error: function (e) {
+                    console.log("Error")
+                    console.log(e)
+                }
+            });
+
+        }
+    </script>
+}

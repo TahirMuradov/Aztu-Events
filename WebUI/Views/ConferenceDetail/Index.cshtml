@@ -67,7 +67,7 @@
                             </div>
                         </div>
                     </div>
-                    @if (User.Identity.IsAuthenticated &&new DateTime(Model.Day, Model.StartedDate) > DateTime.Now)
+                    @if (User.Identity.IsAuthenticated && new DateTime(Model.Day, Model.StartedDate) > DateTime.Now && !Model.UsersId.Contains(ViewBag.CurrentUserId))
                     {
                         
                     <div class="col-lg-12 mt-1">
@@ -187,7 +187,7 @@
             </div>
             <div class="col-5">
                   
-                    @if (User.Identity.IsAuthenticated && new DateTime(Model.Day, Model.EndDate) < DateTime.Now && Model.UsersId.Contains(ViewBag.CurrentUserId))
+                    @if (User.Identity.IsAuthenticated && (User.IsInRole("User") || User.IsInRole("User2") || User.IsInRole("Admin") || User.IsInRole("SuperAdmin")) && new DateTime(Model.Day, Model.EndDate) < DateTime.Now && Model.UsersId.Contains(ViewBag.CurrentUserId))
                 {
                     
               
@@ -218,10 +218,10 @@
 </section>
 @section scripts{
 
-    @if (User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated && (User.IsInRole("User") || User.IsInRole("User2") || User.IsInRole("Admin") || User.IsInRole("SuperAdmin")))
 {
     
-        @if (  new DateTime(Model.Day, Model.StartedDate) > DateTime.Now)
+        @if (new DateTime(Model.Day, Model.StartedDate) > DateTime.Now && !Model.UsersId.Contains(ViewBag.CurrentUserId))
         {
        
             string CommentSuccess = _localization.GetKey("RegisterConferenceSwalTitle");
@@ -230,8 +230,8 @@
     <script>
 
         function RegisterConference(conferenceId) {
-            var CommentSuccess = @Html.Raw(CommentSuccess);
-            var CommentError = @Html.Raw(CommentError);
+            var CommentSuccess = "@Html.Raw(CommentSuccess)";
+            var CommentError = "@Html.Raw(CommentError)";
             $.ajax({
                 url: `/ConferenceDetail/RegisterConference?ConferenceId=${conferenceId}`,
                 method: "POST",
@@ -266,9 +266,9 @@
             string CommentSuccess = _localization.GetKey("ConferenceSwalSuccessAddComment");
             string CommentError = _localization.GetKey("SweetAlertMessageError");
         <script>
-            var Title = @Html.Raw(Title);
-                var CommentSuccess = @Html.Raw(CommentSuccess);
-                var CommentError = @Html.Raw(CommentError);
+            var Title ="@Html.Raw(Title)";
+                var CommentSuccess ="@Html.Raw(CommentSuccess)";
+                var CommentError = "@Html.Raw(CommentError)";
                 function AddComment(UserId, ConferenceId) {
       
                 var comment = document.querySelector('.comment').value

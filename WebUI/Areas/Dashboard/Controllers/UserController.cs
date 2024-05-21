@@ -52,7 +52,7 @@ namespace WebUI.Areas.Dashboard.Controllers
                 RedirectToAction("Index");
             if (userRole.Data.Roles.Contains("SuperAdmin"))
                 return Redirect("/dashboard/user/index");
-            ViewBag.Roles = roles.Where(x => !userRole.Data.Roles.Contains(x.RoleName)).ToList();
+            ViewBag.Roles = roles.Where(x => !userRole.Data.Roles.Contains(x.RoleName)||x.RoleName!="SuperAdmin").ToList();
 
             if (string.IsNullOrEmpty(id)) { return RedirectToAction("Index"); }
             return View(new UserAddRoleDTO

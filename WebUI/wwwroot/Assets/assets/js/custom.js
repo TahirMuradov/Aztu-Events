@@ -9,11 +9,12 @@
 
 	  if (scroll >= box - header) {
 		  $("header").addClass("background-header");
-		  var newSrc = 'https://www.aztu.edu.az/assets/dist/img/aztu_s_logo.png';
+		 
+		  var newSrc = '/Assets/assets/images/aztu_s_logo_1.png';
 		  $('.logo img').attr('src', newSrc);
 	  } else {
 		  $("header").removeClass("background-header");
-		  newSrc ='https://www.aztu.edu.az/web_admin/upload/files/aztu.edu.az/sitesettings/5-2022/logo.png'
+		  newSrc = '/Assets/assets/images/Aztu_logo2.png'
 		  $('.logo img').attr('src', newSrc);
 	  }
 	});

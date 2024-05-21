@@ -26,7 +26,8 @@ namespace WebUI.Areas.Dashboard.ViewComponents
         {
             var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             var currentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user=await _userService.GetUserAsync(LangCode:currentCulture,UserId:currentUserId);
+           ViewBag.CurrentUserId=currentUserId;
+            //var user=await _userService.GetUserAsync(LangCode:currentCulture,UserId:currentUserId);
             List<GetALLConferenceUserDTO> conferance = null;
 
             if (User.IsInRole("Admin")||User.IsInRole("SuperAdmin"))
@@ -38,7 +39,7 @@ namespace WebUI.Areas.Dashboard.ViewComponents
             else
             {
 
-            conferance = _confransService.GetAllConferanceForUser(UserId: currentUserId, LangCode: currentCulture).Data.Where(x => x.Status != ConferanceStatus.Gözlənilir && !x.AlertSeen).ToList();
+            conferance = _confransService.GetAllConferanceForUser(UserId: currentUserId, LangCode: currentCulture).Data.Where(x => x.Status != ConferanceStatus.Gözlənilir ).ToList();
             }
            
            

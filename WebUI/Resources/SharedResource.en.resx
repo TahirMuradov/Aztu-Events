@@ -561,6 +561,9 @@
   <data name="RegisterConferenceSwalTitle" xml:space="preserve">
     <value>A seat has been reserved for you in the conference audience! Thank you!</value>
   </data>
+  <data name="RegisterForConference" xml:space="preserve">
+    <value>Click to Attend the Conference</value>
+  </data>
   <data name="SelectPosition" xml:space="preserve">
     <value>Position</value>
   </data>

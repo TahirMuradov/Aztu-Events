@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace WebUI.Areas.Dashboard.Controllers
 {
     [Area(nameof(Dashboard))]
-    [Authorize]
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class CommentController : Controller
     {
         private readonly ICommentService _commentService;

@@ -26,11 +26,11 @@ namespace Aztu_Events.DataAccess.Concrete
             _emailHelper = emailHelper;
         }
 
-        public IResult AlertSeen()
+        public IResult AlertSeen(string CurrentUserId)
         {
             try
             {
-                var conferances = _context.Confrans.Where(x => !x.AlertSeen);
+                var conferances = _context.Confrans.Where(x => !x.AlertSeenForUser && x.UserId==CurrentUserId);
                 if (conferances is null)
                     return new SuccessResult();
                 foreach (var conference in conferances)
@@ -87,6 +87,8 @@ namespace Aztu_Events.DataAccess.Concrete
                 confrans.IsFeatured = IsFeatured;
 
                 _context.Confrans.Update(confrans);
+             
+                
                 await _context.SaveChangesAsync();
                 return new SuccessResult();
             }
@@ -262,6 +264,13 @@ namespace Aztu_Events.DataAccess.Concrete
                     await _context.SpecialGuests.AddAsync(specialGuest);
                 }
 
+                Alert alert = new Alert()
+                {
+                    ConferenceId = confrans.Id.ToString(),
+                    
+                  
+
+                };
 
 
 

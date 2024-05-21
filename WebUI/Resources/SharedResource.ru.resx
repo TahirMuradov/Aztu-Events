@@ -400,10 +400,10 @@
     <value>Мои конференции</value>
   </data>
   <data name="DashboardLayout8" xml:space="preserve">
-    <value>Выйти</value>
+    <value>Не выходить</value>
   </data>
   <data name="DashboardLayout9" xml:space="preserve">
-    <value>Не выходить</value>
+    <value>Выйти</value>
   </data>
   <data name="DashboardRole0" xml:space="preserve">
     <value>Название роли</value>
@@ -560,6 +560,9 @@
   </data>
   <data name="RegisterConferenceSwalTitle" xml:space="preserve">
     <value>Для вас забронировано место в аудитории конференции! Спасибо!</value>
+  </data>
+  <data name="RegisterForConference" xml:space="preserve">
+    <value>Нажмите, чтобы принять участие в конференции</value>
   </data>
   <data name="SelectPosition" xml:space="preserve">
     <value>Должность</value>

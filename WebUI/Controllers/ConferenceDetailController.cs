@@ -1,6 +1,7 @@
 ﻿using Aztu_Events.Business.Abstarct;
 using Aztu_Events.Entities.Concrete;
 using Aztu_Events.Entities.DTOs.CommentDTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -36,6 +37,7 @@ namespace WebUI.Controllers
             return View(data.Data);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin,SuperAdmin,User,User2")]
         public IActionResult AddComment(AddCommentDTO addCommentDTO)
         {
             if (string.IsNullOrEmpty(addCommentDTO.UserId)||string.IsNullOrEmpty(addCommentDTO.ConferenceId)||string.IsNullOrEmpty(addCommentDTO.Content))
@@ -44,6 +46,7 @@ namespace WebUI.Controllers
             return result.IsSuccess?Ok(true):BadRequest(false);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin,SuperAdmin,User,User2")]
         public async Task< IActionResult> RegisterConference(string ConferenceId)
         {
             if (string.IsNullOrEmpty(ConferenceId) )
@@ -51,7 +54,7 @@ namespace WebUI.Controllers
             var currentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var result = await _registerConferenceService.RegisterConferenceAsync(ConferenceId,currentUserId);
 
-            return result.IsSuccess ? Ok() : BadRequest();
+            return result.IsSuccess ? Ok() : NotFound();
         }
 
     }

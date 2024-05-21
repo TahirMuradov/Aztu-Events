@@ -41,7 +41,8 @@
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
                         <a asp-controller="home" asp-action="index" class="logo">
-                            <img witdh="120px" height="60px" src="https://www.aztu.edu.az/web_admin/upload/files/aztu.edu.az/sitesettings/5-2022/logo.png" alt="" />
+               
+                            <img witdh="120px" height="60px" src="~/Assets/assets/images/Aztu_logo2.png"/>
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
@@ -116,6 +117,7 @@
 
         <footer class="footer">
           @Html.Raw(_localization.GetKey("Footer"))
+            <div class="count-digit d-none"></div>
         </footer>
     </section>
 

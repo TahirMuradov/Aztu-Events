@@ -14,7 +14,7 @@ namespace Aztu_Events.DataAccess.Abstarct
     public interface IConfrenceDal
     {
         Task<IResult> ConfrenceAddAsync(ConferenceAddDTO dto);
-        public IResult AlertSeen();
+        public IResult AlertSeen(string CurrentUserId);
         IResult ConfrenceRemove(string id);
         Task<IResult> ConfrenceUpdateAsync(ConferenceUpdateDto dto);
         Task<IDataResult<PaginatedList<ConferenceGetAdminListDTO>>> ConferenceGetListFilterAsync(FilterConferenceDto filter, string lang);

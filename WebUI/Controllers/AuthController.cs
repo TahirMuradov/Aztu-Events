@@ -38,8 +38,8 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginDTO loginDTO)
         {
-          
-           var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
+         
+            var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             LoginDTOValidation validator = new LoginDTOValidation(currentCulture);
             var result = validator.Validate(loginDTO);
             if (!result.IsValid)
@@ -83,7 +83,24 @@ namespace WebUI.Controllers
             //{
             //    return Redirect("/error/index");
             //}
+         var UserRoles=   await _userManager.GetRolesAsync(checkEmail);
+            if (UserRoles == null|| UserRoles.Count==0||UserRoles.Contains(null)||!(UserRoles.Contains("Admin") || UserRoles.Contains("SuperAdmin") || UserRoles.Contains("User") || UserRoles.Contains("User2")))
+            {
+                if (currentCulture == "az")
+                {
+                    ModelState.AddModelError("Error", "Sizin Profil Təsdiqlənməyib!Admin Tərəfindən Təsdiqləndikdən sonra daxil ola bilərsiniz!");
+                }
+                else if (currentCulture == "ru")
+                {
+                    ModelState.AddModelError("Error", "Ваш профиль не подтвержден! Вы можете войти в систему после подтверждения администратором!");
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", "Your Profile Has Not Been Confirmed! You can log in after being confirmed by Admin!");
+                }
 
+                return View();
+            }
             Microsoft.AspNetCore.Identity.SignInResult signInResult = await _signInManager.PasswordSignInAsync(checkEmail, loginDTO.Password, loginDTO.RememberMe, true);
             if (!signInResult.Succeeded)
             {
@@ -242,6 +259,11 @@ namespace WebUI.Controllers
                  new IdentityRole
                  {
                      Name = "User"
+                 }
+                 ); await _roleManager.CreateAsync(
+                 new IdentityRole
+                 {
+                     Name = "User2"
                  }
                  );
                     await _roleManager.CreateAsync( new IdentityRole

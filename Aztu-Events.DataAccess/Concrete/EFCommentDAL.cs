@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace Aztu_Events.DataAccess.Concrete
 {
+   
     public class EFCommentDAL : ICommentDAL
     {
         private readonly AppDbContext _Context;
