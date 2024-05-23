@@ -27,11 +27,11 @@ namespace Aztu_Events.DataAccess.Concrete
             {
                 var alert =CurrentUserId is null? _context.Alerts
                     .Include(x => x.AlertLaunguages)
-                    .FirstOrDefault(x => x.Id.ToString() == alertId)
+                    .FirstOrDefault(x => x.Id.ToString().ToLower() == alertId.ToLower())
                     :
                     _context.Alerts
                     .Include(x => x.AlertLaunguages)
-                    .FirstOrDefault(x => x.Id.ToString() == alertId && x.UserId == CurrentUserId);
+                    .FirstOrDefault(x => x.Id.ToString().ToLower() == alertId.ToLower() && x.UserId == CurrentUserId);
                 if (alert == null)  return new ErrorResult(message: "Alert is NotFound!");
                 _context.AlertLaunguages.RemoveRange(alert.AlertLaunguages);
                 _context.Alerts.Remove(alert);
