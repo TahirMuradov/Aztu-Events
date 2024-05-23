@@ -2,6 +2,7 @@
 using Aztu_Events.Core.Helper.PageHelper;
 using Aztu_Events.Core.Utilities.Results.Abstract;
 using Aztu_Events.DataAccess.Abstarct;
+using Aztu_Events.Entities.DTOs.AlertDTOs;
 using Aztu_Events.Entities.DTOs.Conferences;
 using Aztu_Events.Entities.EnumClass;
 using System;
@@ -21,10 +22,7 @@ namespace Aztu_Events.Business.Concrete
             _confrenceDal = confrenceDal;
         }
 
-        public IResult AlertSeen(string CurrentUserId)
-        {
-            return _confrenceDal.AlertSeen(CurrentUserId);
-        }
+
 
         public async Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status, string ResponseMessage = null , bool IsFeatured=false)
         {
@@ -59,6 +57,11 @@ namespace Aztu_Events.Business.Concrete
         public async Task<IResult> DeleteRegistretionUserAsync(string UserId, string ConferanceId)
         {
           return await _confrenceDal.DeleteRegistretionUserAsync(UserId, ConferanceId);
+        }
+
+        public IDataResult<IQueryable<GetAlertDTO>> GetAlertsForConference(string? CurrentUserId, string langCode)
+        {
+          return _confrenceDal.GetAlertsForConference(CurrentUserId, langCode);
         }
 
         public IDataResult<List<ConferenceGetAdminListDTO>> GetAllConferanceForAdmin(string LangCode)

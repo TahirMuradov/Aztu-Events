@@ -1,24 +1,29 @@
-﻿@model List<GetALLConferenceUserDTO>
-
+﻿
+@model IQueryable<GetAlertDTO>
 @{
-    var commentAlerts = ViewBag.CommentAlert as IQueryable<GetCommentForAdminDTO>;
-    int AlertCount = 0;
+    IQueryable<GetAlertDTO> commentAlerts = ViewBag.CommentAlert as IQueryable<GetAlertDTO>;
+    IQueryable<GetAlertDTO> ConferenceAdmin = ViewBag.ConferenceAdmin as IQueryable<GetAlertDTO>;
+    int alertCount = 0;
+    if (commentAlerts is null)
+    {
+        alertCount += Model.Count();
+    }
+    if (ConferenceAdmin is not null)
+    {
+        alertCount += ConferenceAdmin.Count();
+    }
     if (commentAlerts is not null)
     {
-        AlertCount = Model.Count + commentAlerts.Count();
-    }
-    else
-    {
-        AlertCount = Model.Count;
+        alertCount +=  commentAlerts.Count();
     }
 }
 <!-- Nav Item - Alerts -->
 <li class="nav-item dropdown no-arrow mx-1">
-    <a onclick="ClearAlerts()" class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+    <a  class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-bell fa-fw"></i>
         <!-- Counter - Alerts -->
-        <span class="badge badge-danger badge-counter">@AlertCount</span>
+        <span class="badge badge-danger badge-counter">@alertCount</span>
     </a>
     <!-- Dropdown - Alerts -->
     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -26,93 +31,94 @@
         <h6 class="dropdown-header">
             @_localization.GetKey("DashboardAlert0")
         </h6>
+        @* conferance.ConferenceName @_localization.GetKey("DashboardAlert1") UserFullname @_localization.GetKey("DashboardAlert2") AudutoriumName @_localization.GetKey("DashboardAlert3") *@
 
-        @foreach (var conferance in Model)
+              @foreach (var conference in Model)
         {
-            if (User.IsInRole("Admin")||User.IsInRole("SuperAdmin"))
-            {
-                
-            <a class="dropdown-item d-flex align-items-center" href="/dashboard/ConferanceForUser/detail/@conferance.Id">
+            
+            <a onclick="DeleteConfrenceAlert('@conference.AlertId')" class="dropdown-item d-flex align-items-center" href="/dashboard/ConferanceForUser/detail/@conference.ConferenceId">
          
             <div>
 
-                        <span class="font-weight-bold">@conferance.ConferenceName @_localization.GetKey("DashboardAlert1") @conferance.UserFullname @_localization.GetKey("DashboardAlert2") @conferance.AudutoriumName @_localization.GetKey("DashboardAlert3")</span>
+                        <span class="font-weight-bold">@conference.AlertContent</span>
             </div>
         </a>
-            }
-            else
+        }
+
+
+        @if (ViewBag.ConferenceAdmin is not null)
+        {
+            foreach (var conferenceAdmin in ViewBag.ConferenceAdmin as IQueryable<GetAlertDTO>)
             {
-                <a class="dropdown-item d-flex align-items-center" href="/dashboard/ConferanceForUser/detail/@conferance.Id">
+                <a onclick="DeleteConfrenceAlert('@conferenceAdmin.AlertId')" class="dropdown-item d-flex align-items-center" href="/dashboard/ConferanceForUser/detail/@conferenceAdmin.ConferenceId">
 
                     <div>
 
-                        <span class="font-weight-bold">@conferance.ConferenceName @_localization.GetKey("DashboardAlert4")</span>
+                        <span class="font-weight-bold">@conferenceAdmin.AlertContent</span>
                     </div>
                 </a>
             }
         }
-        @if ((User.IsInRole("Admin")||User.IsInRole("SuperAdmin")) && commentAlerts is not null)
+          
+            
+        @if (commentAlerts is not null)
         {
-            foreach (var CommentAlert in commentAlerts)
+            foreach (var commentAlert in commentAlerts)
             {
-                
-        <a class="dropdown-item d-flex align-items-center" href="/dashboard/comment/index">
 
-            <div>
+                <a onclick="DeleteCommentAlert('@commentAlert.AlertId')" class="dropdown-item d-flex align-items-center" href="/dashboard/comment/index">
 
-                        <span class="font-weight-bold">@CommentAlert.UserFullName tərəfindən @CommentAlert.ConferenceName adlı konferansa yorum Yazıldı</span>
-            </div>
-        </a>
+                    <div>
+
+                        <span class="font-weight-bold">@commentAlert.AlertContent</span>
+                    </div>
+                </a>
             }
         }
 
+
+        <button onclick="DeleteAllAlert()" type="button" class="dropdown-item d-flex bg-gradient-danger align-items-center" >
+
+            <div>
+
+                <span class="font-weight-bold">Bildirisleri temizle</span>
+            </div>
+        </button>
+
     </div>
 </li>
-@if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
-{
-    
-    <script>
-        function ClearAlerts() {
-        var currentUserId="@Html.Raw(ViewBag.CurrentUserId)"
-            console.log(currentUserId)
+
+
+<script>
+    function DeleteAlert(AlertId) {
+        if (AlertId != null || AlertId != undefined) {
+
             $.ajax({
-                url: "/dashboard/home/AlertSeenChangeForAdmin/currentUserId",
-                type: "Get",
-               
-                success: function (e) {
-                document.querySelector(".badge").innerHTML=0
-                    console.log(e)
+                url: `/Dashboard/Alert/DeleteAlert/${AlertId}`,
+                method: "DELETE",
+                success: function (response) {
+                    window.location.reload();
+
+
                 },
-                error: function (e) {
-                    console.log("Error")
-                    console.log(e)
+                error: function () {
+                    swal(errorMessage, "error");
                 }
-            });
-
+            })
         }
-    </script>
-}
-else
-{
-    <script>
-
-        function ClearAlerts() {
-        var currentUserId = "@Html.Raw(ViewBag.CurrentUserId)"
-            console.log(currentUserId)
-            $.ajax({
-                url: "/dashboard/home/AlertSeenChangeForUser/currentUserId",
-                type: "Get",
-
-                success: function (e) {
-                    document.querySelector(".badge").innerHTML = 0
-                    console.log(e)
-                },
-                error: function (e) {
-                    console.log("Error")
-                    console.log(e)
-                }
-            });
-
-        }
-    </script>
-}
+    }
+    function DeleteAllAlert() {
+        $.ajax({
+            url: `/Dashboard/Alert/DeleteAllAlert`,
+            method: "DELETE",
+            success: function (response) {
+                window.location.reload();
+          
+              
+            },
+            error: function () {
+                swal(errorMessage, "error");
+            }
+        })
+    }
+</script>

@@ -1,49 +1,50 @@
 ﻿using Aztu_Events.Business.Abstarct;
-using Aztu_Events.Entities.DTOs.Conferences;
-using Aztu_Events.Entities.EnumClass;
+using Aztu_Events.Entities.DTOs.AlertDTOs;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace WebUI.Areas.Dashboard.ViewComponents
 {
-    public class NavAlertsViewComponent:ViewComponent
+    public class NavAlertsViewComponent : ViewComponent
     {
         private readonly ICommentService _commentService;
         private readonly IConfransService _confransService;
         private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IUserService _userService;
-        private readonly IRoleService _roleService;
-        public NavAlertsViewComponent(IConfransService confransService, IHttpContextAccessor contextAccessor, IUserService userService, IRoleService roleService, ICommentService commentService)
+
+
+        public NavAlertsViewComponent(IConfransService confransService, IHttpContextAccessor contextAccessor, ICommentService commentService)
         {
             _confransService = confransService;
             _contextAccessor = contextAccessor;
-            _userService = userService;
-            _roleService = roleService;
             _commentService = commentService;
+
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             var currentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-           ViewBag.CurrentUserId=currentUserId;
-            //var user=await _userService.GetUserAsync(LangCode:currentCulture,UserId:currentUserId);
-            List<GetALLConferenceUserDTO> conferance = null;
 
-            if (User.IsInRole("Admin")||User.IsInRole("SuperAdmin"))
-            {
-                conferance = _confransService.GetAllConferanceForUser(UserId: currentUserId, LangCode: currentCulture).Data.Where(x => x.Status == ConferanceStatus.Gözlənilir && !x.AlertSeen).ToList();
-                var a = _commentService.GetAllCommentsForAmin(currentCulture);
-                ViewBag.CommentAlert = a.Data.Where(x=>!x.IsSafe&&!x.AlertSeen);
-            }
-            else
-            {
 
-            conferance = _confransService.GetAllConferanceForUser(UserId: currentUserId, LangCode: currentCulture).Data.Where(x => x.Status != ConferanceStatus.Gözlənilir ).ToList();
+
+            IQueryable<GetAlertDTO> alertsConference = null;
+            if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin")) 
+            {
+            ViewBag.ConferenceAdmin = _confransService.GetAlertsForConference(CurrentUserId: null, langCode: currentCulture).Data;
+
             }
-           
-           
-            return View("NavAlerts",conferance);
+            alertsConference = _confransService.GetAlertsForConference(CurrentUserId: currentUserId, langCode: currentCulture).Data;
+
+            if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+            {
+                IQueryable<GetAlertDTO> AlertsComment = _commentService.GetAlertsForComment(currentCulture).Data;
+              
+                ViewBag.CommentAlert = AlertsComment;
+            }
+     
+
+
+            return View("NavAlerts", alertsConference);
         }
     }
 }

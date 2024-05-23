@@ -193,7 +193,7 @@ namespace WebUI.Controllers
             if (!string.IsNullOrEmpty(registerDTO.RoleId))
             {
                 role = await _roleManager.FindByIdAsync(registerDTO.RoleId);
-                if (role is null)
+                if (role is null || role.Name == "Admin" || role.Name == "SuperAdmin" || role.Name == "User" || role.Name == "User2")
                 {
                     ViewBag.Roles = _roleManager.Roles.ToList();
                     if (currentCulture == "az")

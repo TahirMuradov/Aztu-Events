@@ -30,8 +30,8 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
         public DbSet<CategoryLaunguage> CategoryLaunguages { get; set; }
         public DbSet<UserConfrance> UserConfrances { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        //public DbSet<Alert> Alerts { get; set; }
-        //public DbSet<AlertLaunguage> AlertLaunguages { get; set; }
+        public DbSet<Alert> Alerts { get; set; }
+        public DbSet<AlertLaunguage> AlertLaunguages { get; set; }
 
 
 

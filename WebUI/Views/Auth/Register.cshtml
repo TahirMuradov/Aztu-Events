@@ -47,7 +47,7 @@
                                     <option selected value="">@_localization.GetKey("SelectPosition")</option>
                                 @foreach (var role in ViewBag.Roles as List<IdentityRole>)
                                 {
-                                    if (role.Name == "Admin" || role.Name == "SuperAdmin"||role.Name=="User")
+                                        if (role.Name == "Admin" || role.Name == "SuperAdmin" || role.Name == "User" || role.Name == "User2")
                                     {
                                         continue;
                                     }

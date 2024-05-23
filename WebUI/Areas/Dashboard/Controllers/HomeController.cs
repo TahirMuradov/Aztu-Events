@@ -24,30 +24,7 @@ namespace WebUI.Areas.Dashboard.Controllers
             FileHelper.AutoRemove(photos);
             return View();
         }
-        [Authorize(Roles = "Admin,SuperAdmin")]
-        public IActionResult AlertSeenChangeForAdmin(string CurrentUserId)
-        {
-
-           
-            var result1 = _commentService.AlertSeen();
-            if (!result1.IsSuccess)
-                return BadRequest();
-
-            
-            var result2 = _confransService.AlertSeen(CurrentUserId);
-            if (!result2.IsSuccess) return BadRequest();
-            return Ok();
-        }
-        [Authorize(Roles = "Admin,User,SuperAdmin")]
-        public IActionResult AlertSeenChangeForUser(string CurrentUserId)
-        {
-
-      
-
-
-            var result2 = _confransService.AlertSeen(CurrentUserId);
-            if (!result2.IsSuccess) return BadRequest();
-            return Ok();
-        }
+   
+   
     }
 }

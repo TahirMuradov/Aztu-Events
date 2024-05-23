@@ -4,6 +4,7 @@ using Aztu_Events.Core.Utilities.Results.Concrete.SuccessResults;
 using Aztu_Events.DataAccess.Abstarct;
 using Aztu_Events.DataAccess.Concrete.SQLServer;
 using Aztu_Events.Entities.Concrete;
+using Aztu_Events.Entities.DTOs.AlertDTOs;
 using Aztu_Events.Entities.DTOs.CommentDTOs;
 using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto.Prng;
@@ -56,27 +57,7 @@ namespace Aztu_Events.DataAccess.Concrete
             }
         }
 
-        public IResult AlertSeen()
-        {
-            try
-            {
-                var comments = _Context.Comments.Where(x => !x.AlertSeen);
-                if (comments is null)
-                    return new SuccessResult();
-                foreach (var comment in comments)
-                {
-                    comment.AlertSeen= true;
-                _Context.Comments.Update(comment);
-                }
-                _Context.SaveChanges();
-                return new SuccessResult();
-            }
-            catch (Exception ex)
-            {
-
-                return new ErrorResult(message: ex.Message);
-            }
-        }
+    
 
         public IResult ApporiveComment(string Id)
         {
@@ -121,6 +102,27 @@ namespace Aztu_Events.DataAccess.Concrete
             catch (Exception ex)
             {
                 return new ErrorResult(ex.Message);
+            }
+        }
+
+        public IDataResult<IQueryable<GetAlertDTO>> GetAlertsForComment(string langCode)
+        {
+            try
+            {
+                var data = _Context.Alerts.AsNoTracking().AsSplitQuery().AsQueryable()
+                    .Where(x => x.ConferenceId == null)
+                    .Select(x => new GetAlertDTO
+                {
+                        AlertId=x.Id.ToString(),
+                        AlertContent=x.AlertLaunguages.FirstOrDefault(y=>y.LangCode==langCode).Content,
+                        
+                });
+                return new SuccessDataResult<IQueryable<GetAlertDTO>>(data:data);
+            }
+            catch (Exception ex)
+            {
+
+                return new ErrorDataResult<IQueryable<GetAlertDTO>>(message: ex.Message);
             }
         }
 

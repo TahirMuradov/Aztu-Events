@@ -1,5 +1,6 @@
 ﻿using Aztu_Events.Core.Helper.PageHelper;
 using Aztu_Events.Core.Utilities.Results.Abstract;
+using Aztu_Events.Entities.DTOs.AlertDTOs;
 using Aztu_Events.Entities.DTOs.Conferences;
 using Aztu_Events.Entities.EnumClass;
 
@@ -7,7 +8,7 @@ namespace Aztu_Events.Business.Abstarct
 {
     public interface IConfransService
     {
-        public IResult AlertSeen(string CurrentUserId);
+        public IDataResult<IQueryable<GetAlertDTO>> GetAlertsForConference(string? CurrentUserId, string langCode);
         public Task<IResult> DeleteRegistretionUserAsync(string UserId, string ConferanceId);
         IResult ConfrenceRemove(string id);
         Task<IResult> ConfrenceAddAsync(ConferenceAddDTO dto);

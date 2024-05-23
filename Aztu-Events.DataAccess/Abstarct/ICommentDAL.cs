@@ -1,4 +1,5 @@
 ﻿using Aztu_Events.Core.Utilities.Results.Abstract;
+using Aztu_Events.Entities.DTOs.AlertDTOs;
 using Aztu_Events.Entities.DTOs.CommentDTOs;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Aztu_Events.DataAccess.Abstarct
 {
     public interface ICommentDAL
     {
-        public IResult AlertSeen();
+        public IDataResult<IQueryable<GetAlertDTO>> GetAlertsForComment(string langCode);
         public IResult AddComment(AddCommentDTO addCommentDTO);
         public IResult ApporiveComment(string Id);
         public IResult DeleteComment(string Id);

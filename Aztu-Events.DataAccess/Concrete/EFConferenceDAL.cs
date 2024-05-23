@@ -8,6 +8,7 @@ using Aztu_Events.Core.Utilities.Results.Concrete.SuccessResults;
 using Aztu_Events.DataAccess.Abstarct;
 using Aztu_Events.DataAccess.Concrete.SQLServer;
 using Aztu_Events.Entities.Concrete;
+using Aztu_Events.Entities.DTOs.AlertDTOs;
 using Aztu_Events.Entities.DTOs.CommentDTOs;
 using Aztu_Events.Entities.DTOs.Conferences;
 using Aztu_Events.Entities.EnumClass;
@@ -28,35 +29,19 @@ namespace Aztu_Events.DataAccess.Concrete
             _userManager = userManager;
         }
 
-        public IResult AlertSeen(string CurrentUserId)
-        {
-            try
-            {
-                var conferances = _context.Confrans.Where(x => !x.AlertSeenForUser && x.UserId==CurrentUserId);
-                if (conferances is null)
-                    return new SuccessResult();
-                foreach (var conference in conferances)
-                {
-                    conference.AlertSeen = true;
-                    _context.Confrans.Update(conference);
-                }
-
-                _context.SaveChanges();
-                return new SuccessResult();
-
-            }
-            catch (Exception ex)
-            {
-
-                return new ErrorResult(message: ex.Message);
-            }
-        }
+  
 
         public async Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status, string ResponseMessage = null, bool IsFeatured = false)
         {
             try
             {
-                Confrans confrans = await _context.Confrans.Include(x=>x.User).Include(x => x.Audutorium).Include(x => x.Time).Include(x => x.SpecialGuests).FirstOrDefaultAsync(x => x.Id == id);
+                Confrans confrans = await _context.Confrans
+                    .Include(x=>x.User)
+                    .Include(x=>x.ConfranceLaunguages)
+                    .Include(x => x.Audutorium)
+                    .Include(x => x.Time)
+                    .Include(x => x.SpecialGuests)
+                    .FirstOrDefaultAsync(x => x.Id == id);
                 if (confrans == null) return new ErrorResult(message: "Data is NotFound");
                 confrans.Status = status;
                 _context.Confrans.Update(confrans);
@@ -89,8 +74,38 @@ namespace Aztu_Events.DataAccess.Concrete
                 confrans.IsFeatured = IsFeatured;
 
                 _context.Confrans.Update(confrans);
+             Alert alert = new Alert()
+             {
+                 ConferenceId=confrans.Id.ToString(),
+                 ForUser=true,
+                 UserId=confrans.UserId.ToString(),
+                 
+                 
+             };
+               _context.Alerts.Add(alert);
              
-                
+                    AlertLaunguage alertLaunguageAz = new AlertLaunguage()
+                    {
+                        AlertId=alert.Id,
+                        LangCode="az",
+                        Content=$"{confrans.ConfranceLaunguages.FirstOrDefault(x=>x.LangCode=="az").ConfransName} Adlı Tədbirinizin statusu dəyişdirildi!"
+                    };
+               await _context.AlertLaunguages.AddAsync(alertLaunguageAz);
+                AlertLaunguage alertLaunguageRu = new AlertLaunguage()
+                {
+                    AlertId = alert.Id,
+                    LangCode = "ru",
+                    Content = $"{confrans.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == "ru").ConfransName} Вашего мероприятия изменен!"
+                };
+                await _context.AlertLaunguages.AddAsync(alertLaunguageRu);
+                AlertLaunguage alertLaunguageEn = new AlertLaunguage()
+                {
+                    AlertId = alert.Id,
+                    LangCode = "en",
+                    Content = $"{confrans.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == "en").ConfransName} The status of your event has been changed!"
+                };
+                await _context.AlertLaunguages.AddAsync(alertLaunguageEn);
+
                 await _context.SaveChangesAsync();
                 return new SuccessResult();
             }
@@ -236,7 +251,10 @@ namespace Aztu_Events.DataAccess.Concrete
         {
             try
             {
-                var checekAuditorium = _context.Audutoriums.Include(x => x.Times).FirstOrDefault(x => x.Id == dto.AudutoriumId);
+                var checekAuditorium = _context.Audutoriums
+                    .Include(x => x.Times)
+                    
+                    .FirstOrDefault(x => x.Id == dto.AudutoriumId);
                 if (checekAuditorium is null) return new ErrorResult(message: "Auditorium is NotFound!");
                 if (_context.Times.Any(x => (x.StartedTime >= dto.StartedDate || dto.EndDate <= x.EndTime) && dto.Day == x.Date && x.AuditoriumId == checekAuditorium.Id)) return new ErrorResult(message: "Time Is Not Empty!");
                 var checekedCategory = _context.Categories.FirstOrDefault(x => x.Id.ToString() == dto.CategoryId);
@@ -287,13 +305,42 @@ namespace Aztu_Events.DataAccess.Concrete
                     await _context.SpecialGuests.AddAsync(specialGuest);
                 }
 
+                await _context.SaveChangesAsync();
+                var getConfrans=_context.Confrans
+                    .Include(x=>x.ConfranceLaunguages)
+                    .Include(x=>x.User)
+                    .FirstOrDefault(x=>x.Id==confrans.Id);
                 Alert alert = new Alert()
                 {
-                    ConferenceId = confrans.Id.ToString(),
-                    
-                  
-
+                    ConferenceId = getConfrans.Id.ToString(),
+                    ForUser = false,
                 };
+                _context.Alerts.Add(alert);
+
+                AlertLaunguage alertLaunguageAz = new AlertLaunguage()
+                {
+                    AlertId = alert.Id,
+                    LangCode = "az",
+                    Content = $"Təşkilatçı {getConfrans.User.FirstName}  {getConfrans.User.LastName} tərəfindən {getConfrans.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == "az").ConfransName} Adlı Tədbir yaradıldı.Ətraflı kilikləyin."
+                };
+                await _context.AlertLaunguages.AddAsync(alertLaunguageAz);
+                AlertLaunguage alertLaunguageRu = new AlertLaunguage()
+                {
+                    AlertId = alert.Id,
+                    LangCode = "ru",
+                    Content = $"Мероприятие под названием {getConfrans.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == "ru").ConfransName} создано организатором {getConfrans.User.FirstName} {getConfrans.User.LastName}. Для получения подробной информации нажмите здесь."
+                };
+
+                await _context.AlertLaunguages.AddAsync(alertLaunguageRu);
+                AlertLaunguage alertLaunguageEn = new AlertLaunguage()
+                {
+                    AlertId = alert.Id,
+                    LangCode = "en",
+                    Content = $"The event named {getConfrans.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == "en").ConfransName} has been created by the organizer {getConfrans.User.FirstName} {getConfrans.User.LastName}. Click for more details."
+                };
+
+          
+                await _context.AlertLaunguages.AddAsync(alertLaunguageEn);
 
 
 
@@ -344,7 +391,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     .Include(x => x.ConfranceLaunguages)
                     .Include(x => x.Audutorium)
                     .Include(x => x.SpecialGuests)
-
+                    .Include(x=>x.User)
                     .Include(x => x.Time)
                     .FirstOrDefaultAsync(x => x.Id == dto.Id);
 
@@ -402,6 +449,36 @@ namespace Aztu_Events.DataAccess.Concrete
                 confrans.Status = ConferanceStatus.Gözlənilir;
                 confrans.CategoryId = Guid.Parse(dto.CategoryId);
                 _context.Confrans.Update(confrans);
+                Alert alert = new Alert()
+                {
+                    ForUser = false,
+                    ConferenceId=confrans.Id.ToString(),
+                                    
+                };
+                _context.Alerts.Add(alert);
+                AlertLaunguage alertLaunguageAz = new AlertLaunguage()
+                {AlertId=alert.Id,
+                LangCode="az",
+                Content=$"{confrans.User.FirstName} {confrans.User.LastName} tətərfindən {confrans.ConfranceLaunguages.FirstOrDefault(x=>x.LangCode=="az").ConfransName} adlı tədbirdə düzəlişlər edildi",
+                
+
+                };
+                await _context.AlertLaunguages.AddAsync(alertLaunguageAz);
+                AlertLaunguage alertLaunguageRu = new AlertLaunguage()
+                {
+                    AlertId = alert.Id,
+                    LangCode = "ru",
+                    Content = $"{confrans.User.FirstName} {confrans.User.LastName} изменил мероприятие под названием {confrans.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == "ru").ConfransName}"
+                };
+                await _context.AlertLaunguages.AddAsync(alertLaunguageRu);
+                AlertLaunguage alertLaunguageEn = new AlertLaunguage()
+                {
+                    AlertId = alert.Id,
+                    LangCode = "en",
+                    Content = $"{confrans.User.FirstName} {confrans.User.LastName} made changes to the event named {confrans.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == "en").ConfransName}"
+                };
+                await _context.AlertLaunguages.AddAsync(alertLaunguageEn);
+
                 await _context.SaveChangesAsync();
                 return new SuccessResult("Yenilendi");
             }
@@ -431,6 +508,45 @@ namespace Aztu_Events.DataAccess.Concrete
             {
 
                 return new ErrorResult(message: ex.Message);
+            }
+        }
+
+        public IDataResult<IQueryable<GetAlertDTO>> GetAlertsForConference(string? CurrentUserId ,string langCode)
+        {
+            try
+            {
+                if (CurrentUserId is not null)
+                {
+
+                var checkedUserId = _context.Users.FirstOrDefault(x => x.Id == CurrentUserId);
+                    if (checkedUserId is null) return new ErrorDataResult<IQueryable<GetAlertDTO>>(message: "User Is NotFound!");
+                 
+                }
+                var alerts = CurrentUserId is null ?
+                    _context.Alerts.AsNoTracking().AsSplitQuery().AsQueryable().Where(x => x.ConferenceId != null).Select(x => new GetAlertDTO
+                    {
+                        AlertContent=x.AlertLaunguages.FirstOrDefault(y=>y.LangCode==langCode).Content,
+                        AlertId=x.Id.ToString(),
+                        ConferenceId=x.ConferenceId??null,
+                        ForUser=x.ForUser,
+                        UserId=x.UserId??null
+                    })
+                    :
+                     _context.Alerts.AsNoTracking().AsSplitQuery().AsQueryable().Where(x => x.UserId == CurrentUserId).Select(x => new GetAlertDTO
+                     {
+                         AlertContent = x.AlertLaunguages.FirstOrDefault(y => y.LangCode == langCode).Content,
+                         AlertId = x.Id.ToString(),
+                         ConferenceId = x.ConferenceId ?? null,
+                         ForUser = x.ForUser,
+                         UserId = x.UserId ?? null
+                     })
+                    ;
+                return new SuccessDataResult<IQueryable<GetAlertDTO>>(data: alerts);
+            }
+            catch (Exception ex)
+            {
+
+                return new ErrorDataResult<IQueryable<GetAlertDTO>>(message: ex.Message);
             }
         }
 

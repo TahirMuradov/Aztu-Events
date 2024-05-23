@@ -1,6 +1,7 @@
 ﻿using Aztu_Events.Business.Abstarct;
 using Aztu_Events.Core.Utilities.Results.Abstract;
 using Aztu_Events.DataAccess.Abstarct;
+using Aztu_Events.Entities.DTOs.AlertDTOs;
 using Aztu_Events.Entities.DTOs.CommentDTOs;
 using System;
 using System.Collections.Generic;
@@ -24,10 +25,7 @@ namespace Aztu_Events.Business.Concrete
            return _commentDAL.AddComment(addCommentDTO);
         }
 
-        public IResult AlertSeen()
-        {
-           return _commentDAL.AlertSeen();
-        }
+    
 
         public IResult ApporiveComment(string Id)
         {
@@ -37,6 +35,11 @@ namespace Aztu_Events.Business.Concrete
         public IResult DeleteComment(string Id)
         {
            return _commentDAL.DeleteComment(Id);
+        }
+
+        public IDataResult<IQueryable<GetAlertDTO>> GetAlertsForComment(string langCode)
+        {
+          return _commentDAL.GetAlertsForComment(langCode);
         }
 
         public IDataResult<IQueryable<GetCommentForAdminDTO>> GetAllCommentsForAmin(string langCode)

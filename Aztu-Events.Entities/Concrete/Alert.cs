@@ -14,6 +14,6 @@ namespace Aztu_Events.Entities.Concrete
         public string? UserId { get; set; }
         public string? ConferenceId { get; set; }
        
-        public AlertLaunguage AlertLaunguage { get; set; }
+        public List<AlertLaunguage> AlertLaunguages { get; set; }
     }
 }
