@@ -33,7 +33,7 @@ namespace Aztu_Events.DataAccess.Concrete
             {
                 var Userchecked = _Context.Users.FirstOrDefault(x => x.Id == addCommentDTO.UserId);
                 if (Userchecked is null) return new ErrorResult("User is NotFound!");
-                var ConferenceChecked = _Context.Confrans.FirstOrDefault(x => x.Id.ToString() == addCommentDTO.ConferenceId);
+                var ConferenceChecked = _Context.Confrans.Include(x=>x.ConfranceLaunguages).FirstOrDefault(x => x.Id.ToString() == addCommentDTO.ConferenceId);
                 if (ConferenceChecked is null) return new ErrorResult("Conference is NotFound!");
                 _Context.Comments.Add(new Comment
                 {
@@ -45,7 +45,41 @@ namespace Aztu_Events.DataAccess.Concrete
                 
 
                 });
+                Alert alert = new Alert()
+                {
+                    ForUser=false,
+                    
+                };
+                _Context.Alerts.Add(alert);
+          
+                AlertLaunguage alertLaunguageAZ = new AlertLaunguage()
+                {
+                    AlertId = alert.Id,
+                    LangCode = "az",
+                    Content = $"{Userchecked.FirstName} {Userchecked.LastName} tərəfindən {ConferenceChecked.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == "az").ConfransName} adlı tədbirə şərh yazıldı"
+                };
+                _Context.AlertLaunguages.Add(alertLaunguageAZ);
+
+            
+                AlertLaunguage alertLaunguageRU = new AlertLaunguage()
+                {
+                    AlertId = alert.Id,
+                    LangCode = "ru",
+                    Content = $"{Userchecked.FirstName} {Userchecked.LastName} оставил комментарий на мероприятие под названием {ConferenceChecked.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == "ru").ConfransName}"
+                };
+                _Context.AlertLaunguages.Add(alertLaunguageRU);
+
+           
+                AlertLaunguage alertLaunguageEN = new AlertLaunguage()
+                {
+                    AlertId = alert.Id,
+                    LangCode = "en",
+                    Content = $"{Userchecked.FirstName} {Userchecked.LastName} commented on the event titled {ConferenceChecked.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == "en").ConfransName}"
+                };
+                _Context.AlertLaunguages.Add(alertLaunguageEN);
+
                 _Context.SaveChanges();
+
 
                 return new SuccessResult();
 

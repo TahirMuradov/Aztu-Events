@@ -30,9 +30,9 @@ namespace WebUI.Areas.Dashboard.ViewComponents
             IQueryable<GetAlertDTO> alertsConference = null;
             if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin")) 
             {
-            ViewBag.ConferenceAdmin = _confransService.GetAlertsForConference(CurrentUserId: null, langCode: currentCulture).Data;
+                alertsConference = _confransService.GetAlertsForConference(CurrentUserId: null, langCode: currentCulture).Data;
 
-            }
+            }else
             alertsConference = _confransService.GetAlertsForConference(CurrentUserId: currentUserId, langCode: currentCulture).Data;
 
             if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))

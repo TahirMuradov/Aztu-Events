@@ -9,6 +9,7 @@ namespace WebUI.Areas.Dashboard.Controllers
     {
         private readonly IAlertService _alertService;
         private readonly IHttpContextAccessor _contextAccessor;
+  
 
         public AlertController(IAlertService alertService, IHttpContextAccessor contextAccessor)
         {
@@ -27,6 +28,11 @@ namespace WebUI.Areas.Dashboard.Controllers
         public IActionResult DeleteAllAlertForAdmin()
         {
             var currentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (User.IsInRole("Admin")||User.IsInRole("SuperAdmin"))
+            {
+                var result1 = _alertService.DeleteAllAlert(currentUserId);
+                if (!result1.IsSuccess) return BadRequest();
+            }
             var result = _alertService.DeleteAllAlert(null);
             return result.IsSuccess ? Ok() : BadRequest(result.Message);
         }
