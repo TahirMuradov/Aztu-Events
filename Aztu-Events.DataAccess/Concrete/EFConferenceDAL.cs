@@ -48,6 +48,7 @@ namespace Aztu_Events.DataAccess.Concrete
                 if (confrans.Status == ConferanceStatus.İmtina)
                 {
                     await _emailHelper.DeclineConfransEmailAsync(userEmail: confrans.User.Email, name: confrans.User.FirstName + " " + confrans.User.LastName, responseMessage: ResponseMessage);
+               
                 }
 
 
@@ -182,6 +183,7 @@ namespace Aztu_Events.DataAccess.Concrete
                         ConferenceName = dto.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == lang).ConfransName,
                         Id = dto.Id,
                         ImgUrl = dto.ImgUrl,
+                        PdfUrl = dto.PdfUrl,
                         UserEmail = dto.User.Email,
                         UserFullname = dto.User.FirstName + " " + dto.User.LastName,
                         specialGuests = gETConfranceSpecialGuestDTO,
@@ -265,6 +267,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     ImgUrl = dto.ImgUrl,
                     UserId = dto.UserId,
                     Status = ConferanceStatus.Gözlənilir,
+                    PdfUrl=dto.PdfUrl
 
                 };
                 _context.Confrans.Add(confrans);
@@ -364,6 +367,7 @@ namespace Aztu_Events.DataAccess.Concrete
                 var launguage = _context.ConfranceLaunguages.Where(x => x.ConfransId == Conferance.Id);
                 _context.ConfranceLaunguages.RemoveRange(launguage);
                 FileHelper.RemoveFile(Conferance.ImgUrl);
+                FileHelper.RemoveFile(Conferance.PdfUrl);
                 _context.Confrans.Remove(Conferance);
                 var time = _context.Times.FirstOrDefault(x => x.ConfransId == Conferance.Id);
                 _context.Times.Remove(time);
@@ -445,6 +449,11 @@ namespace Aztu_Events.DataAccess.Concrete
                 {
                     FileHelper.RemoveFile(confrans.ImgUrl);
                     confrans.ImgUrl = dto.ImgUrl;
+                }
+                if (confrans.PdfUrl!=dto.PdfUrl)
+                {
+                    FileHelper.RemoveFile(confrans.PdfUrl);
+                    confrans.PdfUrl=dto.PdfUrl;
                 }
                 confrans.Status = ConferanceStatus.Gözlənilir;
                 confrans.CategoryId = Guid.Parse(dto.CategoryId);
@@ -624,7 +633,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     CategoryId = x.CategoryId.ToString(),
                     CategoryName = x.Category.CategoryLaunguages.FirstOrDefault(y => y.LangCode == LangCode).CategoryName,
                     IsFeatured = x.IsFeatured,
-                    AlertSeen = x.AlertSeen
+                   
                 }).ToList());
 
             }
@@ -702,7 +711,8 @@ namespace Aztu_Events.DataAccess.Concrete
                     CategoryId = data.CategoryId.ToString(),
                     CategoryName = data.Category.CategoryLaunguages.FirstOrDefault(y => y.LangCode == LangCode).CategoryName,
                     IsFeatured = data.IsFeatured,
-                    RegistrationUser= getConferenceUserRegistrationDTOs
+                    RegistrationUser= getConferenceUserRegistrationDTOs,
+                    PdfUrl= data.PdfUrl,
                 };
                 return new SuccessDataResult<GetConferenceUserDTO>(data: getConferenceUserDTO);
             }
@@ -777,6 +787,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     UserFullname = data.User.FirstName + " " + data.User.LastName,
                     CurrentPerson=data.SpecialGuests.Count+data.userConfrances.Count,
                     UsersId=data.userConfrances.Select(x=>x.UserId).ToList(),
+                    PdfUrl=data.PdfUrl,
 
 
 
@@ -813,6 +824,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     Day = data.Time.Date,
                     EndDate = data.Time.EndTime,
                     ImgUrl = data.ImgUrl,
+                    PdfUrl=data.ImgUrl,
                     LangCode = data.ConfranceLaunguages.Select(x => x.LangCode).ToList(),
                     specialGuestsEmail = data.SpecialGuests.Select(x => x.Email).ToList(),
                     specialGuestsName = data.SpecialGuests.Select(x => x.Name).ToList(),

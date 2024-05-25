@@ -22,6 +22,7 @@ namespace Aztu_Events.Entities.DTOs.Conferences
         public string UserFullname { get; set; }
         public string AudutoriumName { get; set; }   
         public string ImgUrl { get; set; }
+        public string PdfUrl { get; set; }
         public int CurrentPerson { get; set; }
         public List<GetCommentForUIDTO>? Comments { get; set; }
         public List<GETConfranceSpecialGuestDTO> specialGuests { get; set; }

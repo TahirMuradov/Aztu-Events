@@ -8,6 +8,7 @@
         public List<string>? specialGuestsEmail { get; set; }
         public List<string>? specialGuestsName { get; set; }
         public bool? IsFeatured { get; set; }
+        public string ? PdfUrl { get; set; }
         public string CategoryId { get; set; }
         public DateOnly? Day { get; set; }
         public TimeOnly? StartedDate { get; set; }

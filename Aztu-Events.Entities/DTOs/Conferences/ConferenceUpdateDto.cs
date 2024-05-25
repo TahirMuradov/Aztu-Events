@@ -14,7 +14,6 @@ namespace Aztu_Events.Entities.DTOs.Conferences
         public List<string> ConferenceContent { get; set; }
         public List<string> LangCode { get; set; }
         public string CategoryId { get; set; }
-      
         public List<string>? specialGuestsEmail { get; set; }
         public List<string>? specialGuestsName { get; set; }
         public ConferanceStatus Status { get; set; }
@@ -22,6 +21,8 @@ namespace Aztu_Events.Entities.DTOs.Conferences
         public TimeOnly StartedDate { get; set; }
         public TimeOnly EndDate { get; set; }
         public string ImgUrl { get; set; }
+      public string PdfUrl { get; set; }
+
         public Guid AudutoriumId { get; set; }
 
     }

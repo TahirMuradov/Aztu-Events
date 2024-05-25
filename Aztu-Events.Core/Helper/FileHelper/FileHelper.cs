@@ -76,7 +76,18 @@ namespace Aztu_Events.Core.Helper.FileHelper
 
             return $"/uploads/{uniqueFileName}";
         }
-
+        public static async Task<string> SavePdfAsync(this IFormFile file,string WebRootPath)
+        {
+            string filePath = Path.Combine(WWWRootGetPaths.GetwwwrootPath, "uploads", "PDFs");
+            if (!Directory.Exists(filePath))
+            {
+                Directory.CreateDirectory(filePath);
+            }
+            var path = "/uploads/PDFs/" + Guid.NewGuid().ToString() + file.FileName.Replace(" ","_");
+            using FileStream fileStream = new(WWWRootGetPaths.GetwwwrootPath + path, FileMode.Create);
+            await file.CopyToAsync(fileStream);
+            return path;
+        }
         public static bool RemoveFileRange(this List<string> PhotoPaths)
         {
             foreach (var path in PhotoPaths)

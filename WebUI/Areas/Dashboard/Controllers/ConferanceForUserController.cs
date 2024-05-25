@@ -51,7 +51,7 @@ namespace WebUI.Areas.Dashboard.Controllers
             });
         }
         [HttpPost]
-        public async Task<IActionResult> Create(ConferenceAddDTO conferenceCreateDto, IFormFile Photo)
+        public async Task<IActionResult> Create(ConferenceAddDTO conferenceCreateDto, IFormFile Photo,IFormFile file)
         {
             var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             ConferanceAddDTOValidator validationRules = new ConferanceAddDTOValidator(currentCulture);
@@ -97,6 +97,28 @@ namespace WebUI.Areas.Dashboard.Controllers
                 conferenceCreateDto.UserId = CurrentUserId;
                 return View(conferenceCreateDto);
             }
+            if (file is null)
+            {
+                if (currentCulture == "az")
+                {
+                    ModelState.AddModelError("Error", "Təqdim Edəcəyiniz Slyadı Pdf Formatında Əlavə edin!");
+                }
+                else if (currentCulture == "en")
+                {
+                    ModelState.AddModelError("Error", "Add the Slide You Will Present in Pdf Format!");
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", "Добавьте слайд, который вы представите в формате PDF!");
+                }
+                var auditorium = _auditoriumService.GetAllAuditorium();
+                ViewBag.Auditorium = auditorium.Data;
+                var category = _categoryService.GetAllCategory(currentCulture);
+                ViewBag.Category = category.Data;
+                var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                conferenceCreateDto.UserId = CurrentUserId;
+                return View(conferenceCreateDto);
+            }
             if (Photo is null)
             {
                 if (currentCulture == "az")
@@ -120,7 +142,9 @@ namespace WebUI.Areas.Dashboard.Controllers
                 return View(conferenceCreateDto);
             }
             var imgUrl = await FileHelper.SaveFileAsync(Photo, WWWRootGetPaths.GetwwwrootPath);
+            var pdfUrl = await FileHelper.SavePdfAsync(file, WWWRootGetPaths.GetwwwrootPath);
             conferenceCreateDto.ImgUrl = imgUrl;
+            conferenceCreateDto.PdfUrl = pdfUrl;
             var result = await _confransService.ConfrenceAddAsync(conferenceCreateDto);
 
 
