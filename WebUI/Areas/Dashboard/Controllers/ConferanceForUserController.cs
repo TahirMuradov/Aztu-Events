@@ -205,7 +205,7 @@ namespace WebUI.Areas.Dashboard.Controllers
             return View(result.Data);
         }
         [HttpPost]
-        public async Task<IActionResult> Update(ConferenceUpdateDto conferenceUpdateDto)
+        public async Task<IActionResult> Update(ConferenceUpdateDto conferenceUpdateDto,IFormFile Photo)
         {
             var currentCulture = Thread.CurrentThread.CurrentCulture.Name;
             ConferenceUpdateDTOValidator validationRules = new ConferenceUpdateDTOValidator(currentCulture);
@@ -228,7 +228,40 @@ namespace WebUI.Areas.Dashboard.Controllers
                 }
                 return View(result.Data);
             }
-
+            if (conferenceUpdateDto.ImgUrl is  null && Photo is null)
+            {
+                var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var result = _confransService.GetConferenceForUpdateUser(UserId: CurrentUserId, conferenceUpdateDto.Id.ToString());
+                if (result.Data is null)
+                {
+                    return Redirect("/dashboard/ConferanceForUser/Index");
+                }
+                var auditorium = _auditoriumService.GetAllAuditorium();
+                ViewBag.Auditorium = auditorium.Data;
+                var category = _categoryService.GetAllCategory(currentCulture);
+                ViewBag.Category = category.Data;
+                if (currentCulture == "az")
+                {
+                    ModelState.AddModelError("Error", "Şəkil Əlavə edin!");
+                }
+                else if (currentCulture == "en")
+                {
+                    ModelState.AddModelError("Error", "Add a picture!");
+                }
+                else
+                {
+                    ModelState.AddModelError("Error", "Добавьте изображение!");
+                }
+                return View(result.Data);
+            }
+            if (Photo is not null)
+            {
+            string url=    await FileHelper.SaveFileAsync(Photo, WWWRootGetPaths.GetwwwrootPath);
+                conferenceUpdateDto.ImgUrl = url;
+            
+            }
+            
+            
             var resulUpdate = await _confransService.ConfrenceUpdateAsync(conferenceUpdateDto);
             if (!resulUpdate.IsSuccess)
             {

@@ -450,7 +450,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     FileHelper.RemoveFile(confrans.ImgUrl);
                     confrans.ImgUrl = dto.ImgUrl;
                 }
-                if (confrans.PdfUrl!=dto.PdfUrl)
+                if (dto.PdfUrl is not null && confrans.PdfUrl!=dto.PdfUrl)
                 {
                     FileHelper.RemoveFile(confrans.PdfUrl);
                     confrans.PdfUrl=dto.PdfUrl;
