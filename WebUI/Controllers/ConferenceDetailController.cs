@@ -25,14 +25,17 @@ namespace WebUI.Controllers
         {
             if (string.IsNullOrEmpty(id)) return Redirect("/conferences");
             var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
-            var data =  _confransService.GetConferenceDetailForUI(id,currentCulture);
+            string currentUserId=null;
+
+
             if (User.Identity.IsAuthenticated)
             {
 
-            var currentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                currentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             ViewBag.CurrentUserId = currentUserId;
             }
+            var data = _confransService.GetConferenceDetailForUI(id, currentCulture,currentUserId);
             if (!data.IsSuccess) return Redirect("/conferences");
             return View(data.Data);
         }
@@ -57,5 +60,18 @@ namespace WebUI.Controllers
             return result.IsSuccess ? Ok() : NotFound();
         }
 
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> OpenPdf(string ConferenceId)
+        {
+          Console.WriteLine($"RequstGeldi! id- - {ConferenceId}");
+            if (!User.Identity.IsAuthenticated)
+          return BadRequest();
+            var currentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var result=await _confransService.SavePdfAsync(currentUserId,ConferenceId);
+            return result.IsSuccess? Ok(result.Data):BadRequest(result.Message);
+        }
+    
     }
 }

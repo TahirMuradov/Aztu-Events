@@ -8,12 +8,13 @@ namespace Aztu_Events.Business.Abstarct
 {
     public interface IConfransService
     {
+        public Task<IDataResult<string>> SavePdfAsync(string UserId, string ConferenceId);
         public IDataResult<IQueryable<GetAlertDTO>> GetAlertsForConference(string? CurrentUserId, string langCode);
         public Task<IResult> DeleteRegistretionUserAsync(string UserId, string ConferanceId);
         IResult ConfrenceRemove(string id);
         Task<IResult> ConfrenceAddAsync(ConferenceAddDTO dto);
         Task<IResult> ConfrenceUpdateAsync(ConferenceUpdateDto dto);
-        IDataResult<ConferenceGetDetailForUIDTO> GetConferenceDetailForUI(string ConferenceId, string LangCode);
+        IDataResult<ConferenceGetDetailForUIDTO> GetConferenceDetailForUI(string ConferenceId, string LangCode, string? UserId);
         Task<IDataResult<PaginatedList<ConferenceGetAdminListDTO>>> ConferenceGetListFilterAsync(FilterConferenceDto filter, string lang);
         Task<IDataResult<ConferenceGetAdminDTO>> ConferenceGetDetailForAdminAsync(Guid id, string lang);
         Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status, string ResponseMessage = null, bool IsFeatured=false);

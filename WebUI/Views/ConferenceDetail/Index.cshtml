@@ -64,7 +64,15 @@
                                         <div><i class="fa-regular fa-user"></i> <span class="text2">@Model.CurrentPerson</span></div>
                                     </div>
                                 </div>
-                                <a target="_blank" href="@Model.PdfUrl" class="btn btn-outline-info"><i class="fa-solid fa-file-pdf"></i></a>
+                                @if (Model.IsSavedPdf)
+                                {
+                                    
+                                    <a target="_blank" href="@Model.PdfUrl" class="btn btn-outline-info"><i class="fa-solid fa-file-pdf"></i></a>
+                                }
+                                else
+                                {
+                                    <button target="_blank" onclick="OpenPdf('@Model.Id')" class="btn btn-outline-info"><i class="fa-solid fa-file-pdf"></i></button>
+                                }
                             </div>
                         </div>
                     </div>
@@ -219,6 +227,32 @@
 </section>
 @section scripts{
 
+    @if (User.Identity.IsAuthenticated && new DateTime(Model.Day, Model.StartedDate) > DateTime.Now && !Model.IsSavedPdf)
+        {
+        
+    <script>
+        function OpenPdf(conferenceId) {
+            console.log("gelen parametrin deyeri:"+conferenceId)
+                $.ajax({
+                    url: `/ConferenceDetail/OpenPdf?ConferenceId=${conferenceId}`,
+                    method: "POST",                
+                 success: function (response) {
+                        if (response) {
+                           console.log(response)
+                          window.open(window.location.origin+response)
+
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.status)
+                        console.log(xhr.responseText)
+
+                        swal(`Error!${xhr.status}`, `${xhr.responseText}`, "error")
+                    }
+                });
+        }
+    </script>
+    }
     @if (User.Identity.IsAuthenticated && (User.IsInRole("User") || User.IsInRole("User2") || User.IsInRole("Admin") || User.IsInRole("SuperAdmin")))
 {
     

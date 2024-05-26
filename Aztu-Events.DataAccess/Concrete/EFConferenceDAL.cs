@@ -723,10 +723,14 @@ namespace Aztu_Events.DataAccess.Concrete
             }
         }
 
-        public IDataResult<ConferenceGetDetailForUIDTO> GetConferenceDetailForUI(string ConferenceId, string LangCode)
+        public  IDataResult<ConferenceGetDetailForUIDTO> GetConferenceDetailForUI(string ConferenceId, string LangCode,string? UserId)
         {
             try
             {
+                User CheckedUser = null;
+                    if(UserId is not null)
+                    CheckedUser =  _userManager.Users.FirstOrDefault(x=>x.Id==UserId);
+
                 var data = _context.Confrans
                     .Include(x => x.ConfranceLaunguages)
                     .Include(x => x.Comments)
@@ -738,13 +742,14 @@ namespace Aztu_Events.DataAccess.Concrete
                     .Include(x => x.SpecialGuests)
                     .Include(x => x.Audutorium)
                     .Include(x => x.Time)
+                    .Include(x=>x.SavePdfs)
                     .Include(x=>x.userConfrances)
                     .FirstOrDefault(x => x.Id.ToString() == ConferenceId);
                 if (data is null) return new ErrorDataResult<ConferenceGetDetailForUIDTO>(message: "Conference is NotFound!");
 
                 List<GETConfranceSpecialGuestDTO> specialGuestDTO = new List<GETConfranceSpecialGuestDTO>();
 
-
+                
 
                 foreach (var Guest in data.SpecialGuests)
                 {
@@ -785,14 +790,16 @@ namespace Aztu_Events.DataAccess.Concrete
                     specialGuests = specialGuestDTO,
                     UserEmail = data.User.Email,
                     UserFullname = data.User.FirstName + " " + data.User.LastName,
-                    CurrentPerson=data.SpecialGuests.Count+data.userConfrances.Count,
-                    UsersId=data.userConfrances.Select(x=>x.UserId).ToList(),
-                    PdfUrl=data.PdfUrl,
+                    CurrentPerson = data.SpecialGuests.Count + data.userConfrances.Count,
+                    UsersId = data.userConfrances.Select(x => x.UserId).ToList(),
+                    PdfUrl = data.PdfUrl,
+                    IsSavedPdf = CheckedUser is not null?(data.SavePdfs?.FirstOrDefault(x => x.ConferenceId == data.Id&&x.UserId==CheckedUser.Id) is not null ? true : false):false
 
 
 
-                });
 
+                }) ;
+              
             }
             catch (Exception ex)
             {
@@ -840,6 +847,36 @@ namespace Aztu_Events.DataAccess.Concrete
             {
 
                 return new ErrorDataResult<ConferenceUpdateDto>(message: ex.Message);
+            }
+        }
+
+        public async Task< IDataResult<string>> SavePdfAsync(string UserId, string ConferenceId)
+        {
+          
+            try
+            {
+                User checkedUser = await _userManager.FindByIdAsync(UserId);
+                if (checkedUser == null) return new ErrorDataResult<string>(message: "User Is NotFound!");
+                var CheckedConference = await _context.Confrans.Include(x=>x.SavePdfs).FirstOrDefaultAsync(x => x.Id.ToString() == ConferenceId);
+                if (CheckedConference is null)
+                    return new ErrorDataResult<string>(message: "Conference Is NotFound!");
+                bool CheckedRepeat = CheckedConference.SavePdfs.Any(x => x.UserId == checkedUser.Id && x.ConferenceId == CheckedConference.Id);
+                if (CheckedRepeat) return new SuccessDataResult<string>(data: CheckedConference.PdfUrl);
+                SavePdf save=new SavePdf()
+                {
+                    ConferenceId=CheckedConference.Id,
+                    UserId=checkedUser.Id,
+                };
+               await _context.SavePdfs.AddAsync(save);
+            await    _context.SaveChangesAsync();
+                return new SuccessDataResult<string>(data:CheckedConference.PdfUrl);
+
+
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

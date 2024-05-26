@@ -1,10 +1,4 @@
 ﻿using Aztu_Events.Entities.DTOs.CommentDTOs;
-using Aztu_Events.Entities.EnumClass;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aztu_Events.Entities.DTOs.Conferences
 {
@@ -18,6 +12,7 @@ namespace Aztu_Events.Entities.DTOs.Conferences
         public TimeOnly StartedDate { get; set; }
         public TimeOnly EndDate { get; set; }
         public List<string> UsersId { get; set; }
+        public bool IsSavedPdf { get; set; }
         public string UserEmail { get; set; }
         public string UserFullname { get; set; }
         public string AudutoriumName { get; set; }   

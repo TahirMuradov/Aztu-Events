@@ -14,6 +14,7 @@ namespace Aztu_Events.DataAccess.Abstarct
 {
     public interface IConfrenceDal
     {
+        public Task<IDataResult<string>> SavePdfAsync(string UserId,string ConferenceId);
         Task<IResult> ConfrenceAddAsync(ConferenceAddDTO dto);
         public IDataResult<IQueryable<GetAlertDTO>> GetAlertsForConference(string? CurrentUserId,string langCode);
         IResult ConfrenceRemove(string id);
@@ -26,7 +27,7 @@ namespace Aztu_Events.DataAccess.Abstarct
         IDataResult<List<GetALLConferenceUserDTO>> GetAllConferanceForUser(string UserId, string LangCode);
         Task<IDataResult<GetConferenceUserDTO>> GetConferanceDetailForUserAsync(string UserId,string ConfranceId, string LangCode);
         IDataResult<ConferenceUpdateDto> GetConferenceForUpdateUser(string UserId, string ConferenceId);
-        IDataResult<ConferenceGetDetailForUIDTO> GetConferenceDetailForUI(string ConferenceId, string LangCode);
+        IDataResult<ConferenceGetDetailForUIDTO> GetConferenceDetailForUI(string ConferenceId, string LangCode, string? UserId);
 
     }
 }

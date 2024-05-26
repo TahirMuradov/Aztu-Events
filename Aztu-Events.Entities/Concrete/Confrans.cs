@@ -21,7 +21,7 @@ namespace Aztu_Events.Entities.Concrete
         public Auditorium Audutorium { get; set; }
         public string UserId { get; set; }
         public User User { get; set; }
-
+        public List<SavePdf>? SavePdfs { get; set; }
         public Guid CategoryId { get; set; }
         public string PdfUrl { get; set; }
         public Category Category { get; set; }

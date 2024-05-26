@@ -80,14 +80,19 @@ namespace Aztu_Events.Business.Concrete
             return await _confrenceDal.GetConferanceDetailForUserAsync( UserId: UserId,ConfranceId: ConfranceId,LangCode: LangCode);
         }
 
-        public IDataResult<ConferenceGetDetailForUIDTO> GetConferenceDetailForUI(string ConferenceId, string LangCode)
+        public IDataResult<ConferenceGetDetailForUIDTO> GetConferenceDetailForUI(string ConferenceId, string LangCode, string? UserId)
         {
-            return _confrenceDal.GetConferenceDetailForUI(ConferenceId,LangCode);
+            return _confrenceDal.GetConferenceDetailForUI(ConferenceId,LangCode,UserId);
         }
 
         public IDataResult<ConferenceUpdateDto> GetConferenceForUpdateUser(string UserId, string ConferenceId)
         {
            return _confrenceDal.GetConferenceForUpdateUser(UserId:UserId,ConferenceId:ConferenceId);
+        }
+
+        public async Task<IDataResult<string>> SavePdfAsync(string UserId, string ConferenceId)
+        {
+           return await _confrenceDal.SavePdfAsync(UserId,ConferenceId);
         }
     }
 }
