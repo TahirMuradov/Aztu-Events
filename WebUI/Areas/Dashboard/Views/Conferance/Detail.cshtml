@@ -16,6 +16,11 @@
     <label>@_localization.GetKey("DashboardConfranceDetail2")</label>
     <input class="form-control" disabled type="text" value="@Model.CategoryName" />
 </div>
+<div class="form-group">
+
+    <label>@_localization.GetKey("DashboardEventTypeName")</label>
+    <input class="form-control" disabled type="text" value="@Model.EventTypeContent" />
+</div>
 <div class="form-group specialGuest">
     <div class="row">
         @foreach (var guest in Model.specialGuests)
@@ -96,26 +101,26 @@
 
 <a target="_blank" href="@Model.PdfUrl" class="btn btn-outline-info"><i class="fa-solid fa-file-pdf"></i></a>
     <div class="form-group">
-        <label class="form-label">Konfransda İştrak üçün qeydiyyatdan keçənlər</label>
+    <label class="form-label">@_localization.GetKey("ConferenceRegisteredUser")</label>
         @foreach (var users in Model.RegistrationUser)
         {
             
         <div class="row justify-content-end align-items-end">
             <div class="col-2">
-                <label class="form-label">Adı Soyadı</label>
+                <label class="form-label">@_localization.GetKey("DashboardUserIndex0")</label>
                 <input type="text" disabled class="form-control" value="@users.FirstName @users.LastName" />
             </div>
             <div class="col-2">
-                <label class="form-label">Elektron Poçtu</label>
+                <label class="form-label">@_localization.GetKey("DashboardUserIndex1")</label>
                 <input type="text" disabled class="form-control" value="@users.Email" />
             </div>
             <div class="col-2">
-                <label class="form-label">Əlaqə Nömrəsi</label>
+                <label class="form-label">@_localization.GetKey("DashboardUserIndex2")</label>
                 <input type="text" disabled class="form-control" value="@users.PhoneNumber" />
             </div>
             <div class="col-2">
 
-                <label class="form-label">Vəzifəsi</label>
+                <label class="form-label">@_localization.GetKey("DashboardUserIndex3")</label>
                 <input type="text" disabled class="form-control" value="@foreach (string role in users.Position){@Html.Raw(role)}" />
             </div>
             <div class="col-3">

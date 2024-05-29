@@ -64,12 +64,12 @@
                                         <div><i class="fa-regular fa-user"></i> <span class="text2">@Model.CurrentPerson</span></div>
                                     </div>
                                 </div>
-                                @if (Model.IsSavedPdf)
+                                @if (User.Identity.IsAuthenticated && new DateTime(Model.Day, Model.StartedDate) < DateTime.Now && Model.IsSavedPdf)
                                 {
                                     
                                     <a target="_blank" href="@Model.PdfUrl" class="btn btn-outline-info"><i class="fa-solid fa-file-pdf"></i></a>
                                 }
-                                else
+                                else if (User.Identity.IsAuthenticated && new DateTime(Model.Day, Model.StartedDate) < DateTime.Now)
                                 {
                                     <button target="_blank" onclick="OpenPdf('@Model.Id')" class="btn btn-outline-info"><i class="fa-solid fa-file-pdf"></i></button>
                                 }

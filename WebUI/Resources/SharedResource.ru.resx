@@ -144,6 +144,9 @@
   <data name="ConferenceDetailYourComment" xml:space="preserve">
     <value>Ваш комментарий</value>
   </data>
+  <data name="ConferenceRegisteredUser" xml:space="preserve">
+    <value>Те, кто зарегистрировался для участия в конференции</value>
+  </data>
   <data name="ConferenceRegistredUserCount" xml:space="preserve">
     <value>Количество зарегистрированных пользователей для просмотра</value>
   </data>
@@ -363,6 +366,21 @@
   <data name="DashboardConfranceForUserUpdate1" xml:space="preserve">
     <value>Если вы внесете изменения в конференцию, статус автоматически изменится!</value>
   </data>
+  <data name="DashboardEventTypeCreate" xml:space="preserve">
+    <value>Создвть Тип</value>
+  </data>
+  <data name="DashboardEventTypeCreatePlacheolderAz" xml:space="preserve">
+    <value>Введите контент на азербайджанском языке</value>
+  </data>
+  <data name="DashboardEventTypeCreatePlacheolderEN" xml:space="preserve">
+    <value>Введите контент на английском языке</value>
+  </data>
+  <data name="DashboardEventTypeCreatePlacheolderRU" xml:space="preserve">
+    <value>Введите контент на русском языке</value>
+  </data>
+  <data name="DashboardEventTypeName" xml:space="preserve">
+    <value>Тип</value>
+  </data>
   <data name="DashboardForUserConferanceIndexAlert" xml:space="preserve">
     <value>Для того чтобы выделить вашу конференцию на главной странице, свяжитесь с нами по номеру 055-000-00-00!</value>
   </data>
@@ -404,6 +422,12 @@
   </data>
   <data name="DashboardLayout9" xml:space="preserve">
     <value>Выйти</value>
+  </data>
+  <data name="DashboardLayoutComment" xml:space="preserve">
+    <value>Комментарии</value>
+  </data>
+  <data name="DashboardLayoutEventType" xml:space="preserve">
+    <value>Типы событий</value>
   </data>
   <data name="DashboardRole0" xml:space="preserve">
     <value>Название роли</value>

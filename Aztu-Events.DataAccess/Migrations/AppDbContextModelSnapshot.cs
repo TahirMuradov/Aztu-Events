@@ -197,6 +197,9 @@ namespace Aztu_Events.DataAccess.Migrations
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("EventTypeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("ImgUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -224,12 +227,49 @@ namespace Aztu_Events.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("EventTypeId");
+
                     b.HasIndex("TimeId")
                         .IsUnique();
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Confrans");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.EventType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventTypes");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.EventTypeLaunguage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EventTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LangCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventTypeId");
+
+                    b.ToTable("EventTypeLaunguages");
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.SavePdf", b =>
@@ -606,6 +646,12 @@ namespace Aztu_Events.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Aztu_Events.Entities.Concrete.EventType", "EventType")
+                        .WithMany("Confrans")
+                        .HasForeignKey("EventTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Aztu_Events.Entities.Concrete.Time", "Time")
                         .WithOne("Confrans")
                         .HasForeignKey("Aztu_Events.Entities.Concrete.Confrans", "TimeId")
@@ -622,9 +668,22 @@ namespace Aztu_Events.DataAccess.Migrations
 
                     b.Navigation("Category");
 
+                    b.Navigation("EventType");
+
                     b.Navigation("Time");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.EventTypeLaunguage", b =>
+                {
+                    b.HasOne("Aztu_Events.Entities.Concrete.EventType", "EventType")
+                        .WithMany("EventTypeLaunguage")
+                        .HasForeignKey("EventTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EventType");
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.SavePdf", b =>
@@ -768,6 +827,13 @@ namespace Aztu_Events.DataAccess.Migrations
                     b.Navigation("SpecialGuests");
 
                     b.Navigation("userConfrances");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.EventType", b =>
+                {
+                    b.Navigation("Confrans");
+
+                    b.Navigation("EventTypeLaunguage");
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Time", b =>

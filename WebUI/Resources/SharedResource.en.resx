@@ -144,6 +144,9 @@
   <data name="ConferenceDetailYourComment" xml:space="preserve">
     <value>Your Comment</value>
   </data>
+  <data name="ConferenceRegisteredUser" xml:space="preserve">
+    <value>Those who have registered for participation in the conference</value>
+  </data>
   <data name="ConferenceRegistredUserCount" xml:space="preserve">
     <value>Number of registered users to watch</value>
   </data>
@@ -363,6 +366,21 @@
   <data name="DashboardConfranceForUserUpdate1" xml:space="preserve">
     <value>If you make changes to the conference, the status will automatically change!</value>
   </data>
+  <data name="DashboardEventTypeCreate" xml:space="preserve">
+    <value>Create Type</value>
+  </data>
+  <data name="DashboardEventTypeCreatePlacheolderAz" xml:space="preserve">
+    <value>Type content in Azerbaijani language</value>
+  </data>
+  <data name="DashboardEventTypeCreatePlacheolderEN" xml:space="preserve">
+    <value>Type content in English</value>
+  </data>
+  <data name="DashboardEventTypeCreatePlacheolderRU" xml:space="preserve">
+    <value>Type content in Russian</value>
+  </data>
+  <data name="DashboardEventTypeName" xml:space="preserve">
+    <value>Type</value>
+  </data>
   <data name="DashboardForUserConferanceIndexAlert" xml:space="preserve">
     <value>To highlight your conference on the main page, please contact us at 055-000-00-00!</value>
   </data>
@@ -404,6 +422,12 @@
   </data>
   <data name="DashboardLayout9" xml:space="preserve">
     <value>Exit</value>
+  </data>
+  <data name="DashboardLayoutComment" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="DashboardLayoutEventType" xml:space="preserve">
+    <value>Event Types</value>
   </data>
   <data name="DashboardRole0" xml:space="preserve">
     <value>Role Name</value>

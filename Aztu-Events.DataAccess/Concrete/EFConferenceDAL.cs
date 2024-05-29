@@ -131,6 +131,8 @@ namespace Aztu_Events.DataAccess.Concrete
                     .ThenInclude(x => x.CategoryLaunguages)
                     .Include(x=>x.userConfrances)
                     .ThenInclude(x=>x.User)
+                    .Include(x=>x.EventType)
+                    .ThenInclude(x=>x.EventTypeLaunguage)
                     .FirstOrDefaultAsync(x => x.Id == id);
                 
                 List<GetConferenceUserRegistrationDTO> getConferenceUserRegistrationDTOs = new List<GetConferenceUserRegistrationDTO>();
@@ -191,7 +193,9 @@ namespace Aztu_Events.DataAccess.Concrete
                         CategoryId = dto.CategoryId.ToString(),
                         CategoryName = dto.Category.CategoryLaunguages.FirstOrDefault(x => x.LangCode == lang).CategoryName,
                         IsFeatured = dto.IsFeatured,
-                        RegistrationUser= getConferenceUserRegistrationDTOs
+                        RegistrationUser= getConferenceUserRegistrationDTOs,
+                        EventTypeContent=dto.EventType.EventTypeLaunguage.FirstOrDefault(x=>x.LangCode==lang).TypeContent,
+                        EventTypeId=dto.EventTypeId.ToString(),
 
                     }
 
@@ -260,6 +264,10 @@ namespace Aztu_Events.DataAccess.Concrete
                 if (checekAuditorium is null) return new ErrorResult(message: "Auditorium is NotFound!");
                 if (_context.Times.Any(x => (x.StartedTime >= dto.StartedDate || dto.EndDate <= x.EndTime) && dto.Day == x.Date && x.AuditoriumId == checekAuditorium.Id)) return new ErrorResult(message: "Time Is Not Empty!");
                 var checekedCategory = _context.Categories.FirstOrDefault(x => x.Id.ToString() == dto.CategoryId);
+                if (checekedCategory is null) return new ErrorResult(message: "Category is NotFound!");
+                var checekdType = _context.EventTypes.FirstOrDefault(x => x.Id.ToString() == dto.EventTypeId);
+                if (checekdType is null) return new ErrorResult(message: "Type is NotFound!");
+
                 Confrans confrans = new()
                 {
                     AudutoriumId = dto.AudutoriumId.Value,
@@ -267,7 +275,8 @@ namespace Aztu_Events.DataAccess.Concrete
                     ImgUrl = dto.ImgUrl,
                     UserId = dto.UserId,
                     Status = ConferanceStatus.Gözlənilir,
-                    PdfUrl=dto.PdfUrl
+                    PdfUrl=dto.PdfUrl,
+                    EventTypeId=checekdType.Id,
 
                 };
                 _context.Confrans.Add(confrans);
@@ -656,6 +665,8 @@ namespace Aztu_Events.DataAccess.Concrete
                          .Include(x => x.SpecialGuests)
                            .Include(x => x.Category)
   .ThenInclude(x => x.CategoryLaunguages)
+                           .Include(x=>x.EventType)
+                           .ThenInclude(x=>x.EventTypeLaunguage)
                               .Include(x => x.userConfrances)
                     .ThenInclude(x => x.User)
                          .FirstOrDefault(x => x.UserId == UserId && x.Id.ToString() == ConfranceId);
@@ -713,6 +724,8 @@ namespace Aztu_Events.DataAccess.Concrete
                     IsFeatured = data.IsFeatured,
                     RegistrationUser= getConferenceUserRegistrationDTOs,
                     PdfUrl= data.PdfUrl,
+                    TypeContent=data.EventType.EventTypeLaunguage.FirstOrDefault(x=>x.LangCode==LangCode).TypeContent,
+                    TypeId=data.EventType.Id.ToString(),
                 };
                 return new SuccessDataResult<GetConferenceUserDTO>(data: getConferenceUserDTO);
             }

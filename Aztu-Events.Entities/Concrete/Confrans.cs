@@ -1,9 +1,4 @@
 ﻿using Aztu_Events.Entities.EnumClass;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aztu_Events.Entities.Concrete
 {
@@ -22,9 +17,11 @@ namespace Aztu_Events.Entities.Concrete
         public string UserId { get; set; }
         public User User { get; set; }
         public List<SavePdf>? SavePdfs { get; set; }
-        public Guid CategoryId { get; set; }
         public string PdfUrl { get; set; }
+        public Guid CategoryId { get; set; }
         public Category Category { get; set; }
+        public Guid EventTypeId { get; set; }
+        public EventType EventType { get; set; }
         public List<UserConfrance>? userConfrances { get; set; }
         public List<ConfranceLaunguage> ConfranceLaunguages { get; set; }
         public List<SpecialGuest> SpecialGuests { get; set; }

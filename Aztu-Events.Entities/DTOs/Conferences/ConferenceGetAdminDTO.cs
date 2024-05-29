@@ -15,7 +15,8 @@ namespace Aztu_Events.Entities.DTOs.Conferences
         public string ConferenceContent { get; set; }
         public string CategoryId { get; set; }
         public bool IsFeatured { get; set; }
-
+        public string EventTypeId { get; set; }
+        public string EventTypeContent { get; set; }
         public string CategoryName { get; set; }
         public DateOnly Day { get; set; }
         public TimeOnly StartedDate { get; set; }

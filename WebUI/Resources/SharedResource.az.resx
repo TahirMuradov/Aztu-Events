@@ -127,7 +127,7 @@
     <value>Hamısı</value>
   </data>
   <data name="ConferenceDetailCommentAlertContent" xml:space="preserve">
-    <value>Şərh Yazmaq Ancaq Konnfransdan Qeydiyyatdan Keçənlər üçündür!</value>
+    <value>Şərh Yazmaq Ancaq Tədbirdən Qeydiyyatdan Keçənlər üçündür!</value>
   </data>
   <data name="ConferenceDetailReview" xml:space="preserve">
     <value>Şərhlər</value>
@@ -144,6 +144,9 @@
   <data name="ConferenceDetailYourComment" xml:space="preserve">
     <value>Yorumunuz</value>
   </data>
+  <data name="ConferenceRegisteredUser" xml:space="preserve">
+    <value>Konfransda İştrak üçün qeydiyyatdan keçənlər</value>
+  </data>
   <data name="ConferenceRegistredUserCount" xml:space="preserve">
     <value>İzləmək Üçün Qeyydiyatdan Keçənləri Sayı</value>
   </data>
@@ -154,10 +157,10 @@
     <value>Şərhi Gondərmək İstədiyinizə Əminsinizmi?</value>
   </data>
   <data name="ConfranceCreate" xml:space="preserve">
-    <value>Konfrans Yarat</value>
+    <value>Tədbir Yarat</value>
   </data>
   <data name="ConfranceDetailBacToAllConferance" xml:space="preserve">
-    <value>Bütün Konfranslara Bax</value>
+    <value>Bütün Tədbirlərə Bax</value>
   </data>
   <data name="ConfranceDetailHours" xml:space="preserve">
     <value>Tarix</value>
@@ -169,7 +172,7 @@
     <value>Bildirişlər</value>
   </data>
   <data name="DashboardAlert1" xml:space="preserve">
-    <value>Adlı konferans</value>
+    <value>Adlı Tədbir</value>
   </data>
   <data name="DashboardAlert2" xml:space="preserve">
     <value>tərəfindən</value>
@@ -241,7 +244,7 @@
     <value>Kateqoriya seçin</value>
   </data>
   <data name="DashboardConfranceChangeStatus0" xml:space="preserve">
-    <value>Əgər Confransı təsdiq etsəniz sonra imtina etmək mümkün olmayacaq!</value>
+    <value>Əgər Tədbiri təsdiq etsəniz sonra imtina etmək mümkün olmayacaq!</value>
   </data>
   <data name="DashboardConfranceChangeStatus1" xml:space="preserve">
     <value>Statuslar</value>
@@ -259,13 +262,13 @@
     <value>İmtina Səbəbi</value>
   </data>
   <data name="DashboardConfranceDetail0" xml:space="preserve">
-    <value>Konfrans Adı</value>
+    <value>Tədbir Adı</value>
   </data>
   <data name="DashboardConfranceDetail1" xml:space="preserve">
-    <value>Konfrans Məzmunu</value>
+    <value>Tədbir Məzmunu</value>
   </data>
   <data name="DashboardConfranceDetail10" xml:space="preserve">
-    <value>Konfransın Başlama-Bitmə Tarixi</value>
+    <value>Tədbir Başlama-Bitmə Tarixi</value>
   </data>
   <data name="DashboardConfranceDetail11" xml:space="preserve">
     <value>Sifarişçi Email</value>
@@ -310,10 +313,10 @@
     <value>nömrəli auditoriya-da bu tarix aralığı keçiriləcək:</value>
   </data>
   <data name="DashboardConfranceForUserCreate0" xml:space="preserve">
-    <value>Azərbaycan Dilində Konferans Adini Daxil Edin!</value>
+    <value>Azərbaycan Dilində Tədbir Adini Daxil Edin!</value>
   </data>
   <data name="DashboardConfranceForUserCreate1" xml:space="preserve">
-    <value>Rus Dilində Konferans Adı Daxil Edin!</value>
+    <value>Rus Dilində Tədbir Adı Daxil Edin!</value>
   </data>
   <data name="DashboardConfranceForUserCreate10" xml:space="preserve">
     <value>nömrəli auditoriya dolu vaxtları:</value>
@@ -334,16 +337,16 @@
     <value>Düzgün Formatda yazin Saatı (nümünə: 13:30)</value>
   </data>
   <data name="DashboardConfranceForUserCreate2" xml:space="preserve">
-    <value>İngilis dilində Konferans Adı Daxil Edin!</value>
+    <value>İngilis dilində Tədbir Adı Daxil Edin!</value>
   </data>
   <data name="DashboardConfranceForUserCreate3" xml:space="preserve">
-    <value>Azərbaycan dilində Konferans məzmunu daxil edin</value>
+    <value>Azərbaycan dilində Tədbir məzmunu daxil edin</value>
   </data>
   <data name="DashboardConfranceForUserCreate4" xml:space="preserve">
-    <value>Rus dilində Konferans məzmunu daxil edin</value>
+    <value>Rus dilində Tədbir məzmunu daxil edin</value>
   </data>
   <data name="DashboardConfranceForUserCreate5" xml:space="preserve">
-    <value>İngilis Dilində Konferans məzmunu daxil edin</value>
+    <value>İngilis Dilində Tədbir məzmunu daxil edin</value>
   </data>
   <data name="DashboardConfranceForUserCreate6" xml:space="preserve">
     <value>Xüsusi Qonaq Əlavə Et</value>
@@ -361,13 +364,28 @@
     <value>Əvvəlki Xüsusi Qonaqlari silmək olmur!</value>
   </data>
   <data name="DashboardConfranceForUserUpdate1" xml:space="preserve">
-    <value>Konfransda Dəyişiklik etsəniz avtomatik statusu dəyişəcək!</value>
+    <value>Tədbirində Dəyişiklik etsəniz avtomatik statusu dəyişəcək!</value>
+  </data>
+  <data name="DashboardEventTypeCreate" xml:space="preserve">
+    <value>Tip Yarat</value>
+  </data>
+  <data name="DashboardEventTypeCreatePlacheolderAz" xml:space="preserve">
+    <value>Azərbaycan dilində Tip məzmunu daxil edin</value>
+  </data>
+  <data name="DashboardEventTypeCreatePlacheolderEN" xml:space="preserve">
+    <value>İngilis dilində Tip məzmunu daxil edin</value>
+  </data>
+  <data name="DashboardEventTypeCreatePlacheolderRU" xml:space="preserve">
+    <value>Rus dilində Tip məzmunu daxil edin</value>
+  </data>
+  <data name="DashboardEventTypeName" xml:space="preserve">
+    <value>Tip</value>
   </data>
   <data name="DashboardForUserConferanceIndexAlert" xml:space="preserve">
-    <value>Konfransınızı Ana Səhifədə Önə Çixartmaq Üçün 055-000-00-00 Əlaqə saxlayin!</value>
+    <value>Tədbirinizin Ana Səhifədə Önə Çixartmaq Üçün 055-000-00-00 Əlaqə saxlayin!</value>
   </data>
   <data name="DashboardHome0" xml:space="preserve">
-    <value>Aztu Elektron Konfrans İdarəetmə sistemi.Xoş Gəldiniz</value>
+    <value>Aztu Elektron Tədbir İdarəetmə sistemi.Xoş Gəldiniz</value>
   </data>
   <data name="DashboardLayout0" xml:space="preserve">
     <value>Admin</value>
@@ -391,19 +409,25 @@
     <value>Auditoriya</value>
   </data>
   <data name="DashboardLayout5" xml:space="preserve">
-    <value>Konferans</value>
+    <value>Tədbir</value>
   </data>
   <data name="DashboardLayout6" xml:space="preserve">
     <value>İstifadəçi</value>
   </data>
   <data name="DashboardLayout7" xml:space="preserve">
-    <value>Konfranslarım</value>
+    <value>Tədbirlərim</value>
   </data>
   <data name="DashboardLayout8" xml:space="preserve">
     <value>Çıxma</value>
   </data>
   <data name="DashboardLayout9" xml:space="preserve">
     <value>Çıx</value>
+  </data>
+  <data name="DashboardLayoutComment" xml:space="preserve">
+    <value>Şərhlər</value>
+  </data>
+  <data name="DashboardLayoutEventType" xml:space="preserve">
+    <value>Tədbir Növləri</value>
   </data>
   <data name="DashboardRole0" xml:space="preserve">
     <value>Rol Adı</value>
@@ -448,7 +472,7 @@
     <value>Vəzifəsi</value>
   </data>
   <data name="DashboardUserIndex4" xml:space="preserve">
-    <value>Keçirtdiyi Konfranslar</value>
+    <value>Keçirtdiyi Tədbirlər</value>
   </data>
   <data name="DashboardUserIndex5" xml:space="preserve">
     <value>Vəzifə Ver</value>
@@ -520,7 +544,7 @@
     <value>Daxil ol</value>
   </data>
   <data name="NavbarConferances" xml:space="preserve">
-    <value>Konferanslar</value>
+    <value>Tədbirlər</value>
   </data>
   <data name="NavbarHome" xml:space="preserve">
     <value>Ana Səhifə</value>
@@ -559,10 +583,10 @@
     <value>Siz Artıq Qeydiyyatdan Kecmisiniz!</value>
   </data>
   <data name="RegisterConferenceSwalTitle" xml:space="preserve">
-    <value>Konfransın Auditoriyasında Sizin üçün bir Yer Ayrıldı!Təşəkkürlər</value>
+    <value>Tədbirin Auditoriyasında Sizin üçün bir Yer Ayrıldı!Təşəkkürlər</value>
   </data>
   <data name="RegisterForConference" xml:space="preserve">
-    <value>Konfrasnda İştirak Üçün Kiliklə</value>
+    <value>Tədbirdə İştirak Üçün Kiliklə</value>
   </data>
   <data name="SelectPosition" xml:space="preserve">
     <value>Vəzifə Seçin</value>

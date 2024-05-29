@@ -7,17 +7,10 @@ using Aztu_Events.Entities.Concrete;
 using Aztu_Events.Entities.DTOs.AlertDTOs;
 using Aztu_Events.Entities.DTOs.CommentDTOs;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Crypto.Prng;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aztu_Events.DataAccess.Concrete
 {
-   
+
     public class EFCommentDAL : ICommentDAL
     {
         private readonly AppDbContext _Context;

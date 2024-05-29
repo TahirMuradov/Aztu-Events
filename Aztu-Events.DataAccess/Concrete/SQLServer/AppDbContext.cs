@@ -33,6 +33,8 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
         public DbSet<SavePdf> SavePdfs { get; set; }
         public DbSet<Alert> Alerts { get; set; }
         public DbSet<AlertLaunguage> AlertLaunguages { get; set; }
+        public DbSet<EventTypeLaunguage> EventTypeLaunguages { get; set; }
+        public DbSet<EventType> EventTypes { get; set; }
 
 
 
@@ -66,6 +68,11 @@ namespace Aztu_Events.DataAccess.Concrete.SQLServer
                 .WithMany(x=>x.Pdfs)
                 .HasForeignKey(x=>x.UserId)
                 .OnDelete(deleteBehavior: DeleteBehavior.Restrict);
+            builder.Entity<Confrans>()
+                .HasOne(x => x.EventType)
+                .WithMany(x => x.Confrans)
+                .HasForeignKey(x => x.EventTypeId)
+                .OnDelete(DeleteBehavior.Restrict);
 
     
         }

@@ -186,7 +186,12 @@ namespace Aztu_Events.Business.CustomLanguageManager
 
 
             #endregion
+            #region EventTypeDTOErrorMessage
+            AddTranslation("az", "EventTypeIdIsRequired", "Tədbir tipi boş olmamalidir!.");
+            AddTranslation("ru", "EventTypeIdIsRequired", "Тип события не должен быть пустым!");
+            AddTranslation("en", "EventTypeIdIsRequired", "Event type must not be empty!");
 
+            #endregion
         }
 
     }

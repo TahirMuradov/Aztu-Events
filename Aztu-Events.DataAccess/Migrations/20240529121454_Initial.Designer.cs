@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aztu_Events.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240514125036_AddedAlertSeen")]
-    partial class AddedAlertSeen
+    [Migration("20240529121454_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,50 @@ namespace Aztu_Events.DataAccess.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Alert", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConferenceId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ForUser")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Alerts");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.AlertLaunguage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AlertId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LangCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AlertId");
+
+                    b.ToTable("AlertLaunguages");
+                });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Auditorium", b =>
                 {
@@ -150,13 +194,13 @@ namespace Aztu_Events.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("AlertSeen")
-                        .HasColumnType("bit");
-
                     b.Property<Guid>("AudutoriumId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EventTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ImgUrl")
@@ -165,6 +209,10 @@ namespace Aztu_Events.DataAccess.Migrations
 
                     b.Property<bool>("IsFeatured")
                         .HasColumnType("bit");
+
+                    b.Property<string>("PdfUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -182,12 +230,71 @@ namespace Aztu_Events.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("EventTypeId");
+
                     b.HasIndex("TimeId")
                         .IsUnique();
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Confrans");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.EventType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EventTypes");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.EventTypeLaunguage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("EventTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LangCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventTypeId");
+
+                    b.ToTable("EventTypeLaunguages");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.SavePdf", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ConferenceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConferenceId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SavePdfs");
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.SpecialGuest", b =>
@@ -319,6 +426,28 @@ namespace Aztu_Events.DataAccess.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.UserConfrance", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ConfransId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConfransId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserConfrances");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -454,6 +583,17 @@ namespace Aztu_Events.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.AlertLaunguage", b =>
+                {
+                    b.HasOne("Aztu_Events.Entities.Concrete.Alert", "Alert")
+                        .WithMany("AlertLaunguages")
+                        .HasForeignKey("AlertId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Alert");
+                });
+
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.CategoryLaunguage", b =>
                 {
                     b.HasOne("Aztu_Events.Entities.Concrete.Category", "Category")
@@ -509,6 +649,12 @@ namespace Aztu_Events.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Aztu_Events.Entities.Concrete.EventType", "EventType")
+                        .WithMany("Confrans")
+                        .HasForeignKey("EventTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Aztu_Events.Entities.Concrete.Time", "Time")
                         .WithOne("Confrans")
                         .HasForeignKey("Aztu_Events.Entities.Concrete.Confrans", "TimeId")
@@ -525,7 +671,39 @@ namespace Aztu_Events.DataAccess.Migrations
 
                     b.Navigation("Category");
 
+                    b.Navigation("EventType");
+
                     b.Navigation("Time");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.EventTypeLaunguage", b =>
+                {
+                    b.HasOne("Aztu_Events.Entities.Concrete.EventType", "EventType")
+                        .WithMany("EventTypeLaunguage")
+                        .HasForeignKey("EventTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EventType");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.SavePdf", b =>
+                {
+                    b.HasOne("Aztu_Events.Entities.Concrete.Confrans", "Conference")
+                        .WithMany("SavePdfs")
+                        .HasForeignKey("ConferenceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aztu_Events.Entities.Concrete.User", "User")
+                        .WithMany("Pdfs")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Conference");
 
                     b.Navigation("User");
                 });
@@ -550,6 +728,25 @@ namespace Aztu_Events.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Auditorium");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.UserConfrance", b =>
+                {
+                    b.HasOne("Aztu_Events.Entities.Concrete.Confrans", "Confrans")
+                        .WithMany("userConfrances")
+                        .HasForeignKey("ConfransId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Aztu_Events.Entities.Concrete.User", "User")
+                        .WithMany("userConfrances")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Confrans");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -603,6 +800,11 @@ namespace Aztu_Events.DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.Alert", b =>
+                {
+                    b.Navigation("AlertLaunguages");
+                });
+
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Auditorium", b =>
                 {
                     b.Navigation("Confrances");
@@ -623,7 +825,18 @@ namespace Aztu_Events.DataAccess.Migrations
 
                     b.Navigation("ConfranceLaunguages");
 
+                    b.Navigation("SavePdfs");
+
                     b.Navigation("SpecialGuests");
+
+                    b.Navigation("userConfrances");
+                });
+
+            modelBuilder.Entity("Aztu_Events.Entities.Concrete.EventType", b =>
+                {
+                    b.Navigation("Confrans");
+
+                    b.Navigation("EventTypeLaunguage");
                 });
 
             modelBuilder.Entity("Aztu_Events.Entities.Concrete.Time", b =>
@@ -637,6 +850,10 @@ namespace Aztu_Events.DataAccess.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Confrans");
+
+                    b.Navigation("Pdfs");
+
+                    b.Navigation("userConfrances");
                 });
 #pragma warning restore 612, 618
         }

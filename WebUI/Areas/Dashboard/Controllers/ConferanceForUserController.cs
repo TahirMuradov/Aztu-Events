@@ -19,14 +19,16 @@ namespace WebUI.Areas.Dashboard.Controllers
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly ITimeService _timeService;
         private readonly ICategoryService _categoryService;
+        private readonly IEventTypeService _eventTypeService;
 
-        public ConferanceForUserController(IConfransService confransService, IHttpContextAccessor contextAccessor, IAuditoriumService auditoriumService, ITimeService timeService, ICategoryService categoryService)
+        public ConferanceForUserController(IConfransService confransService, IHttpContextAccessor contextAccessor, IAuditoriumService auditoriumService, ITimeService timeService, ICategoryService categoryService, IEventTypeService eventTypeService)
         {
             _confransService = confransService;
             _contextAccessor = contextAccessor;
             _auditoriumService = auditoriumService;
             _timeService = timeService;
             _categoryService = categoryService;
+            _eventTypeService = eventTypeService;
         }
 
         public IActionResult Index()
@@ -44,6 +46,8 @@ namespace WebUI.Areas.Dashboard.Controllers
             var auditorium = _auditoriumService.GetAllAuditorium();
             ViewBag.Auditorium = auditorium.Data;
             var category = _categoryService.GetAllCategory(currentCulture);
+            var type=_eventTypeService.GetAllEventType(currentCulture);
+            ViewBag.Type = type.Data;
             ViewBag.Category = category.Data;
             return View(new ConferenceAddDTO
             {
@@ -69,6 +73,8 @@ namespace WebUI.Areas.Dashboard.Controllers
                 ViewBag.Auditorium = auditorium.Data;
                 var category = _categoryService.GetAllCategory(currentCulture);
                 ViewBag.Category = category.Data;
+                var type = _eventTypeService.GetAllEventType(currentCulture);
+                ViewBag.Type = type.Data;
                 var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 conferenceCreateDto.UserId = CurrentUserId;
                 return View(conferenceCreateDto);
@@ -115,6 +121,8 @@ namespace WebUI.Areas.Dashboard.Controllers
                 ViewBag.Auditorium = auditorium.Data;
                 var category = _categoryService.GetAllCategory(currentCulture);
                 ViewBag.Category = category.Data;
+                var type = _eventTypeService.GetAllEventType(currentCulture);
+                ViewBag.Type = type.Data;
                 var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 conferenceCreateDto.UserId = CurrentUserId;
                 return View(conferenceCreateDto);
@@ -137,6 +145,8 @@ namespace WebUI.Areas.Dashboard.Controllers
                 ViewBag.Auditorium = auditorium.Data;
                 var category = _categoryService.GetAllCategory(currentCulture);
                 ViewBag.Category = category.Data;
+                var type = _eventTypeService.GetAllEventType(currentCulture);
+                ViewBag.Type = type.Data;
                 var CurrentUserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
                 conferenceCreateDto.UserId = CurrentUserId;
                 return View(conferenceCreateDto);

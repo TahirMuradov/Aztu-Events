@@ -1,0 +1,125 @@
+﻿
+@model List<GetEventTypeDTO>
+
+
+
+<a class="btn btn-outline-success" href="/dashboard/EventType/create">@_localization.GetKey("DashboardEventTypeCreate")</a>
+<table id="example" class="display table table-striped table-responsive-md table-responsive-sm" style="width:100%">
+    <thead>
+        <tr>
+
+            <th>№</th>
+            <th>@_localization.GetKey("DashboardEventTypeName")</th>
+
+            <th>@_localization.GetKey("DashboardAuditoriumIndex1")</th>
+
+
+
+
+        </tr>
+
+    </thead>
+    <tbody id="parent">
+        @{
+            int counter = 0;
+        }
+        @foreach (var EventType in Model)
+        {
+
+            counter++;
+            <tr>
+
+                <td>@counter</td>
+                <td>@EventType.Content</td>
+
+                <td>
+
+                    <a class="btn btn-outline-warning" href="/dashboard/EventType/Edit/@EventType.EventTypeId"><i class="fa-solid fa-pen-to-square"></i></a>
+                    <button class="btn btn-outline-danger" onclick="EventTypeDelet('@EventType.EventTypeId')"><i class="fa-solid fa-trash"></i></button>
+
+
+
+
+                </td>
+            </tr>
+
+        }
+    </tbody>
+
+    <tfoot>
+        <tr>
+
+            <th>№</th>
+            <th>@_localization.GetKey("DashboardEventTypeName")</th>
+
+            <th>@_localization.GetKey("DashboardAuditoriumIndex1")</th>
+
+
+
+        </tr>
+
+    </tfoot>
+</table>
+@{
+    var langCode = CultureInfo.CurrentCulture.Name;
+    var SweetAlertMessageSuccess = _localization.GetKey("SweetAlertMessageSuccess");
+    var SweetAlertMessageError = _localization.GetKey("SweetAlertMessageError");
+    var SweetAlertMessageTitle = _localization.GetKey("SweetAlertMessageTitle");
+}
+<script>
+    var currentCulture = "@langCode";
+    var languageUrl = null;
+    if (currentCulture == "az") {
+
+        languageUrl = "//cdn.datatables.net/plug-ins/2.0.7/i18n/az-AZ.json";
+    }
+    else if (currentCulture == "ru") {
+        languageUrl = "//cdn.datatables.net/plug-ins/2.0.7/i18n/ru.json";
+    }
+    else {
+        languageUrl = "//cdn.datatables.net/plug-ins/2.0.7/i18n/en-GB.json";
+    }
+    let table = new DataTable('#example', {
+        responsive: true,
+        language: {
+            url: languageUrl,
+        },
+
+    });
+    var successMessage = "@Html.Raw(SweetAlertMessageSuccess)"
+    var errorMessage = "@Html.Raw(SweetAlertMessageSuccess)"
+    var TitleMessage = "@Html.Raw(SweetAlertMessageSuccess)"
+    function EventTypeDelet(id) {
+        swal({
+            title: TitleMessage,
+
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                debugger
+                if (willDelete) {
+                    $.ajax({
+                        url: `/Dashboard/EventType/Delete/${id}`,
+                        method: "DELETE",
+                        success: function (response) {
+                            swal(successMessage, {
+                                icon: "success",
+                            }).then((e) => {
+
+                                if (e) {
+                                    window.location.reload();
+
+                                }
+                            })
+                        },
+                        error: function () {
+                            swal(errorMessage, "error");
+                        }
+                    })
+
+                }
+            });
+    }
+</script>

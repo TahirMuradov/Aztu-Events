@@ -94,9 +94,9 @@
         <label asp-for="AudutoriumId">@_localization.GetKey("DashboardConfranceDetail13")</label>
      
         <select  onchange="GetAuditoriumTime()"  class="form-control mySelect" asp-for=AudutoriumId name="AudutoriumId">
+                <option selected>@_localization.GetKey("DashboardConfranceForUserCreate8")</option>
             @if (ViewBag.Auditorium is List<GetAuditoriumDTO> auditorium && auditorium.Count > 0)
             {
-                <option selected value="">@_localization.GetKey("DashboardConfranceForUserCreate8")</option>
                
                 @foreach (var item in ViewBag.Auditorium as List<GetAuditoriumDTO>)
                 {
@@ -113,9 +113,9 @@
         <label>@_localization.GetKey("DashboardConfranceForUserCreate9")</label>
         <select class="form-control" asp-for="CategoryId">
 
+                <option selected value="">@_localization.GetKey("DashboardConferenceForUserCategory")</option>
             @if (ViewBag.Category is not null)
             {
-                <option selected value="">@_localization.GetKey("DashboardConferenceForUserCategory")</option>
                 foreach (var category in ViewBag.Category as List<CategoryGetDTO>)
                 {
                     <option value="@category.Id">@category.Name</option>
@@ -124,7 +124,21 @@
 
         </select>
     </div>
- 
+    <div class="form-group">
+        <label>@_localization.GetKey("DashboardLayoutEventType")</label>
+        <select class="form-control" asp-for="EventTypeId">
+
+            <option selected value="">@_localization.GetKey("DashboardLayoutEventType")</option>
+            @if (ViewBag.Type is not null)
+            {
+                foreach (var type in ViewBag.Type as List<GetEventTypeDTO>)
+                {
+                    <option value="@type.EventTypeId">@type.Content</option>
+                }
+            }
+
+        </select>
+    </div>
     <div class="form-group">
         <label for="Day">@_localization.GetKey("DashboardConfranceForUserCreate11"):</label>
         <input type="date" id="Day" name="Day" asp-for="Day" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" value="" />

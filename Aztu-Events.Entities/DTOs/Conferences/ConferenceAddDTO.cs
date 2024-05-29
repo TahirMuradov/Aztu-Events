@@ -10,6 +10,7 @@
         public bool? IsFeatured { get; set; }
         public string ? PdfUrl { get; set; }
         public string CategoryId { get; set; }
+        public string EventTypeId { get; set; }
         public DateOnly? Day { get; set; }
         public TimeOnly? StartedDate { get; set; }
         public TimeOnly? EndDate { get; set; }

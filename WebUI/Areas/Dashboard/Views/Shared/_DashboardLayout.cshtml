@@ -53,8 +53,10 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-        
-         
+
+
+            @if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+            {
                 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
@@ -77,12 +79,14 @@
                             <a class="collapse-item" href="/dashboard/category/index">@_localization.GetKey("DashboardLayout3")</a>
                             <a class="collapse-item" href="/dashboard/auditorium/index">@_localization.GetKey("DashboardLayout4")</a>
                             <a class="collapse-item" href="/dashboard/Conferance/index">@_localization.GetKey("DashboardLayout5")</a>
-                            <a class="collapse-item" href="/dashboard/comment/index">Komentler</a>
+                                <a class="collapse-item" href="/dashboard/comment/index">@_localization.GetKey("DashboardLayoutComment")</a>
+                                <a class="collapse-item" href="/dashboard/eventType/index">@_localization.GetKey("DashboardLayoutEventType")</a>
 
                         }
                     </div>
                 </div>
             </li>
+            }
         
             @if (User.IsInRole("SuperAdmin") || User.IsInRole("Organizer"))
             {
