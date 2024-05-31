@@ -74,6 +74,10 @@
     <input class="form-control" disabled type="text" value="@Model.CategoryName" />
 </div>
 <div class="form-group">
+    <label class="form-label">@_localization.GetKey("PdfFileLabelDashboard")</label>
+<a target="_blank" href="@Model.PdfUrl" class="btn btn-outline-info"><i class="fa-solid fa-file-pdf"></i></a>
+</div>
+<div class="form-group">
 
     <label>@_localization.GetKey("DashboardEventTypeName")</label>
     <input class="form-control" disabled type="text" value="@Model.TypeContent" />
@@ -104,20 +108,20 @@
 
         <div class="row justify-content-end align-items-end">
             <div class="col-2">
-                <label class="form-label">Adı Soyadı</label>
+                <label class="form-label">@_localization.GetKey("DashboardUserIndex0")</label>
                 <input type="text" disabled class="form-control" value="@users.FirstName @users.LastName" />
             </div>
             <div class="col-2">
-                <label class="form-label">Elektron Poçtu</label>
+                <label class="form-label">@_localization.GetKey("DashboardUserIndex1")</label>
                 <input type="text" disabled class="form-control" value="@users.Email" />
             </div>
             <div class="col-2">
-                <label class="form-label">Əlaqə Nömrəsi</label>
+                <label class="form-label">@_localization.GetKey("DashboardUserIndex2")</label>
                 <input type="text" disabled class="form-control" value="@users.PhoneNumber" />
             </div>
             <div class="col-2">
 
-                <label class="form-label">Vəzifəsi</label>
+                <label class="form-label">@_localization.GetKey("DashboardUserIndex3")</label>
                 <input type="text" disabled class="form-control" value="@foreach (string role in users.Position){
             @Html.Raw(role)
 }" />
@@ -130,7 +134,7 @@
     }
 </div>
 
-<a target="_blank" href="@Model.PdfUrl" class="btn btn-outline-info"><i class="fa-solid fa-file-pdf"></i></a>
+
 
 @section scripts {
     <script>

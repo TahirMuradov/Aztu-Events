@@ -26,13 +26,13 @@ namespace Aztu_Events.Core.Helper.EmailHelper.Concrete
             string htmlBody=string.Empty;
             if (UpdateDate)
             {
-                htmlBody = $"Hörmətli {name} sizin konfransiniz vaxtı dəyişildi.Kecirilmə tarixi və mekani:<br/> tarix: {dateTime}<br/ Məkan:{AuditoriumNumber}<br/Diqqətiniz üçün təşəkkürlər.>>";
+                htmlBody = $"Hörmətli {name} sizin tədbirinizin vaxtı dəyişildi.Kecirilmə tarixi və mekani:<br/> tarix: {dateTime}<br/ Məkan:{AuditoriumNumber}<br/Diqqətiniz üçün təşəkkürlər.>>";
 
             }
             else
             {
 
-            htmlBody = $"Hörmətli {name} sizin konfransiniza təsdiq gəldi.Kecirilmə tarixi və mekani:<br/> tarix: {dateTime}<br/ Məkan:{AuditoriumNumber}<br/Diqqətiniz üçün təşəkkürlər.>>";
+            htmlBody = $"Hörmətli {name} sizin tədbirinizə təsdiq gəldi.Kecirilmə tarixi və mekani:<br/> tarix: {dateTime}<br/ Məkan:{AuditoriumNumber}<br/Diqqətiniz üçün təşəkkürlər.>>";
             }
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(_config["EmailServices:FromEmail"]));
@@ -61,7 +61,7 @@ namespace Aztu_Events.Core.Helper.EmailHelper.Concrete
 
         public async Task<IResult> DeclineConfransEmailAsync(string userEmail, string name, string responseMessage)
         {
-            string htmlBody = $"Hörmətli {name} sizin konfransiniza imtina gəldi.İmtina gəlmə səbəbi:<br/> {responseMessage}";
+            string htmlBody = $"Hörmətli {name} sizin tədbirinizə imtina gəldi.İmtina gəlmə səbəbi:<br/> {responseMessage}";
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(_config["EmailServices:FromEmail"]));
             email.To.Add(MailboxAddress.Parse(userEmail));
@@ -124,7 +124,7 @@ namespace Aztu_Events.Core.Helper.EmailHelper.Concrete
             string htmlBody = string.Empty;
             if (UpdateDate && SendEmailGuest)
             {
-                htmlBody = $"Hörmətli {name} sizi dəvət etdiyimiz konfrasin vaxtı dəyişildi.Kecirilmə tarixi və mekani:<br/> tarix: {dateTime}<br/> Məkan:{AuditoriumNumber}<br/>Konfrans Haqqında Daha Ətraflı Keçid linki:<br/><a class='btn btn-primary' href='{confransDetailUrl}' role='button' style='display: inline-block; padding: 6px 12px; font-size: 14px; font-weight: 400; line-height: 1.42857143; text-align: center; white-space: nowrap; vertical-align: middle; cursor: pointer; border: 1px solid transparent; border-radius: 4px; text-decoration: none; color: #fff; background-color: #337ab7; border-color: #2e6da4;'>Keçid Linki</a> <br/> Diqqətiniz üçün təşəkkürlər.";
+                htmlBody = $"Hörmətli {name} sizi dəvət etdiyimiz konfrasin vaxtı dəyişildi.Kecirilmə tarixi və mekani:<br/> tarix: {dateTime}<br/> Məkan:{AuditoriumNumber}<br/>Tədbir Haqqında Daha Ətraflı Keçid linki:<br/><a class='btn btn-primary' href='{confransDetailUrl}' role='button' style='display: inline-block; padding: 6px 12px; font-size: 14px; font-weight: 400; line-height: 1.42857143; text-align: center; white-space: nowrap; vertical-align: middle; cursor: pointer; border: 1px solid transparent; border-radius: 4px; text-decoration: none; color: #fff; background-color: #337ab7; border-color: #2e6da4;'>Keçid Linki</a> <br/> Diqqətiniz üçün təşəkkürlər.";
 
             }
             else if(!SendEmailGuest&& !UpdateDate)

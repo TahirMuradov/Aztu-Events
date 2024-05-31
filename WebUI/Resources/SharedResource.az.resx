@@ -555,6 +555,9 @@
   <data name="Organizer" xml:space="preserve">
     <value>Təşkilatçı</value>
   </data>
+  <data name="PdfFileLabelDashboard" xml:space="preserve">
+    <value>Tədbirdə təqdim ediləcək Slayd (Pdf Formatinda)</value>
+  </data>
   <data name="Register1" xml:space="preserve">
     <value>Qeydiyyat!</value>
   </data>

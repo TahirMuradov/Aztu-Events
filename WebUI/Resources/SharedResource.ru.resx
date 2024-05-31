@@ -555,6 +555,9 @@
   <data name="Organizer" xml:space="preserve">
     <value>Организатор</value>
   </data>
+  <data name="PdfFileLabelDashboard" xml:space="preserve">
+    <value>Слайд будет представлен на мероприятии (в формате PDF)</value>
+  </data>
   <data name="Register1" xml:space="preserve">
     <value>Регистрация!</value>
   </data>
