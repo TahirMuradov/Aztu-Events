@@ -145,10 +145,10 @@
     <value>Yorumunuz</value>
   </data>
   <data name="ConferenceRegisteredUser" xml:space="preserve">
-    <value>Konfransda İştrak üçün qeydiyyatdan keçənlər</value>
+    <value>Tədbirdə İştrak üçün qeydiyyatdan keçənlər</value>
   </data>
   <data name="ConferenceRegistredUserCount" xml:space="preserve">
-    <value>İzləmək Üçün Qeyydiyatdan Keçənləri Sayı</value>
+    <value>İzləmək Üçün Qeyydiyatdan Keçənlərin Sayı</value>
   </data>
   <data name="ConferenceSwalSuccessAddComment" xml:space="preserve">
     <value>Şərh Yazdığınız Üçün Təşəkkürlər .Sizin Şərhiniz Bizim Üçün Önəmlidir.Şərhiniz Əlavə Edildi.Şərhinizə Baxılacaq.Təsdiq Ediləndən Sonra Hamı Tərəfindən Görünəcəkdir!</value>
@@ -160,7 +160,7 @@
     <value>Tədbir Yarat</value>
   </data>
   <data name="ConfranceDetailBacToAllConferance" xml:space="preserve">
-    <value>Bütün Tədbirlərə Bax</value>
+    <value>Bütün Tədbİrlərə Bax</value>
   </data>
   <data name="ConfranceDetailHours" xml:space="preserve">
     <value>Tarix</value>
@@ -190,10 +190,10 @@
     <value>Xəbərdarlıq!</value>
   </data>
   <data name="DashboardAuditoriumCreate2" xml:space="preserve">
-    <value>Auditoriya 1-ci korpus 512-ci otaqdadirsa Auditoriya nomresini 1-512 seklinde yazin!.</value>
+    <value>Auditoriya 1-ci korpus 512-ci auditoriyadadırsa , auditoriya nömrəsini 1-512 şəklində yazin!.</value>
   </data>
   <data name="DashboardAuditoriumCreate3" xml:space="preserve">
-    <value>Auditoriya Nomrəsi</value>
+    <value>Auditoriya Nömrəsi</value>
   </data>
   <data name="DashboardAuditoriumCreate4" xml:space="preserve">
     <value>Yarat</value>
@@ -226,7 +226,7 @@
     <value>Yazan Istifadəçi Adı</value>
   </data>
   <data name="DashboardComment1" xml:space="preserve">
-    <value>Yazilan Conferans Adı</value>
+    <value>Yazilan Tədbir Adı</value>
   </data>
   <data name="DashboardComment2" xml:space="preserve">
     <value>Məzmun</value>
@@ -256,7 +256,7 @@
     <value>İmtina</value>
   </data>
   <data name="DashboardConfranceChangeStatus4" xml:space="preserve">
-    <value>Əgər Confransı imtina etməmisinizsə bu xananı doldurmaya bilərsiniz!</value>
+    <value>Əgər Tədbiri imtina etməmisinizsə bu xananı doldurmaya bilərsiniz!</value>
   </data>
   <data name="DashboardConfranceChangeStatus5" xml:space="preserve">
     <value>İmtina Səbəbi</value>
@@ -430,7 +430,7 @@
     <value>Tədbir Növləri</value>
   </data>
   <data name="DashboardRole0" xml:space="preserve">
-    <value>Rol Adı</value>
+    <value>Vəzifə Adı</value>
   </data>
   <data name="DashboardSettings0" xml:space="preserve">
     <value>İstifadəçi Adı</value>
@@ -488,8 +488,8 @@
   </data>
   <data name="Footer" xml:space="preserve">
     <value>&lt;p&gt;
-     Copyright © 2024 Azərbaycan Texniki Üniversiteti  Elektron Konfrans İdarəetmə Sistemi.
-     &lt;br&gt;Bütün Hüqüqlar &lt;a href="https://www.aztu.edu.az/az" target="_parent" title="free css templates"&gt;Azərbaycan Texniki Üniversiteti&lt;/a&gt; Tərəfindən Qorunur
+     Copyright © 2024 Azərbaycan Texnİkİ Ünİversİtetİ  Elektron Konfrans İdarəetmə Sİstemİ.
+     &lt;br&gt;Bütün Hüqüqlar &lt;a href="https://www.aztu.edu.az/az" target="_parent" title="free css templates"&gt;Azərbaycan Texnİkİ Ünİversİtetİ&lt;/a&gt; Tərəfİndən Qorunur
  &lt;/p&gt;</value>
   </data>
   <data name="ForgotPassword1" xml:space="preserve">
@@ -523,10 +523,10 @@
     <value>Təsdiqlə</value>
   </data>
   <data name="HomeMain1" xml:space="preserve">
-    <value>AZƏRBAYCAN TEXNIKI ÜNIVERSITETI ELEKTRON KONFRANS İDARƏETMƏ SISTEMI</value>
+    <value>AZƏRBAYCAN TEXNİKİ ÜNİVERSİTETİ ELEKTRON TƏDBİR İDARƏETMƏ SİSTEMİ</value>
   </data>
   <data name="HomeMain2" xml:space="preserve">
-    <value>Azərbaycan Texniki Üniversiteti-də konfrans keçirtmək üçün qeyydiyatdan keçib sorğuları doldurun</value>
+    <value>Azərbaycan Texniki Üniversitetin-də tədbir keçirtmək üçün qeydiyyatdan keçib sorğuları doldurun</value>
   </data>
   <data name="Login1" xml:space="preserve">
     <value>Xoş Gəldiniz!</value>
@@ -544,13 +544,13 @@
     <value>Daxil ol</value>
   </data>
   <data name="NavbarConferances" xml:space="preserve">
-    <value>Tədbirlər</value>
+    <value>TƏDBİRLƏR</value>
   </data>
   <data name="NavbarHome" xml:space="preserve">
-    <value>Ana Səhifə</value>
+    <value>Ana Səhİfə</value>
   </data>
   <data name="NavbarLogin" xml:space="preserve">
-    <value>Daxil Ol</value>
+    <value>DAXİL Ol</value>
   </data>
   <data name="Organizer" xml:space="preserve">
     <value>Təşkilatçı</value>
