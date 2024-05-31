@@ -33,13 +33,13 @@
               @foreach (var conference in Model)
         {
 
-            <a onclick="DeleteAlert('@conference.AlertId')" class="dropdown-item d-flex align-items-center" href="/dashboard/ConferanceForUser/detail/@conference.ConferenceId">
+            <button onclick="DeleteAlert('@conference.AlertId','@conference.ConferenceId')" class="dropdown-item d-flex align-items-center">
          
             <div>
 
                         <span class="font-weight-bold">@conference.AlertContent</span>
             </div>
-        </a>
+        </button>
         }
 
 
@@ -75,14 +75,20 @@
 {
     <script>
 
-        function DeleteAlert(AlertId) {
+        function DeleteAlert(AlertId,ConferenceId) {
             if (AlertId != null || AlertId != undefined) {
 
                 $.ajax({
                     url: `/Dashboard/Alert/DeleteAlertForAdmin?alertId=${AlertId}`,
                     method: "DELETE",
                     success: function (response) {
-                        window.location.reload();
+                        if (ConferenceId) {
+
+                            window.open(window.location.origin + `/dashboard/ConferanceForUser/detail/${ConferenceId}`)
+                            window.location.reload();
+                        } else {
+                            window.location.reload();
+                        }
 
 
                     },
@@ -119,7 +125,7 @@ else
     
 <script>
 
-    function DeleteAlert(AlertId) {
+        function DeleteAlert(AlertId, ConferenceId) {
         if (AlertId != null || AlertId != undefined) {
 
             $.ajax({
@@ -127,7 +133,14 @@ else
                 method: "DELETE",
                 success: function (response) {
                     console.log(response)
+                        if (ConferenceId) {
 
+                            window.open(window.location.origin + `/dashboard/ConferanceForUser/detail/${ConferenceId}`);
+                            window.location.reload();
+                        } else {
+                            window.location.reload();
+                        }
+                       
 
                 },
                 error: function () {
