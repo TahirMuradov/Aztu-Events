@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AuthConfirmEmail1" xml:space="preserve">
-    <value>Sizin Emailiniz Tesdiqlendi!</value>
+    <value>Sizin Elektron Poçtunuz Təsdiqləndi!</value>
   </data>
   <data name="AuthConfirmEmail2" xml:space="preserve">
     <value>Daxil Olun!</value>
@@ -127,7 +127,7 @@
     <value>Hamısı</value>
   </data>
   <data name="ConferenceDetailCommentAlertContent" xml:space="preserve">
-    <value>Şərh Yazmaq Ancaq Tədbirdən Qeydiyyatdan Keçənlər üçündür!</value>
+    <value>Şərh yazmaq ancaq tədbirdən qeydiyyatdan keçənlər üçündür!</value>
   </data>
   <data name="ConferenceDetailReview" xml:space="preserve">
     <value>Şərhlər</value>
@@ -148,10 +148,10 @@
     <value>Tədbirdə İştrak üçün qeydiyyatdan keçənlər</value>
   </data>
   <data name="ConferenceRegistredUserCount" xml:space="preserve">
-    <value>İzləmək Üçün Qeyydiyatdan Keçənlərin Sayı</value>
+    <value>İzləmək Üçün Qeydiyyatdan Keçənlərin Sayı</value>
   </data>
   <data name="ConferenceSwalSuccessAddComment" xml:space="preserve">
-    <value>Şərh Yazdığınız Üçün Təşəkkürlər .Sizin Şərhiniz Bizim Üçün Önəmlidir.Şərhiniz Əlavə Edildi.Şərhinizə Baxılacaq.Təsdiq Ediləndən Sonra Hamı Tərəfindən Görünəcəkdir!</value>
+    <value>Şərh yazdığınız üçün təşəkkürlər.Sizin şərhiniz bizim üçün önəmlidir.Şərhiniz əlavə edildi.Şərhinizə baxılacaq.Təsdiq ediləndən sonra hamı tərəfindən görünəcəkdir!</value>
   </data>
   <data name="ConferenceSwalTitleAddComment" xml:space="preserve">
     <value>Şərhi Gondərmək İstədiyinizə Əminsinizmi?</value>
@@ -178,10 +178,10 @@
     <value>tərəfindən</value>
   </data>
   <data name="DashboardAlert3" xml:space="preserve">
-    <value>auditoriyasinda keçirtmək istəyir.Ətraflı kilikləyin.</value>
+    <value>auditoriyasinda keçirtmək istəyir.Ətraflı klikləyin.</value>
   </data>
   <data name="DashboardAlert4" xml:space="preserve">
-    <value>Adlı konferansınızın statusu dəyidirildi.</value>
+    <value>Adlı tədbirinizin statusu dəyişdirildi.</value>
   </data>
   <data name="DashboardAuditoriumCreate0" xml:space="preserve">
     <value>Auditoriya Tutumu</value>
@@ -190,7 +190,7 @@
     <value>Xəbərdarlıq!</value>
   </data>
   <data name="DashboardAuditoriumCreate2" xml:space="preserve">
-    <value>Auditoriya 1-ci korpus 512-ci auditoriyadadırsa , auditoriya nömrəsini 1-512 şəklində yazin!.</value>
+    <value>Auditoriya 1-ci korpus 512-ci auditoriyadadırsa , auditoriya nömrəsini 1-512 şəklində yazın!.</value>
   </data>
   <data name="DashboardAuditoriumCreate3" xml:space="preserve">
     <value>Auditoriya Nömrəsi</value>
@@ -223,10 +223,10 @@
     <value>Kateqoriya Yarat</value>
   </data>
   <data name="DashboardComment0" xml:space="preserve">
-    <value>Yazan Istifadəçi Adı</value>
+    <value>Yazan İstifadəçi Adı</value>
   </data>
   <data name="DashboardComment1" xml:space="preserve">
-    <value>Yazilan Tədbir Adı</value>
+    <value>Yazılan Tədbir Adı</value>
   </data>
   <data name="DashboardComment2" xml:space="preserve">
     <value>Məzmun</value>
@@ -307,16 +307,16 @@
     <value>Məlumat!</value>
   </data>
   <data name="DashboardConfranceDetail8" xml:space="preserve">
-    <value>Təsdiq olunandan Sonra</value>
+    <value>Təsdiq olunandan sonra</value>
   </data>
   <data name="DashboardConfranceDetail9" xml:space="preserve">
     <value>nömrəli auditoriya-da bu tarix aralığı keçiriləcək:</value>
   </data>
   <data name="DashboardConfranceForUserCreate0" xml:space="preserve">
-    <value>Azərbaycan Dilində Tədbir Adini Daxil Edin!</value>
+    <value>Azərbaycan dilində tədbir adı daxil edin</value>
   </data>
   <data name="DashboardConfranceForUserCreate1" xml:space="preserve">
-    <value>Rus Dilində Tədbir Adı Daxil Edin!</value>
+    <value>Rus dilində tədbir adı daxil edin</value>
   </data>
   <data name="DashboardConfranceForUserCreate10" xml:space="preserve">
     <value>nömrəli auditoriya dolu vaxtları:</value>
@@ -334,19 +334,19 @@
     <value>Şəkil</value>
   </data>
   <data name="DashboardConfranceForUserCreate15" xml:space="preserve">
-    <value>Düzgün Formatda yazin Saatı (nümünə: 13:30)</value>
+    <value>Saatı Düzgün Formatda yazın (nümünə: 13:30)</value>
   </data>
   <data name="DashboardConfranceForUserCreate2" xml:space="preserve">
-    <value>İngilis dilində Tədbir Adı Daxil Edin!</value>
+    <value>İngilis dilində tədbir adı daxil edin</value>
   </data>
   <data name="DashboardConfranceForUserCreate3" xml:space="preserve">
-    <value>Azərbaycan dilində Tədbir məzmunu daxil edin</value>
+    <value>Azərbaycan dilində tədbir məzmunu daxil edin</value>
   </data>
   <data name="DashboardConfranceForUserCreate4" xml:space="preserve">
-    <value>Rus dilində Tədbir məzmunu daxil edin</value>
+    <value>Rus dilində tədbir məzmunu daxil edin</value>
   </data>
   <data name="DashboardConfranceForUserCreate5" xml:space="preserve">
-    <value>İngilis Dilində Tədbir məzmunu daxil edin</value>
+    <value>İngilis dilində tədbir məzmunu daxil edin</value>
   </data>
   <data name="DashboardConfranceForUserCreate6" xml:space="preserve">
     <value>Xüsusi Qonaq Əlavə Et</value>
@@ -355,37 +355,37 @@
     <value>Xüsusi Qonaq Sil</value>
   </data>
   <data name="DashboardConfranceForUserCreate8" xml:space="preserve">
-    <value>Auditoriya Sec</value>
+    <value>Auditoriya Seç</value>
   </data>
   <data name="DashboardConfranceForUserCreate9" xml:space="preserve">
     <value>Kateqoriya</value>
   </data>
   <data name="DashboardConfranceForUserUpdate0" xml:space="preserve">
-    <value>Əvvəlki Xüsusi Qonaqlari silmək olmur!</value>
+    <value>Əvvəlki Xüsusi Qonaqları silmək olmur!</value>
   </data>
   <data name="DashboardConfranceForUserUpdate1" xml:space="preserve">
-    <value>Tədbirində Dəyişiklik etsəniz avtomatik statusu dəyişəcək!</value>
+    <value>Tədbirində dəyişiklik etsəniz avtomatik statusu dəyişəcək!</value>
   </data>
   <data name="DashboardEventTypeCreate" xml:space="preserve">
     <value>Tip Yarat</value>
   </data>
   <data name="DashboardEventTypeCreatePlacheolderAz" xml:space="preserve">
-    <value>Azərbaycan dilində Tip məzmunu daxil edin</value>
+    <value>Azərbaycan dilində tip məzmunu daxil edin</value>
   </data>
   <data name="DashboardEventTypeCreatePlacheolderEN" xml:space="preserve">
-    <value>İngilis dilində Tip məzmunu daxil edin</value>
+    <value>İngilis dilində tip məzmunu daxil edin</value>
   </data>
   <data name="DashboardEventTypeCreatePlacheolderRU" xml:space="preserve">
-    <value>Rus dilində Tip məzmunu daxil edin</value>
+    <value>Rus dilində tip məzmunu daxil edin</value>
   </data>
   <data name="DashboardEventTypeName" xml:space="preserve">
     <value>Tip</value>
   </data>
   <data name="DashboardForUserConferanceIndexAlert" xml:space="preserve">
-    <value>Tədbirinizin Ana Səhifədə Önə Çixartmaq Üçün 055-000-00-00 Əlaqə saxlayin!</value>
+    <value>Tədbirinizin Ana Səhifədə Önə Çıxarılması Üçün 055-000-00-00 Əlaqə Saxlayın!</value>
   </data>
   <data name="DashboardHome0" xml:space="preserve">
-    <value>Aztu Elektron Tədbir İdarəetmə sistemi.Xoş Gəldiniz</value>
+    <value>AzTU Elektron Tədbir İdarəetmə sistemi.Xoş Gəldiniz</value>
   </data>
   <data name="DashboardLayout0" xml:space="preserve">
     <value>Admin</value>
@@ -394,10 +394,10 @@
     <value>Vəzifələr</value>
   </data>
   <data name="DashboardLayout10" xml:space="preserve">
-    <value>Çixmaq istədiyinizə əminsinizmi?</value>
+    <value>Çıxmaq istədiyinizə əminsinizmi?</value>
   </data>
   <data name="DashboardLayout11" xml:space="preserve">
-    <value>Əgər çixmaq istəsəniz `Çıx` düyməsinə basmanız kifayətdir.</value>
+    <value>Əgər çıxmaq istəsəniz `Çıx` düyməsinə basmanız kifayətdir.</value>
   </data>
   <data name="DashboardLayout2" xml:space="preserve">
     <value>İstifadəçilər</value>
@@ -445,7 +445,7 @@
     <value>Cari Şifrə Təkrarı</value>
   </data>
   <data name="DashboardSettings4" xml:space="preserve">
-    <value>Şifrə dəyişmək İstəmirsinizsə Bu Xanaları Doldurmağa Ehtiyac Yoxdur!</value>
+    <value>Şifrə Dəyişmək İstəmirsinizsə Bu Xanaları Doldurmağa Ehtiyac Yoxdur!</value>
   </data>
   <data name="DashboardSettings5" xml:space="preserve">
     <value>Yeni Şifrə</value>
@@ -488,24 +488,24 @@
   </data>
   <data name="Footer" xml:space="preserve">
     <value>&lt;p&gt;
-     Copyright © 2024 Azərbaycan Texnİkİ Ünİversİtetİ  Elektron Konfrans İdarəetmə Sİstemİ.
-     &lt;br&gt;Bütün Hüqüqlar &lt;a href="https://www.aztu.edu.az/az" target="_parent" title="free css templates"&gt;Azərbaycan Texnİkİ Ünİversİtetİ&lt;/a&gt; Tərəfİndən Qorunur
+     Copyright © 2024 Azərbaycan Texnİkİ Unİversİtetİ  Elektron Tədbİr İdarəetmə Sİstemİ.
+     &lt;br&gt;Bütün Hüqüqlar &lt;a href="https://www.aztu.edu.az/az" target="_parent" title="free css templates"&gt;Azərbaycan Texnİkİ Unİversİtetİ&lt;/a&gt; Tərəfİndən Qorunur
  &lt;/p&gt;</value>
   </data>
   <data name="ForgotPassword1" xml:space="preserve">
-    <value>Elektron Poçtunuzu daxil edin.Sizə Təsdiqləmə linki göndərək.</value>
+    <value>Elektron poçtunuzu daxil edin.Sizə təsdiqləmə linki göndərək.</value>
   </data>
   <data name="ForgotPassword2" xml:space="preserve">
-    <value>Elektron Poçtunuzu daxil edin!...</value>
+    <value>Elektron poçtunuzu daxil edin!...</value>
   </data>
   <data name="ForgotPassword3" xml:space="preserve">
     <value>Göndər</value>
   </data>
   <data name="ForgotPassword4" xml:space="preserve">
-    <value>Yeni Profil Yarat!</value>
+    <value>Yeni profil yarat</value>
   </data>
   <data name="ForgotPassword5" xml:space="preserve">
-    <value>Profiliniz var?O zaman daxil ol!</value>
+    <value>Profiliniz var?O zaman daxil olun!</value>
   </data>
   <data name="ForgotPassword6" xml:space="preserve">
     <value>Şifrəni unutmusunuz ?</value>
@@ -523,22 +523,22 @@
     <value>Təsdiqlə</value>
   </data>
   <data name="HomeMain1" xml:space="preserve">
-    <value>AZƏRBAYCAN TEXNİKİ ÜNİVERSİTETİ ELEKTRON TƏDBİR İDARƏETMƏ SİSTEMİ</value>
+    <value>AZƏRBAYCAN TEXNİKİ UNİVERSİTETİ ELEKTRON TƏDBİR İDARƏETMƏ SİSTEMİ</value>
   </data>
   <data name="HomeMain2" xml:space="preserve">
-    <value>Azərbaycan Texniki Üniversitetin-də tədbir keçirtmək üçün qeydiyyatdan keçib sorğuları doldurun</value>
+    <value>Azərbaycan Texniki Universitetində tədbir keçirtmək üçün qeydiyyatdan keçib sorğuları doldurun</value>
   </data>
   <data name="Login1" xml:space="preserve">
-    <value>Xoş Gəldiniz!</value>
+    <value>Xoş Gəldiniz</value>
   </data>
   <data name="Login2" xml:space="preserve">
-    <value>Elektron Poçtunuzu Daxil Edin</value>
+    <value>Elektron poçtunuzu daxil edin</value>
   </data>
   <data name="Login3" xml:space="preserve">
-    <value>Şifrənizi Daxil Edin</value>
+    <value>Şifrənizi daxil edin</value>
   </data>
   <data name="Login4" xml:space="preserve">
-    <value>Xatirla Məni</value>
+    <value>Xatırla məni</value>
   </data>
   <data name="Login5" xml:space="preserve">
     <value>Daxil ol</value>
@@ -556,7 +556,7 @@
     <value>Təşkilatçı</value>
   </data>
   <data name="PdfFileLabelDashboard" xml:space="preserve">
-    <value>Tədbirdə təqdim ediləcək Slayd (Pdf Formatinda)</value>
+    <value>Tədbirdə təqdim ediləcək slayd (Pdf formatında)</value>
   </data>
   <data name="Register1" xml:space="preserve">
     <value>Qeydiyyat!</value>
@@ -583,37 +583,37 @@
     <value>Qeydiyyatdan Keç</value>
   </data>
   <data name="RegisterConferenceSwalErrorMessage" xml:space="preserve">
-    <value>Siz Artıq Qeydiyyatdan Kecmisiniz!</value>
+    <value>Siz Artıq Qeydiyyatdan Keçmisiniz!</value>
   </data>
   <data name="RegisterConferenceSwalTitle" xml:space="preserve">
-    <value>Tədbirin Auditoriyasında Sizin üçün bir Yer Ayrıldı!Təşəkkürlər</value>
+    <value>Tədbirin auditoriyasında sizin üçün bir yer ayrıldı! Təşəkkürlər</value>
   </data>
   <data name="RegisterForConference" xml:space="preserve">
-    <value>Tədbirdə İştirak Üçün Kiliklə</value>
+    <value>Tədbirdə İştirak Üçün Kliklə</value>
   </data>
   <data name="SelectPosition" xml:space="preserve">
     <value>Vəzifə Seçin</value>
   </data>
   <data name="SpecialGuest" xml:space="preserve">
-    <value>Xüsüsi Qonaqlar</value>
+    <value>Xüsüsi qonaqlar</value>
   </data>
   <data name="Student" xml:space="preserve">
     <value>Tələbə</value>
   </data>
   <data name="SweetAlertMessageError" xml:space="preserve">
-    <value>Proses Düzgün getmədi</value>
+    <value>Proses düzgün getmədi !</value>
   </data>
   <data name="SweetAlertMessageSuccess" xml:space="preserve">
     <value>Silindi!</value>
   </data>
   <data name="SweetAlertMessageSuccessCommentApporive" xml:space="preserve">
-    <value>Proses Uğurla Bitdi!</value>
+    <value>Proses uğurla bitdi !</value>
   </data>
   <data name="SweetAlertMessageTitle" xml:space="preserve">
-    <value>Silmək İstədiynizə əminsinizmi?</value>
+    <value>Silmək istədiyinizə əminsinizmi?</value>
   </data>
   <data name="SweetAlertMessageTitleCommentApporive" xml:space="preserve">
-    <value>Təsdiqləmək İstədiynizə əminsinizmi?</value>
+    <value>Təsdiqləmək istədiyinizə əminsinizmi?</value>
   </data>
   <data name="Teacher" xml:space="preserve">
     <value>Müəllim</value>
