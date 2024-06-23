@@ -3,6 +3,7 @@ using Aztu_Events.Business.DependencyResolver;
 using Aztu_Events.DataAccess.Concrete.SQLServer;
 using Aztu_Events.Entities.Concrete;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -40,6 +41,22 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews(options => options.ModelValidatorProviders.Clear());
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Auth/Login";
+        options.LogoutPath = "/Auth/Logout";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+    });
+
+// Add authorization services
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAuthenticatedUser", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+    });
+});
 #region Fluent Validation Registration add services to the container.
 builder.Services/*.AddControllers(options => options.Filters.Add<ValidationFilters>())*/
     .AddFluentValidation(configuration =>
