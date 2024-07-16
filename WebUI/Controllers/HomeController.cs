@@ -29,8 +29,8 @@ namespace WebUI.Controllers
                 return RedirectToAction("Index");
             }
             var currentCulture=Thread.CurrentThread.CurrentCulture.Name;
-            var currentDate = DateOnly.FromDateTime(DateTime.Now);
-            var currentTime = TimeOnly.FromDateTime(DateTime.Now);
+            var currentDate = DateOnly.FromDateTime(DateTime.UtcNow.ToLocalTime());
+            var currentTime = TimeOnly.FromDateTime(DateTime.UtcNow.ToLocalTime());
             var data = _confransService.GetAllConferanceForAdmin(currentCulture).Data.Where(x=>x.IsFeatured&& (x.Day > currentDate || (x.Day == currentDate && x.StartedDate > currentTime))).ToList();
             return View(data);
         }

@@ -11,22 +11,28 @@ namespace Aztu_Events.DataAccess.Concrete
 {
     public class EFAuditoriumDAL : IAudutoriumDAL
     {
+        private readonly AppDbContext _context;
+
+        public EFAuditoriumDAL(AppDbContext context)
+        {
+            _context = context;
+        }
+
         public IResult AddAuditorium(AddAuditoriumDTO addAudutoriumDTO)
         {
             try
             {
-                using (var context = new AppDbContext())
-                {
+             
                     Auditorium auditorium = new Auditorium()
                     {
                         AuditoryCapacity = addAudutoriumDTO.AuditoryCapacity.Value,
                         AudutoriyaNumber = addAudutoriumDTO.AudutoriyaNumber
                     };
-                    context.Audutoriums.Add(auditorium);
-                    context.SaveChanges();
+                    _context.Audutoriums.Add(auditorium);
+                    _context.SaveChanges();
 
 
-                }
+                
                 return new SuccessResult();
             }
             catch (Exception ex)
@@ -40,16 +46,16 @@ namespace Aztu_Events.DataAccess.Concrete
         {
             try
             {
-                using (var context = new AppDbContext())
-                {
-                    var Auditorium = context.Audutoriums.Include(x => x.Times).FirstOrDefault(x => x.Id.ToString() == AuditoriumId);
+               
+                
+                    var Auditorium = _context.Audutoriums.Include(x => x.Times).FirstOrDefault(x => x.Id.ToString() == AuditoriumId);
                     if (Auditorium is null) return new ErrorResult(message: "Data Is NotFound");
-                    context.Times.RemoveRange(Auditorium.Times);
-                    context.Audutoriums.Remove(Auditorium);
-                    context.SaveChanges();
+                    _context.Times.RemoveRange(Auditorium.Times);
+                    _context.Audutoriums.Remove(Auditorium);
+                    _context.SaveChanges();
 
 
-                }
+                
                 return new SuccessResult();
             }
             catch (Exception ex)
@@ -63,8 +69,8 @@ namespace Aztu_Events.DataAccess.Concrete
         {
             try
             {
-                using var context = new AppDbContext();
-                return new SuccessDataResult<List<GetAuditoriumDTO>>(data: context.Audutoriums.Include(x => x.Times).Select(x => new GetAuditoriumDTO
+              
+                return new SuccessDataResult<List<GetAuditoriumDTO>>(data: _context.Audutoriums.Include(x => x.Times).Select(x => new GetAuditoriumDTO
                 {
                     AuditoriumCapacity = x.AuditoryCapacity,
                     Date = x.Times.Where(y => y.AuditoriumId == x.Id).Select(z => z.Date).ToList(),
@@ -86,8 +92,8 @@ namespace Aztu_Events.DataAccess.Concrete
         {
             try
             {
-                using var context = new AppDbContext();
-                var Auditorium = context.Audutoriums.Include(x => x.Times).Select(x => new GetAuditoriumDTO
+                
+                var Auditorium = _context.Audutoriums.Include(x => x.Times).Select(x => new GetAuditoriumDTO
                 {
                     AuditoriumCapacity = x.AuditoryCapacity,
                     Date = x.Times.Where(y => y.AuditoriumId == x.Id).Select(z => z.Date).ToList(),
@@ -112,16 +118,15 @@ namespace Aztu_Events.DataAccess.Concrete
         {
             try
             {
-                using (var context = new AppDbContext())
-                {
-                    var data = context.Audutoriums.FirstOrDefault(x => x.Id == updateAuditoriumDTO.AuditoriumId);
+              
+                    var data = _context.Audutoriums.FirstOrDefault(x => x.Id == updateAuditoriumDTO.AuditoriumId);
                     if (data == null) return new ErrorResult(message: "Auditorium is NotFound");
                     data.AudutoriyaNumber = updateAuditoriumDTO.AudutoriyaNumber;
                     data.AuditoryCapacity = updateAuditoriumDTO.AuditoriumCapacity.Value;
-                    context.Audutoriums.Update(data);
-                    context.SaveChanges();
+                    _context.Audutoriums.Update(data);
+                    _context.SaveChanges();
 
-                }
+                
                 return new SuccessResult();
             }
             catch (Exception ex)

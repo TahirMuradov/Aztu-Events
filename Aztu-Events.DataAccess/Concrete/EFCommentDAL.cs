@@ -33,7 +33,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     UserId = Userchecked.Id,
                     ConfransId = ConferenceChecked.Id,
                     Content = addCommentDTO.Content,
-                    CreatedDate = DateTime.Now,
+                    CreatedDate = DateTime.UtcNow.ToLocalTime(),
                    
                 
 
@@ -242,7 +242,7 @@ namespace Aztu_Events.DataAccess.Concrete
                 var comment = _Context.Comments.FirstOrDefault(x => x.Id.ToString() == updateCommentDTO.CommentId && x.UserId == updateCommentDTO.UserId);
                 if (comment == null) return new ErrorResult(message: "Comment Is NotFound!");
                 comment.Content = updateCommentDTO.NewContent;
-                comment.UpdateDate = DateTime.Now;
+                comment.UpdateDate = DateTime.UtcNow.ToLocalTime();
                 comment.IsSafe = false;
                 comment.AlertSeen = false;
                 _Context.Comments.Update(comment);

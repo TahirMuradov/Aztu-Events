@@ -14,6 +14,7 @@ using Aztu_Events.Entities.DTOs.Conferences;
 using Aztu_Events.Entities.EnumClass;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Aztu_Events.DataAccess.Concrete
 {
@@ -22,14 +23,16 @@ namespace Aztu_Events.DataAccess.Concrete
         private readonly AppDbContext _context;
         private readonly IEmailHelper _emailHelper;
         private readonly UserManager<User> _userManager;
-        public EFConferenceDAL(AppDbContext context, IEmailHelper emailHelper, UserManager<User> userManager)
+        private readonly IConfiguration _config;
+        public EFConferenceDAL(AppDbContext context, IEmailHelper emailHelper, UserManager<User> userManager, IConfiguration config)
         {
             _context = context;
             _emailHelper = emailHelper;
             _userManager = userManager;
+            _config = config;
         }
 
-  
+
 
         public async Task<IResult> ApproveConfransAsync(Guid id, ConferanceStatus status, string ResponseMessage = null, bool IsFeatured = false)
         {
@@ -59,13 +62,13 @@ namespace Aztu_Events.DataAccess.Concrete
                         if (confrans.Time.UpdateTime)
                         {
 
-                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7233/ConferenceDetail/index/{confrans.Id}", UpdateDate: confrans.Time.UpdateTime, SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
+                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"{_config["Domain:name"]}/ConferenceDetail/index/{confrans.Id}", UpdateDate: confrans.Time.UpdateTime, SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
 
                             confrans.SpecialGuests[i].SendEmail = true;
                         }
                         else if (!confrans.SpecialGuests[i].SendEmail)
                         {
-                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"https://localhost:7233/ConferenceDetail/index/{confrans.Id}", UpdateDate: false, SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
+                            var emailResult = await _emailHelper.ApproveConfransSendEmailForGuest(userEmail: confrans.SpecialGuests[i].Email, name: confrans.SpecialGuests[i].Name, dateTime: new DateTime(confrans.Time.Date, confrans.Time.StartedTime).ToString("yyyy-MM-dd HH:mm"), AuditoriumNumber: confrans.Audutorium.AudutoriyaNumber, confransDetailUrl: $"{_config["Domain:name"]}/ConferenceDetail/index/{confrans.Id}", UpdateDate: false, SendEmailGuest: confrans.SpecialGuests[i].SendEmail);
 
                             confrans.SpecialGuests[i].SendEmail = true;
                         }
@@ -216,8 +219,8 @@ namespace Aztu_Events.DataAccess.Concrete
             var conferenceQueries = _context.Confrans.AsNoTracking().AsSplitQuery().AsQueryable();
             if (filter.Status is not null)
             {
-                var currentDate = DateOnly.FromDateTime(DateTime.Now);
-                var currentTime = TimeOnly.FromDateTime(DateTime.Now);
+                var currentDate = DateOnly.FromDateTime(DateTime.UtcNow.ToLocalTime());
+                var currentTime = TimeOnly.FromDateTime(DateTime.UtcNow.ToLocalTime());
 
                 conferenceQueries = conferenceQueries.Where(x => x.Status == filter.Status/* && (x.Time.Date > currentDate || (x.Time.Date == currentDate && x.Time.StartedTime > currentTime))*/);
             }
@@ -304,6 +307,9 @@ namespace Aztu_Events.DataAccess.Concrete
                     };
                     _context.ConfranceLaunguages.Add(confransLanguage);
                 }
+                if (!(dto.specialGuestsEmail is null || dto.specialGuestsName is null))
+                {
+
 
                 for (int i = 0; i < dto.specialGuestsEmail.Count; i++)
                 {
@@ -315,6 +321,7 @@ namespace Aztu_Events.DataAccess.Concrete
                         SendEmail = false
                     };
                     await _context.SpecialGuests.AddAsync(specialGuest);
+                }
                 }
 
                 await _context.SaveChangesAsync();
@@ -603,7 +610,9 @@ namespace Aztu_Events.DataAccess.Concrete
 
 
 
-                    }).ToList());
+                    }).OrderByDescending(x => x.Day)
+    .ThenByDescending(x => x.StartedDate)
+    .ToList());
             }
             catch (Exception ex)
             {
@@ -624,7 +633,8 @@ namespace Aztu_Events.DataAccess.Concrete
                     .Include(x => x.SpecialGuests)
                       .Include(x => x.Category)
                   .ThenInclude(x => x.CategoryLaunguages)
-                    .Where(x => x.UserId == UserId);
+                    .Where(x => x.UserId == UserId)
+                   ;
                 return new SuccessDataResult<List<GetALLConferenceUserDTO>>(data: data.Select(x => new GetALLConferenceUserDTO
                 {
                     Id = x.Id,
@@ -643,7 +653,8 @@ namespace Aztu_Events.DataAccess.Concrete
                     CategoryName = x.Category.CategoryLaunguages.FirstOrDefault(y => y.LangCode == LangCode).CategoryName,
                     IsFeatured = x.IsFeatured,
                    
-                }).ToList());
+                }).OrderByDescending(x => x.Day)
+    .ThenByDescending(x => x.StartedDate).ToList());
 
             }
             catch (Exception ex)
@@ -794,7 +805,7 @@ namespace Aztu_Events.DataAccess.Concrete
                     AudutoriumName = data.Audutorium.AudutoriyaNumber,
                     CategoryName = data.Category.CategoryLaunguages.FirstOrDefault(x => x.LangCode == LangCode).CategoryName,
                     Comments = comments,
-                    ConferenceContent = data.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == LangCode).ConfransName,
+                    ConferenceContent = data.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == LangCode).ConfransContent,
                     ConferenceName = data.ConfranceLaunguages.FirstOrDefault(x => x.LangCode == LangCode).ConfransName,
                     Day = data.Time.Date,
                     StartedDate = data.Time.StartedTime,

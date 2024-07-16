@@ -14,15 +14,21 @@ namespace Aztu_Events.DataAccess.Concrete
 {
     public class EFTimeDAL : ITimeDAL
     {
+        private readonly AppDbContext _context;
+
+        public EFTimeDAL(AppDbContext context)
+        {
+            _context = context;
+        }
 
         public IDataResult<List<GetTimeDTO>> GetAllTime()
         {
             try
             {
-                using var context = new AppDbContext();
+               
                 return new SuccessDataResult<List<GetTimeDTO>>(data:
 
-                    context.Times.Select(x => new GetTimeDTO
+                   _context.Times.Select(x => new GetTimeDTO
                     {
                         AuditoriumId = x.AuditoriumId,
                         Date = x.Date,

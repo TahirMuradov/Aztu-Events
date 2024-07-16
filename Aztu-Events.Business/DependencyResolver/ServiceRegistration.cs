@@ -1,18 +1,12 @@
-﻿using Aztu_Events.Core.Helper.EmailHelper;
+﻿using Aztu_Events.Business.Abstarct;
+using Aztu_Events.Business.Concrete;
+using Aztu_Events.Core.Helper.EmailHelper;
 using Aztu_Events.Core.Helper.EmailHelper.Concrete;
+using Aztu_Events.DataAccess.Abstarct;
+using Aztu_Events.DataAccess.Concrete;
 using Aztu_Events.DataAccess.Concrete.SQLServer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Aztu_Events.Entities.Concrete;
-using Aztu_Events.DataAccess.Abstarct;
-using Aztu_Events.DataAccess.Concrete;
-using Aztu_Events.Business.Abstarct;
-using Aztu_Events.Business.Concrete;
-using FluentValidation;
-using System;
-using Aztu_Events.Entities.DTOs.AuthDTOs;
-using Aztu_Events.Business.FluentValidation.AuthDTOValidator;
 namespace Aztu_Events.Business.DependencyResolver
 {
     public static class ServiceRegistration

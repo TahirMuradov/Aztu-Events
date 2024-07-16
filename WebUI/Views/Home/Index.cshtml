@@ -54,7 +54,19 @@
                                     </div>
                                     <a href="/ConferenceDetail/index/@conferance.Id"><h4>@conferance.ConferenceName</h4></a>
 
-                                    <p>@conferance.ConferenceContent</p>
+                                    <p class="m-0">
+                                        @if (conferance.ConferenceContent.Length > 100)
+                                        {
+                                            @conferance.ConferenceContent.Substring(0, 100)  
+
+                                            @Html.Raw("....")
+                                        
+                                        }
+                                        else
+                                        {
+                                        @conferance.ConferenceContent
+                                        }
+                                    </p>
 
 
                                 </div>

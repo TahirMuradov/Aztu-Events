@@ -2,23 +2,27 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Asn1.Esf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Aztu_Events.DataAccess.Concrete.SQLServer
 {
     public class AppDbContext: IdentityDbContext<User>
     {
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            optionsBuilder.UseSqlServer("Server = localhost; Database = Aztu_EventsDb; Trusted_Connection = True; MultipleActiveResultSets = True; TrustServerCertificate = True;");
         }
+
+
+
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    ///*smarterasp connection string*/
+        //    optionsBuilder.UseSqlServer("Data Source=SQL8006.site4now.net;Initial Catalog=db_aaa05b_aztuevents;User Id=db_aaa05b_aztuevents_admin;Password=4575865T@hir");
+        //    /* soome.com connection string*/
+        //    //optionsBuilder.UseSqlServer("workstation id=Aztu-Events.mssql.somee.com;packet size=4096;user id=TahirMuradov_SQLLogin_1;pwd=spdbt4zrvu;data source=Aztu-Events.mssql.somee.com;persist security info=False;initial catalog=Aztu-Events;TrustServerCertificate=True");
+        //    // /*local connection string*/ optionsBuilder.UseSqlServer("Server = localhost; Database = Aztu_EventsDb; Trusted_Connection = True; MultipleActiveResultSets = True; TrustServerCertificate = True;");
+        //}
 
 
         public DbSet<Confrans> Confrans { get; set; }
