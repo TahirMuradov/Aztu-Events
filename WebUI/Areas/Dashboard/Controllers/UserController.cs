@@ -48,6 +48,7 @@ namespace WebUI.Areas.Dashboard.Controllers
           RedirectToAction("Index");
             var roles = _roleService.GetRoles().Data;
             var userRole = await _userService.GetUserAsync(id, "az");
+            if (!userRole.Data.EmailConfirmed) return Redirect("/dashboard/user/index");
             if (userRole is null)
                 RedirectToAction("Index");
             if (userRole.Data.Roles.Contains("SuperAdmin"))
@@ -82,7 +83,7 @@ namespace WebUI.Areas.Dashboard.Controllers
         {
             if (string.IsNullOrEmpty(id)) Redirect("/dashboard/user/index");
             var role = await _userService.GetUserAsync(UserId: id,LangCode:"az");
-
+            if (!role.Data.EmailConfirmed) return Redirect("/dashboard/user/index");
             if (!role.IsSuccess) return Redirect("/dashboard/user/index");
 
         
@@ -132,6 +133,7 @@ namespace WebUI.Areas.Dashboard.Controllers
                 Firstname = user.Data.FirstName,
                 Lastname = user.Data.LastName,
                 PhoneNumber = user.Data.PhoneNumber,
+                
                 UserName = user.Data.UserName
                 
             });

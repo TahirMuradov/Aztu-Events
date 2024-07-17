@@ -86,6 +86,7 @@ namespace Aztu_Events.Business.Concrete
                         LastName = user.LastName,
                         Email = user.Email,
                         PhoneNumber = user.PhoneNumber,
+                        EmailConfirmed=user.EmailConfirmed,
                         Id = user.Id,
                         Conferances = user.Confrans.Where(x => x.Status == Entities.EnumClass.ConferanceStatus.Təsdiq).Select(y => y.ConfranceLaunguages.FirstOrDefault(z => z.LangCode == LangCode).ConfransName).ToList(),
                         Roles = roles.ToList()
@@ -112,7 +113,7 @@ namespace Aztu_Events.Business.Concrete
                     return new ErrorDataResult<GetUsersDTO>("User not found");
                 
 
-                // Kullanıcının rollerini al
+            
                 var roles = await _userManager.GetRolesAsync(user);
 
               
@@ -120,13 +121,13 @@ namespace Aztu_Events.Business.Concrete
                     .Select(y => y.ConfranceLaunguages?.FirstOrDefault(z => z.LangCode == LangCode)?.ConfransName)
                     .ToList();
 
-                // Kullanıcı bilgilerini DTO'ya dönüştür
                 var userDTO = new GetUsersDTO
                 {
                     UserName = user.UserName,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Email = user.Email,
+                    EmailConfirmed=user.EmailConfirmed,
                     PhoneNumber = user.PhoneNumber,
                     Id = user.Id,
                     Conferances = conferances,

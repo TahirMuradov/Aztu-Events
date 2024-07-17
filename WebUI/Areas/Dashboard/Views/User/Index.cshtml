@@ -19,6 +19,7 @@
             <th>@_localization.GetKey("DashboardUserIndex3")</th>
 
             <th>@_localization.GetKey("DashboardUserIndex4")</th>
+            <th>@_localization.GetKey("EmailStatus")</th>
 
             <th>@_localization.GetKey("DashboardAuditoriumIndex1")</th>
 
@@ -42,6 +43,7 @@
                 <td>@user.FirstName @user.LastName</td>
                 <td>@user.Email</td>
                 <td>@user.PhoneNumber</td>
+                
                 <td>
                     @{
                         int a = 0;
@@ -64,6 +66,7 @@
                         a++;
                     }
                 </td>
+              
                 <td style="overflow-y:scroll;max-height:100px;">
                     @{
                         int b = 0;
@@ -87,11 +90,30 @@
                     }
                 </td>
                 <td>
+                    @if (user.EmailConfirmed)
+                    {
+                       <span>
+
+                            @Html.Raw(_localization.GetKey("EmailConfirmed"))
+                        </span>
+                    }else
+                    {
+                        <span>
+
+                            @Html.Raw(_localization.GetKey("EmailNOTConfirmed"))
+                        </span>
+                    }
+                    </td>
+                <td>
                     @if (_contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value!=user.Id)
                     {
                         <button class="btn btn-outline-danger" onclick="userDelet('@user.Id')"><i class="fa-solid fa-trash"></i></button>
+                        @if (user.EmailConfirmed)
+                    {
+                            
                         <a class="btn btn-outline-success" href="/dashboard/user/addRole/@user.Id">@_localization.GetKey("DashboardUserIndex5")</a>
                         <a class="btn btn-outline-warning" href="/dashboard/user/UserDeleteRole/@user.Id">@_localization.GetKey("DashboardUserIndex6")</a>
+                        }
                     }
 
                 </td>
@@ -112,6 +134,7 @@
             <th>@_localization.GetKey("DashboardUserIndex3")</th>
 
             <th>@_localization.GetKey("DashboardUserIndex4")</th>
+            <th>@_localization.GetKey("EmailStatus")</th>
 
             <th>@_localization.GetKey("DashboardAuditoriumIndex1")</th>
 

@@ -45,14 +45,18 @@
                         <div class="col-sm-6 mb-3 mb-sm-0">
                             <select class="form-control form-select" asp-for="RoleId">
                                     <option selected value="">@_localization.GetKey("SelectPosition")</option>
-                                @foreach (var role in ViewBag.Roles as List<IdentityRole>)
-                                {
-                                        if (role.Name == "Admin" || role.Name == "SuperAdmin" || role.Name == "User" || role.Name == "User2")
+                                    @if (ViewBag.Roles is List<IdentityRole> roles && roles.Any())
                                     {
-                                        continue;
+                                        foreach (var role in roles)
+                                        {
+                                            // Role.Name'in admin veya user değilse seçenek olarak ekle
+                                            if (role.Name != "Admin" && role.Name != "SuperAdmin" && role.Name != "User" && role.Name != "User2")
+                                            {
+                                                <option value="@role.Id">@_localization.GetKey(role.Name)</option>
+                                            }
+                                        }
                                     }
-                                    <option value="@role.Id">@_localization.GetKey(role.Name)</option>
-                                }
+                                
                              
                             </select>
 

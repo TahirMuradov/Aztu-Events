@@ -486,6 +486,15 @@
   <data name="DashboardUserInfo1" xml:space="preserve">
     <value>Çıxış</value>
   </data>
+  <data name="EmailConfirmed" xml:space="preserve">
+    <value>Təsdiləyib</value>
+  </data>
+  <data name="EmailNOTConfirmed" xml:space="preserve">
+    <value>Təsdiqlənməyib</value>
+  </data>
+  <data name="EmailStatus" xml:space="preserve">
+    <value>E-Poçt Təsdiqləməsi</value>
+  </data>
   <data name="Footer" xml:space="preserve">
     <value>&lt;p&gt;
      Copyright © 2024 Azərbaycan Texnİkİ Unİversİtetİ  Elektron Tədbİr İdarəetmə Sİstemİ.
