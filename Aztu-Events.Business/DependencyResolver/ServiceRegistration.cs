@@ -36,9 +36,10 @@ namespace Aztu_Events.Business.DependencyResolver
             services.Configure<IdentityOptions>(options =>
             {
                 options.SignIn.RequireConfirmedEmail = true;
-
+                options.User.RequireUniqueEmail = true;
+                
                 // Default Password settings.
-                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+/ ";
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzçşıəöğiABCDEƏFGHIİJKLMNOÖĞŞÇPQRSTUVWXYZ0123456789-._@+/ ";
                 options.Password.RequireDigit = false;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;

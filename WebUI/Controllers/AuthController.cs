@@ -213,16 +213,15 @@ namespace WebUI.Controllers
                 }
             }
             registerDTO.UserName = registerDTO.Firstname + registerDTO.Lastname + Guid.NewGuid().ToString().Substring(0, 5);
-
-            var result = await _userManager.CreateAsync(new User
+            User newUser = new User
             {
                 UserName = registerDTO.UserName,
                 Email = registerDTO.Email,
                 FirstName = registerDTO.Firstname,
                 LastName = registerDTO.Lastname,
-                PhoneNumber = registerDTO.PhoneNumber
-
-            }, registerDTO.Password);
+                PhoneNumber = registerDTO.PhoneNumber,
+                };
+            var result = await _userManager.CreateAsync(newUser, registerDTO.Password);
 
 
             if (result.Succeeded)
@@ -336,7 +335,12 @@ namespace WebUI.Controllers
 
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("Error", result.Errors.ToString());
+                foreach (var error in result.Errors)
+                {
+
+                ModelState.AddModelError("Error", error.Description);
+                }
+                ViewBag.Roles = _roleManager.Roles.ToList();
                 return View();
             }
 
